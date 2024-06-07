@@ -1,0 +1,4 @@
+export const ACTION_TYPE = {
+	SET_AUTH: 'SET_AUTH',
+	GET_CATEGORIES: 'GET_CATEGORIES',
+}
