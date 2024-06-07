@@ -1,0 +1,104 @@
+{
+	"users": [
+		{
+			"id": 1,
+			"login": "admin",
+			"password": "admin",
+			"registered_at": "2022-01-01 00:00:00",
+			"role_id": 1
+		},
+		{
+			"id": 2,
+			"login": "user",
+			"password": "user",
+			"registered_at": "2024-10-12 00:00:00",
+			"role_id": 2
+		}
+	],
+	"roles": [
+		{
+			"id": 1,
+			"name": "Администратор"
+		},
+		{
+			"id": 2,
+			"name": "Пользователь"
+		}
+	],
+	"categories": [
+		{
+			"id": 1,
+			"name": "Категория 1"
+		},
+		{
+			"id": 2,
+			"name": "Категория 2"
+		}
+	],
+	"products": [
+		{
+			"id": 1,
+			"name": "Товар 1",
+			"description": "Описание 1",
+			"price": 1000,
+			"category_id": 1,
+			"image_url": "https://example.com/image1.jpg"
+		},
+		{
+			"id": 2,
+			"name": "Товар 2",
+			"description": "Описание 2",
+			"price": 2000,
+			"category_id": 2,
+			"image_url": "https://example.com/image2.jpg"
+		},
+		{
+			"id": 3,
+			"name": "Товар 3",
+			"description": "Описание 3",
+			"price": 3000,
+			"category_id": 1,
+			"image_url": "https://example.com/image3.jpg"
+		}
+	],
+	"orders": [
+		{
+			"id": 1,
+			"user_id": 1,
+			"total_price": 1000,
+			"created_at": "2022-01-01 00:00:00"
+		},
+		{
+			"id": 2,
+			"user_id": 2,
+			"total_price": 2000,
+			"created_at": "2024-10-12 00:00:00"
+		},
+		{
+			"id": 3,
+			"user_id": 1,
+			"total_price": 3000,
+			"created_at": "2022-01-01 00:00:00"
+		}
+	],
+	"order_items": [
+		{
+			"id": 1,
+			"order_id": 1,
+			"product_id": 1,
+			"quantity": 1
+		},
+		{
+			"id": 2,
+			"order_id": 2,
+			"product_id": 2,
+			"quantity": 2
+		},
+		{
+			"id": 3,
+			"order_id": 3,
+			"product_id": 3,
+			"quantity": 3
+		}
+	]
+}
