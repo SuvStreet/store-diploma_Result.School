@@ -6,10 +6,13 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Button, H2, Input } from '../../components'
+import { Button, H2, Input, Loader } from '../../components'
 import { InfoCard } from './components'
+import { useServerRequest } from '../../hooks'
+import { setUser } from '../../redux/actions'
+import { setSessionHash } from '../../utils'
 
-import { faBox, faMagnifyingGlass, faPercent, faTruckFast } from '@fortawesome/free-solid-svg-icons'
+import { faBox, faPercent, faTruckFast } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
 const textCardAuthorization = [
@@ -61,8 +64,9 @@ export const AuthFormError = s.div`
 const AuthorizationContainer = ({ className }) => {
 	const navigate = useNavigate()
 	const [serverError, setServerError] = useState(null)
-	// const dispatch = useDispatch()
-	// const requestServer = useServerRequest()
+	const dispatch = useDispatch()
+	const [isLoading, setIsLoading] = useState(false)
+	const requestServer = useServerRequest()
 
 	const {
 		register,
@@ -76,13 +80,26 @@ const AuthorizationContainer = ({ className }) => {
 		resolver: yupResolver(authFormSchema),
 	})
 
-	const onSubmit = (onSubmit) => {
-		console.log('submit', onSubmit)
+	const onSubmit = ({ login, password }) => {
+		setIsLoading(true)
+		requestServer('authorize', null, login, password)
+			.then(({ error, res }) => {
+				if (error) {
+					setServerError(error)
+					return
+				}
+
+				const { id, login, registeredAt, roleId, sessionHash } = res
+				dispatch(setUser({ id, login, registeredAt, roleId }))
+				setSessionHash(sessionHash)
+				navigate('/')
+			})
+			.finally(() => setIsLoading(false))
 	}
 
 	const formError = errors?.login?.message || errors?.password?.message
 
-	const errorMessage = formError /*||  serverError */
+	const errorMessage = formError || serverError
 
 	return (
 		<div className={className}>
@@ -102,32 +119,32 @@ const AuthorizationContainer = ({ className }) => {
 						/>
 						<Button
 							type='submit'
-							disabled={!!formError}
+							disabled={!!formError || isLoading}
 							height='40px'
 							solid='#5e5e5e'
 						>
-							Авторизоваться
+							{isLoading ? <Loader /> : 'Авторизоваться'}
 						</Button>
 						{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
 					</form>
 				</div>
 			</div>
 			<div className='container-reg'>
-					<div className='not-account'>
-						<H2>У вас нету аккаунта?</H2>
-						<Button height='40px'>
-							<Link to='/register'>Создать аккаунт</Link>
-						</Button>
-					</div>
+				<div className='not-account'>
+					<H2>У вас нету аккаунта?</H2>
+					<Button height='40px'>
+						<Link to='/register'>Создать аккаунт</Link>
+					</Button>
+				</div>
 
-					<div className='information'>
-						<h3>Почему стоит иметь учётную запись в нашем магазине?</h3>
-						<div className='info-list'>
-							{textCardAuthorization.map(({ textCard, iconCode }, index) => (
-								<InfoCard key={index} textCard={textCard} iconCode={iconCode} />
-							))}
-						</div>
+				<div className='information'>
+					<h3>Почему стоит иметь учётную запись в нашем магазине?</h3>
+					<div className='info-list'>
+						{textCardAuthorization.map(({ textCard, iconCode }, index) => (
+							<InfoCard key={index} textCard={textCard} iconCode={iconCode} />
+						))}
 					</div>
+				</div>
 			</div>
 		</div>
 	)

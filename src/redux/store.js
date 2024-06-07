@@ -7,7 +7,7 @@ import {
 	productsReducer,
 	categoriesReducer,
 	cartReducer,
-	ordersReducer,
+	orderReducer,
 } from './reducers'
 
 const reducer = combineReducers({
@@ -16,7 +16,7 @@ const reducer = combineReducers({
 	products: productsReducer,
 	categories: categoriesReducer,
 	cart: cartReducer,
-	orders: ordersReducer,
+	order: orderReducer,
 })
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose

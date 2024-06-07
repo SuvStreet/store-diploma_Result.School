@@ -1,3 +1,5 @@
+import { ACTION_TYPE } from '../actions'
+
 const initialState = {
 	id: null,
 	login: '',
@@ -7,13 +9,10 @@ const initialState = {
 
 export const userReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'SET_USER':
+		case ACTION_TYPE.SET_USER:
 			return {
 				...state,
-				id: action.payload.id,
-				login: action.payload.login,
-				roleId: action.payload.roleId,
-				registeredAt: action.payload.registeredAt,
+				...action.payload,
 			}
 		default:
 			return state

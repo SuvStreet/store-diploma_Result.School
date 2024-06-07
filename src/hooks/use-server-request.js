@@ -1,11 +1,10 @@
 import { useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import { selectUserSession } from '../selectors'
+import { getSessionHash } from '../utils'
 
 import { server } from '../bff'
 
 export const useServerRequest = () => {
-	const session = useSelector(selectUserSession)
+	const session = getSessionHash()
 
 	return useCallback(
 		(operation, ...params) => {
