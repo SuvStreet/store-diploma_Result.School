@@ -1,17 +1,18 @@
+import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import PropType from 'prop-types'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useDispatch } from 'react-redux'
+import { Link, useNavigate } from 'react-router-dom'
 
 import { Button, H2, InfoAccount, Input, Loader } from '../../components'
 import { useServerRequest } from '../../hooks'
+import { AuthFormError } from '../authorization/Authorization'
 import { setUser } from '../../redux/actions'
-import { setSessionHash } from '../../utils'
 
 import s from 'styled-components'
+import { setSessionHash } from '../../utils'
 
 const authFormSchema = yup.object().shape({
 	login: yup
@@ -30,26 +31,19 @@ const authFormSchema = yup.object().shape({
 		)
 		.min('4', 'Неверный пороль. Минимальная длина пороля - 4 символа')
 		.max('30', 'Неверный пороль. Максимальная длина пороля - 30 символов'),
+
+	passCheck: yup
+		.string()
+		.required('Поле "повтора пороля" не может быть пустым')
+		.oneOf([yup.ref('password'), null], 'Пароли не совпадают'),
 })
 
-export const AuthFormError = s.div`
-	background-color: #ff4f4f;
-	color: black;
-	// color: red;
-	padding: 10px 5px;
-	border-radius: 10px;
-	margin: 10px 0;
-	text-align: center;
-	font-size: 20px;
-	line-height: 1;
-`
-
-const AuthorizationContainer = ({ className }) => {
+const RegistrationContainer = ({ className }) => {
 	const navigate = useNavigate()
-	const [serverError, setServerError] = useState(null)
-	const dispatch = useDispatch()
-	const [isLoading, setIsLoading] = useState(false)
 	const requestServer = useServerRequest()
+	const [serverError, setServerError] = useState(null)
+	const [isLoading, setIsLoading] = useState(false)
+	const dispatch = useDispatch()
 
 	const {
 		register,
@@ -65,7 +59,7 @@ const AuthorizationContainer = ({ className }) => {
 
 	const onSubmit = ({ login, password }) => {
 		setIsLoading(true)
-		requestServer('authorize', null, login, password)
+		requestServer('register', login, password)
 			.then(({ error, res }) => {
 				if (error) {
 					setServerError(error)
@@ -73,6 +67,7 @@ const AuthorizationContainer = ({ className }) => {
 				}
 
 				const { id, login, registeredAt, roleId, sessionHash } = res
+
 				dispatch(setUser({ id, login, registeredAt, roleId }))
 				setSessionHash(sessionHash)
 				navigate('/')
@@ -80,25 +75,31 @@ const AuthorizationContainer = ({ className }) => {
 			.finally(() => setIsLoading(false))
 	}
 
-	const formError = errors?.login?.message || errors?.password?.message
+	const formError =
+		errors?.login?.message || errors?.password?.message || errors?.passCheck?.message
 
 	const errorMessage = formError || serverError
 
 	return (
 		<div className={className}>
-			<div className='container-auth'>
-				<div className='form-auth'>
-					<H2>Авторизоваться</H2>
+			<div className='container-registration'>
+				<div className='form-registration'>
+					<H2>Создайте аккаунт за 20 секунд</H2>
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							type='text'
 							{...register('login', { onChange: () => setServerError(null) })}
-							placeholder='Логин'
+							placeholder='Логин...'
 						/>
 						<Input
 							type='password'
 							{...register('password', { onChange: () => setServerError(null) })}
-							placeholder='Пароль'
+							placeholder='Пароль...'
+						/>
+						<Input
+							type='password'
+							{...register('passCheck', { onChange: () => setServerError(null) })}
+							placeholder='Повторите пароль...'
 						/>
 						<Button
 							type='submit'
@@ -106,65 +107,60 @@ const AuthorizationContainer = ({ className }) => {
 							height='40px'
 							solid='#5e5e5e'
 						>
-							{isLoading ? <Loader /> : 'Авторизоваться'}
+							{isLoading ? <Loader /> : 'Создать аккаунт'}
 						</Button>
 						{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
 					</form>
 				</div>
-			</div>
-			<div className='container-reg'>
-				<div className='not-account'>
-					<H2>У вас нет аккаунта?</H2>
-					<Button height='40px'>
-						<Link to='/register'>Создать аккаунт</Link>
-					</Button>
+				<div className='link-auth'>
+					<span className='link-auth__text'>У вас уже есть аккаунт?</span>
+					<Link to='/authorize'>Авторизоваться</Link>
 				</div>
-
-				<InfoAccount />
+			</div>
+			<div className='container-info'>
+				<InfoAccount margin='21px 0' />
 			</div>
 		</div>
 	)
 }
 
-export const Authorization = s(AuthorizationContainer)`
+export const Registration = s(RegistrationContainer)`
 	display: flex;
 
-	h2 {
-		text-align: start;
-	}
-
-	.container-auth {
-		display: flex;
-		justify-content: center;
-		align-items: start;
-	}
-
-	.form-auth {
-		padding: 20px;
-		margin: 20px;
+	.form-registration {
 		border: 1px solid #5e5e5e;
 		border-radius: 10px;
+		padding: 20px;
+		margin: 20px;
 	}
 
-	.container-reg {
+	.link-auth {
+		display: flex;
+		justify-content: center;
+
+		& a {
+			color: #5517ff;
+		}
+	}
+
+	.link-auth__text {
+		margin-right: 10px;
+	}
+
+	.container-info {
 		display: flex;
 		flex-direction: column;
 		margin: 20px;
 	}
 
-	.not-account {
-		padding-top: 20px;
-		margin-bottom: 20px;
-	}
-
 	@media (max-width: 768px) {
 		display: block;
 
-		.form-auth {
+		.form-registration {
 			margin: 0;
 	}
 `
 
-AuthorizationContainer.propTypes = {
-	className: PropType.string,
+RegistrationContainer.propTypes = {
+	className: PropTypes.string.isRequired,
 }

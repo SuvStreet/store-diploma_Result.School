@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 import { Header, Footer } from './components'
-import { Authorization } from './pages'
+import { Authorization, Registration } from './pages'
 
 import s from 'styled-components'
 
@@ -31,8 +31,8 @@ export const Store = () => {
 			<Page>
 				<Routes>
 					<Route path="/" element={<div>Главная страница (Home)</div>} />
-					<Route path="/login" element={<Authorization />} />
-					<Route path="/register" element={<div>Регистрация (Registration)</div>} />
+					<Route path="/authorize" element={<Authorization />} />
+					<Route path="/register" element={<Registration />} />
 					<Route path="/profile" element={<div>Личный кабинет (Profile)</div>} />
 					<Route path="/catalog" element={<div>Каталог (Catalog)</div>} />
 					<Route path="/cart" element={<div>Корзина (Cart)</div>} />

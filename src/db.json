@@ -13,6 +13,62 @@
       "password": "user",
       "registered_at": "2024-10-12 00:00:00",
       "role_id": 2
+    },
+    {
+      "login": "admin3",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:15",
+      "role_id": 2,
+      "id": 3
+    },
+    {
+      "login": "admin4",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:15",
+      "role_id": 2,
+      "id": 4
+    },
+    {
+      "login": "admin5",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:17",
+      "role_id": 2,
+      "id": 5
+    },
+    {
+      "login": "admin6",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:18",
+      "role_id": 2,
+      "id": 6
+    },
+    {
+      "login": "admin7",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:20",
+      "role_id": 2,
+      "id": 7
+    },
+    {
+      "login": "admin8",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:21",
+      "role_id": 2,
+      "id": 8
+    },
+    {
+      "login": "admin9",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:23",
+      "role_id": 2,
+      "id": 9
+    },
+    {
+      "login": "admin53",
+      "password": "12345",
+      "registered_at": "2024-06-07 21:24",
+      "role_id": 2,
+      "id": 10
     }
   ],
   "roles": [
@@ -102,11 +158,12 @@
     }
   ],
   "sessions": {
-    "hash": "0.91765515633950545115737895685015246272087097167969",
+    "hash": "0.85663005303680650470710133959073573350906372070313",
     "user": {
-      "id": 1,
-      "login": "admin",
-      "role_id": 1
+      "id": 10,
+      "login": "admin53",
+      "registered_at": "2024-06-07 21:24",
+      "role_id": 2
     }
   }
 }

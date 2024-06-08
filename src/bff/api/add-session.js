@@ -11,6 +11,7 @@ export const addSession = (hash, user) =>
 			user: {
 				id: user.id,
 				login: user.login,
+				registered_at: user.registeredAt,
 				role_id: user.roleId,
 			},
 		}),

@@ -1,11 +1,10 @@
 import PropTypes from 'prop-types'
 
-import { Icon } from '../../../../components'
+import { Icon } from '../../icon/Icon'
 
 import s from 'styled-components'
 
 const InfoCardContainer = ({ className, textCard, iconCode }) => {
-
 	return (
 		<div className={className}>
 			<div className='info-card__icon'>
@@ -30,10 +29,6 @@ export const InfoCard = s(InfoCardContainer)`
 
 	.info-card__icon svg {
 		margin: 0 auto;
-	}
-
-	.info-card__text {
-
 	}
 `
 
