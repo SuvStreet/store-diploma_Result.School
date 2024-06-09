@@ -13,9 +13,11 @@ export const authorize = async (sessionHash, authLogin, authPassword) => {
 			}
 		}
 
+		sessions.add(sessionUser.hash, sessionUser.user)
+
 		return {
 			error: null,
-			res: sessionUser,
+			res: sessionUser.user,
 		}
 	}
 

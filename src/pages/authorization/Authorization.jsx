@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useLayoutEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PropType from 'prop-types'
@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, H2, InfoAccount, Input, Loader } from '../../components'
 import { useServerRequest } from '../../hooks'
 import { setUser } from '../../redux/actions'
-import { setSessionHash } from '../../utils'
+import { getSessionHash, setSessionHash } from '../../utils'
 
 import s from 'styled-components'
 
@@ -62,6 +62,12 @@ const AuthorizationContainer = ({ className }) => {
 		},
 		resolver: yupResolver(authFormSchema),
 	})
+
+	// useEffect(() => {
+	// 	if (getSessionHash() !== null) {
+	// 		navigate('/')
+	// 	}
+	// }, [navigate])
 
 	const onSubmit = ({ login, password }) => {
 		setIsLoading(true)

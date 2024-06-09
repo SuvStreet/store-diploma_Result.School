@@ -1,32 +1,49 @@
 import PropTypes from 'prop-types'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 
-import { Icon } from '../icon/Icon'
+import { Logo, Search, ControlPanel } from './components'
+import { getSessionHash } from '../../utils'
+import { useServerRequest } from '../../hooks'
+import { setUser } from '../../redux/actions'
+import { selectUserLogin } from '../../redux/selectors'
 
-import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import s from 'styled-components'
 
 const HeaderContainer = ({ className }) => {
+	const serverRequest = useServerRequest()
+	const dispatch = useDispatch()
+	const session = getSessionHash()
+	const login = useSelector(selectUserLogin)
+
+	useEffect(() => {
+		if (session !== null) {
+			serverRequest('authorize', session, null, null).then(({ res, error }) => {
+				if (error) {
+					return
+				}
+
+				const { id, login, registeredAt, roleId } = res
+				dispatch(setUser({ id, login, registeredAt, roleId }))
+			})
+		}
+	}, [session, serverRequest, dispatch])
+
 	return (
 		<div className={className}>
-			<div className='header-logo'>
-				<img src='/logo.png' alt='logo' />
-			</div>
-			<div className='header-search'>
-				<input type='text' placeholder='Поиск...' />
-			</div>
-			<div className='header-info'>
-				<div className='header-info__item'>
-					<Icon iconCode={faEllipsis} beatFade cursor='default' />
-				</div>
-				<div className='header-info__item'>Аккаунт</div>
-				<div className='header-info__item'>Корзина</div>
-			</div>
+			<Logo />
+			<Search />
+			<ControlPanel userLogin={login} />
 		</div>
 	)
 }
 
 export const Header = s(HeaderContainer)`
-	height: 120px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 100%;
+	padding: 20px 0;
 `
 
 HeaderContainer.propTypes = {
