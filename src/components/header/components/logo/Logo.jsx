@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { Icon } from '../../../icon/Icon'
 
 import { faMicrochip } from '@fortawesome/free-solid-svg-icons'
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const LogoContainer = ({ className }) => {
 	const navigate = useNavigate()
@@ -23,7 +23,7 @@ const LogoContainer = ({ className }) => {
 	)
 }
 
-export const Logo = s(LogoContainer)`
+export const Logo = styled(LogoContainer)`
 	display: flex;
 	align-items: center;
 	cursor: pointer;

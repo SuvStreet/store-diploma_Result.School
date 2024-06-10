@@ -10,9 +10,9 @@ import { Button, H2, InfoAccount, Input, Loader } from '../../components'
 import { useServerRequest } from '../../hooks'
 import { AuthFormError } from '../authorization/Authorization'
 import { setUser } from '../../redux/actions'
-
-import s from 'styled-components'
 import { setSessionHash } from '../../utils'
+
+import styled from 'styled-components'
 
 const authFormSchema = yup.object().shape({
 	login: yup
@@ -124,7 +124,7 @@ const RegistrationContainer = ({ className }) => {
 	)
 }
 
-export const Registration = s(RegistrationContainer)`
+export const Registration = styled(RegistrationContainer)`
 	display: flex;
 
 	.form-registration {
@@ -158,6 +158,7 @@ export const Registration = s(RegistrationContainer)`
 
 		.form-registration {
 			margin: 0;
+		}
 	}
 `
 

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const FooterContainer = ({ className }) => {
 	return (
@@ -10,7 +10,7 @@ const FooterContainer = ({ className }) => {
 	)
 }
 
-export const Footer = s(FooterContainer)`
+export const Footer = styled(FooterContainer)`
 	height: 120px;
 `
 

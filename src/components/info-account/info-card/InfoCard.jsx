@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 import { Icon } from '../../icon/Icon'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const InfoCardContainer = ({ className, textCard, iconCode }) => {
 	return (
@@ -17,7 +17,7 @@ const InfoCardContainer = ({ className, textCard, iconCode }) => {
 	)
 }
 
-export const InfoCard = s(InfoCardContainer)`
+export const InfoCard = styled(InfoCardContainer)`
 	display: flex;
 	align-items: center;
 	margin-bottom: 20px;

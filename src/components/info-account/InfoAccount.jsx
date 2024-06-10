@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { InfoCard } from './info-card/InfoCard'
 
 import { faBox, faPercent, faTruckFast } from '@fortawesome/free-solid-svg-icons'
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const textCardAuthorization = [
 	{
@@ -33,7 +33,7 @@ const InfoAccountContainer = ({ className }) => {
 	)
 }
 
-export const InfoAccount = s(InfoAccountContainer)`
+export const InfoAccount = styled(InfoAccountContainer)`
 	margin: ${({ margin }) => margin || '0'};
 
 	& h3 {

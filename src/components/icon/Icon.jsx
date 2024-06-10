@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const IconContainer = ({ className, iconCode, ...props }) => {
 	return <FontAwesomeIcon className={className} icon={iconCode} {...props} />
 }
 
-export const Icon = s(IconContainer)`
+export const Icon = styled(IconContainer)`
 	display: flex;
 	align-items: center;
 	font-size: ${({ fontSize }) => fontSize || '32px'};

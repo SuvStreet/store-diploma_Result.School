@@ -5,7 +5,7 @@ import { Icon } from '../../../icon/Icon'
 import { Input } from '../../../input/Input'
 
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const SearchContainer = ({ className }) => {
 	const [searchItem, setSearchItem] = useState('')
@@ -22,7 +22,7 @@ const SearchContainer = ({ className }) => {
 	)
 }
 
-export const Search = s(SearchContainer)`
+export const Search = styled(SearchContainer)`
 	display: flex;
 	align-items: center;
 	width: 100%;

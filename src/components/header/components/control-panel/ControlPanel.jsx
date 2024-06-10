@@ -5,7 +5,7 @@ import { Icon } from '../../../icon/Icon'
 
 import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const ControlPanelContainer = ({ className, userLogin }) => {
 	const navigate = useNavigate()
@@ -30,7 +30,7 @@ const ControlPanelContainer = ({ className, userLogin }) => {
 	)
 }
 
-export const ControlPanel = s(ControlPanelContainer)`
+export const ControlPanel = styled(ControlPanelContainer)`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;

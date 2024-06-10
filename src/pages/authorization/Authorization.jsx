@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import PropType from 'prop-types'
@@ -9,9 +9,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Button, H2, InfoAccount, Input, Loader } from '../../components'
 import { useServerRequest } from '../../hooks'
 import { setUser } from '../../redux/actions'
-import { getSessionHash, setSessionHash } from '../../utils'
+import { setSessionHash } from '../../utils'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const authFormSchema = yup.object().shape({
 	login: yup
@@ -32,7 +32,7 @@ const authFormSchema = yup.object().shape({
 		.max('30', 'Неверный пороль. Максимальная длина пороля - 30 символов'),
 })
 
-export const AuthFormError = s.div`
+export const AuthFormError = styled.div`
 	background-color: #ff4f4f;
 	color: black;
 	// color: red;
@@ -62,12 +62,6 @@ const AuthorizationContainer = ({ className }) => {
 		},
 		resolver: yupResolver(authFormSchema),
 	})
-
-	// useEffect(() => {
-	// 	if (getSessionHash() !== null) {
-	// 		navigate('/')
-	// 	}
-	// }, [navigate])
 
 	const onSubmit = ({ login, password }) => {
 		setIsLoading(true)
@@ -132,7 +126,7 @@ const AuthorizationContainer = ({ className }) => {
 	)
 }
 
-export const Authorization = s(AuthorizationContainer)`
+export const Authorization = styled(AuthorizationContainer)`
 	display: flex;
 
 	h2 {
@@ -168,6 +162,7 @@ export const Authorization = s(AuthorizationContainer)`
 
 		.form-auth {
 			margin: 0;
+		}
 	}
 `
 

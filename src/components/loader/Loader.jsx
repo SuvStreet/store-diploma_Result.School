@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Icon } from '../icon/Icon'
 
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const LoaderContainer = ({ className }) => {
 	return (
@@ -13,7 +13,7 @@ const LoaderContainer = ({ className }) => {
 	)
 }
 
-export const Loader = s(LoaderContainer)`
+export const Loader = styled(LoaderContainer)`
 	font-size: ${({ fontSize }) => fontSize || '32px'};
 `
 

@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { Logo, Search, ControlPanel } from './components'
+import { Logo, Search, ControlPanel, CategoriesProducts } from './components'
 import { getSessionHash } from '../../utils'
 import { useServerRequest } from '../../hooks'
 import { setUser } from '../../redux/actions'
 import { selectUserLogin } from '../../redux/selectors'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const HeaderContainer = ({ className }) => {
 	const serverRequest = useServerRequest()
@@ -31,19 +31,26 @@ const HeaderContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Logo />
-			<Search />
-			<ControlPanel userLogin={login} />
+			<div className='header-info'>
+				<Logo />
+				<Search />
+				<ControlPanel userLogin={login} />
+			</div>
+			<div className='header-categories'>
+				<CategoriesProducts />
+			</div>
 		</div>
 	)
 }
 
-export const Header = s(HeaderContainer)`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	width: 100%;
-	padding: 20px 0;
+export const Header = styled(HeaderContainer)`
+	& .header-info{
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		padding: 20px 0;
+	}
 `
 
 HeaderContainer.propTypes = {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { forwardRef } from 'react'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const InputContainer = forwardRef(({ className, ...props }, ref) => {
 	return <input className={className} {...props} ref={ref} />
@@ -9,7 +9,7 @@ const InputContainer = forwardRef(({ className, ...props }, ref) => {
 
 InputContainer.displayName = 'InputContainer'
 
-export const Input = s(InputContainer)`
+export const Input = styled(InputContainer)`
 	width: ${({ width }) => width || '100%'};
 	height: 40px;
 	padding: 0 10px;

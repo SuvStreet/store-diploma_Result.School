@@ -1,6 +1,6 @@
 import PropsType from 'prop-types'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
 const ButtonContainer = ({ children, className, ...props }) => {
 	return (
@@ -10,7 +10,7 @@ const ButtonContainer = ({ children, className, ...props }) => {
 	)
 }
 
-export const Button = s(ButtonContainer)`
+export const Button = styled(ButtonContainer)`
 	display: flex;
 	justify-content: center;
 	align-items: center;

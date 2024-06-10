@@ -1,13 +1,11 @@
-import { useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 import { Header, Footer, ProtectedRoute } from './components'
 import { Authorization, Registration } from './pages'
-import { getSessionHash } from './utils'
 
-import s from 'styled-components'
+import styled from 'styled-components'
 
-const AppContainer = s.div`
+const AppContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -19,7 +17,7 @@ const AppContainer = s.div`
 	padding: 0 20px;
 `
 
-const Page = s.div`
+const Page = styled.div`
 	display: flex;
 	justify-content: space-around;
 	width: 100%;
