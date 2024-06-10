@@ -4,4 +4,5 @@ export const ERROR = {
 	USER_EXISTS: 'Пользователь уже существует',
 	USER_NOT_AUTHORIZED: 'Пользователь не авторизован',
 	USER_NOT_CREATED: 'Пользователь не создан',
+	CATEGORIES_NOT_FOUND: 'Категории не найдены',
 }

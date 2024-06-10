@@ -11,7 +11,8 @@ const initialState = {
 
 export const categoriesReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case ACTION_TYPE.SET_CATEGORY:
+		case ACTION_TYPE.SET_CATEGORIES:
+			console.log('SET_CATEGORIES', action)
 			return {
 				...state,
 				categories: action.payload,

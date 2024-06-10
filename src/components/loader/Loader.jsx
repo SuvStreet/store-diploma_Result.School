@@ -14,6 +14,7 @@ const LoaderContainer = ({ className }) => {
 }
 
 export const Loader = styled(LoaderContainer)`
+	margin: 0 auto;
 	font-size: ${({ fontSize }) => fontSize || '32px'};
 `
 

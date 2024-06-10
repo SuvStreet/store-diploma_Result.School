@@ -30,26 +30,38 @@ const HeaderContainer = ({ className }) => {
 	}, [session, serverRequest, dispatch])
 
 	return (
-		<div className={className}>
-			<div className='header-info'>
-				<Logo />
-				<Search />
-				<ControlPanel userLogin={login} />
+		<>
+			<div className={className}>
+				<div className='header-info'>
+					<Logo />
+					<Search />
+					<ControlPanel userLogin={login} />
+				</div>
+				<div className='header-menu'>
+					<CategoriesProducts />
+				</div>
 			</div>
-			<div className='header-categories'>
-				<CategoriesProducts />
-			</div>
-		</div>
+		</>
 	)
 }
 
 export const Header = styled(HeaderContainer)`
-	& .header-info{
+	width: 100%;
+	padding-top: 20px;
+	box-shadow: 0 5px 5px -5px #5e5e5e;
+	position: sticky;
+	top: 0;
+	background-color: #242424;
+
+	& .header-info {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	& .header-menu {
 		width: 100%;
-		padding: 20px 0;
+		padding-top: 20px;
 	}
 `
 

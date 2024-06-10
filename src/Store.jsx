@@ -9,11 +9,11 @@ const AppContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	max-width: 1280px;
+	max-width: 1200px;
 	width: 100%;
 	height: 100dvh;
-  margin: 0 auto;
-  text-align: center;
+	margin: 0 auto;
+	text-align: center;
 	padding: 0 20px;
 `
 
@@ -49,7 +49,7 @@ export const Store = () => {
 						}
 					/>
 					<Route path='/profile' element={<div>Личный кабинет (Profile)</div>} />
-					<Route path='/catalog' element={<div>Каталог (Catalog)</div>} />
+					<Route path='/catalog/:id' element={<div>Каталог (Catalog)</div>} />
 					<Route path='/cart' element={<div>Корзина (Cart)</div>} />
 					<Route path='/product/:id' element={<div>Страница товара (Product)</div>} />
 					<Route path='*' element={<div>Ошибка</div>} />

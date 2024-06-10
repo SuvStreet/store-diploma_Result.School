@@ -28,7 +28,6 @@ export const Logo = styled(LogoContainer)`
 	align-items: center;
 	cursor: pointer;
 	height: 100%;
-	padding-right: 15px;
 
 	.logo__text {
 		margin-left: 15px;
