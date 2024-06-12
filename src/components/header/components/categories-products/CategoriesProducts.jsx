@@ -1,47 +1,44 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+// import { useEffect, useState } from 'react'
+// import { useDispatch, useSelector } from 'react-redux'
 
-import { Loader } from '../../../loader/Loader'
-import { useServerRequest } from '../../../../hooks'
-import { setCategories } from '../../../../redux/actions'
-import { selectCategories } from '../../../../redux/selectors'
+// import { Loader } from '../../../loader/Loader'
+// import { useServerRequest } from '../../../../hooks'
+// import { setCategories } from '../../../../redux/actions'
+// import { selectCategories } from '../../../../redux/selectors'
+import { CATEGORIES } from '../../../../constants'
 
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 
 const CategoriesProductsContainer = ({ className }) => {
-	const serverRequest = useServerRequest()
-	const dispatch = useDispatch()
-	const categories = useSelector(selectCategories)
-	const [isLoading, setIsLoading] = useState(false)
+	// const serverRequest = useServerRequest()
+	// const dispatch = useDispatch()
+	// const categories = useSelector(selectCategories)
+	// const [isLoading, setIsLoading] = useState(false)
 
-	useEffect(() => {
-		setIsLoading(true)
-		serverRequest('fetchCategories')
-			.then(({ res, error }) => {
-				if (error) {
-					return
-				}
+	// useEffect(() => {
+	// 	// setIsLoading(true)
+	// 	serverRequest('fetchCategories')
+	// 		.then(({ res, error }) => {
+	// 			if (error) {
+	// 				return
+	// 			}
 
-				dispatch(setCategories(res.categories))
-			})
-			.finally(() => setIsLoading(false))
-	}, [serverRequest, dispatch])
+	// 			dispatch(setCategories(res.categories))
+	// 		})
+	// 		// .finally(() => setIsLoading(false))
+	// }, [serverRequest, dispatch])
 
 	return (
 		<div className={className}>
-			{isLoading ? (
-				<Loader />
-			) : (
 				<ul>
-					{categories.categories.map(({ id, name }) => (
+					{CATEGORIES.map(({ id, name }) => (
 						<NavLink to={`/catalog/${id}`} key={id}>
 							<li>{name}</li>
 						</NavLink>
 					))}
 				</ul>
-			)}
 		</div>
 	)
 }

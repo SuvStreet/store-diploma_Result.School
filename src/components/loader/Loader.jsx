@@ -5,19 +5,27 @@ import { Icon } from '../icon/Icon'
 import { faEllipsis } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
 
-const LoaderContainer = ({ className }) => {
+const LoaderContainer = ({ className, fontSize }) => {
 	return (
 		<div className={className}>
-			<Icon iconCode={faEllipsis} beatFade cursor='inherit' />
+			<Icon
+				iconCode={faEllipsis}
+				fontSize={fontSize || '32px'}
+				beatFade
+				cursor='inherit'
+			/>
 		</div>
 	)
 }
 
 export const Loader = styled(LoaderContainer)`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	margin: 0 auto;
-	font-size: ${({ fontSize }) => fontSize || '32px'};
 `
 
 LoaderContainer.propTypes = {
 	className: PropTypes.string.isRequired,
+	fontSize: PropTypes.string,
 }

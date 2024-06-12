@@ -1,8 +1,26 @@
-export const CATEGORIES = {
-	СOMPUTERS_AND_LAPTOPS: 1,
-	SMARTPHONES_AND_GADGETS: 2,
-	TELEVISIONS_AND_AUDIO: 3,
-	VIDEO_AND_PHOTO: 4,
-	GAME_CONSOLES_AND_GAMES: 5,
-	ACCESSORIES_AND_EQUIPMENT: 6,
-}
+export const CATEGORIES = [
+	{
+		id: 1,
+		name: 'Компьютеры и ноутбуки',
+	},
+	{
+		id: 2,
+		name: 'Смартфоны и гаджеты',
+	},
+	{
+		id: 3,
+		name: 'Телевизоры и аудиотехника',
+	},
+	{
+		id: 4,
+		name: 'Фото и видеокамеры',
+	},
+	{
+		id: 5,
+		name: 'Игровые приставки и игры',
+	},
+	{
+		id: 6,
+		name: 'Аксессуары и комплектующие',
+	},
+]

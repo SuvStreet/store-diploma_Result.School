@@ -1,641 +1,729 @@
 {
-	"users": [
-		{
-			"id": 1,
-			"login": "admin",
-			"password": "admin",
-			"registered_at": "2022-01-01 00:00:00",
-			"role_id": 1
-		},
-		{
-			"id": 2,
-			"login": "user",
-			"password": "user",
-			"registered_at": "2024-10-12 00:00:00",
-			"role_id": 2
-		},
-		{
-			"login": "admin3",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:15",
-			"role_id": 2,
-			"id": 3
-		},
-		{
-			"login": "admin4",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:15",
-			"role_id": 2,
-			"id": 4
-		},
-		{
-			"login": "admin5",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:17",
-			"role_id": 2,
-			"id": 5
-		},
-		{
-			"login": "admin6",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:18",
-			"role_id": 2,
-			"id": 6
-		},
-		{
-			"login": "admin7",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:20",
-			"role_id": 2,
-			"id": 7
-		},
-		{
-			"login": "admin8",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:21",
-			"role_id": 2,
-			"id": 8
-		},
-		{
-			"login": "admin9",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:23",
-			"role_id": 2,
-			"id": 9
-		},
-		{
-			"login": "admin53",
-			"password": "12345",
-			"registered_at": "2024-06-07 21:24",
-			"role_id": 2,
-			"id": 10
-		}
-	],
-	"roles": [
-		{
-			"id": 1,
-			"name": "Администратор"
-		},
-		{
-			"id": 2,
-			"name": "Пользователь"
-		}
-	],
-	"categories": [
-		{
-			"id": 1,
-			"name": "Компьютеры и ноутбуки"
-		},
-		{
-			"id": 2,
-			"name": "Смартфоны и гаджеты"
-		},
-		{
-			"id": 3,
-			"name": "Телевизоры и аудиотехника"
-		},
-		{
-			"id": 4,
-			"name": "Фото и видеокамеры"
-		},
-		{
-			"id": 5,
-			"name": "Игровые приставки и игры"
-		},
-		{
-			"id": 6,
-			"name": "Аксессуары и комплектующие"
-		}
-	],
-	"products": [
-		{
-			"id": 1,
-			"name": "Ноутбук ASUS ZenBook",
-			"description": "Высокопроизводительный ноутбук для работы и игр",
-			"price": 1000,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 2,
-			"name": "Ноутбук HP Pavilion",
-			"description": "Надежный ноутбук с долгим временем автономной работы",
-			"price": 900,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 3,
-			"name": "Десктоп Dell Inspiron",
-			"description": "Мощный настольный компьютер для офиса",
-			"price": 1200,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 4,
-			"name": "Ноутбук Lenovo ThinkPad",
-			"description": "Универсальный ноутбук для работы и учебы",
-			"price": 850,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 5,
-			"name": "Монитор Samsung",
-			"description": "Качественный монитор с высоким разрешением",
-			"price": 300,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 6,
-			"name": "Ноутбук Acer Aspire",
-			"description": "Надежный ноутбук с долгим временем автономной работы",
-			"price": 700,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 7,
-			"name": "Десктоп Apple iMac",
-			"description": "Стильный и мощный настольный компьютер",
-			"price": 2000,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 8,
-			"name": "Ноутбук Microsoft Surface",
-			"description": "Портативный и мощный ноутбук",
-			"price": 1100,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 9,
-			"name": "Ноутбук Dell XPS",
-			"description": "Ноутбук с великолепным дизайном и производительностью",
-			"price": 1500,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 10,
-			"name": "Монитор LG UltraFine",
-			"description": "Монитор с высоким разрешением и отличной цветопередачей",
-			"price": 400,
-			"category_id": 1,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 11,
-			"name": "Смартфон Apple iPhone 13",
-			"description": "Современный смартфон с множеством функций",
-			"price": 999,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 12,
-			"name": "Смартфон Samsung Galaxy S21",
-			"description": "Флагманский смартфон с отличной камерой",
-			"price": 850,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 13,
-			"name": "Смартфон Google Pixel 6",
-			"description": "Чистый Android и отличная производительность",
-			"price": 799,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 14,
-			"name": "Смартфон OnePlus 9",
-			"description": "Быстрый и мощный смартфон с хорошей камерой",
-			"price": 729,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 15,
-			"name": "Смартфон Xiaomi Mi 11",
-			"description": "Смартфон с отличным соотношением цены и качества",
-			"price": 699,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 16,
-			"name": "Смартфон Sony Xperia 5 III",
-			"description": "Компактный смартфон с мощной камерой",
-			"price": 949,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 17,
-			"name": "Смартфон Oppo Find X3",
-			"description": "Инновационный смартфон с великолепным экраном",
-			"price": 799,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 18,
-			"name": "Смартфон Huawei P50 Pro",
-			"description": "Смартфон с отличной камерой и производительностью",
-			"price": 899,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 19,
-			"name": "Смартфон Motorola Edge 20 Pro",
-			"description": "Мощный смартфон с хорошей камерой",
-			"price": 699,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 20,
-			"name": "Смарт-часы Apple Watch Series 7",
-			"description": "Умные часы с множеством функций",
-			"price": 399,
-			"category_id": 2,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 21,
-			"name": "Телевизор Samsung QLED 4K",
-			"description": "Телевизор с отличным качеством изображения",
-			"price": 1200,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 22,
-			"name": "Телевизор LG OLED 4K",
-			"description": "Телевизор с великолепной цветопередачей",
-			"price": 1500,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 23,
-			"name": "Телевизор Sony Bravia 4K",
-			"description": "Телевизор с отличным качеством изображения и звука",
-			"price": 1300,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 24,
-			"name": "Телевизор Philips Ambilight",
-			"description": "Телевизор с подсветкой Ambilight",
-			"price": 1100,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 25,
-			"name": "Акустическая система Bose",
-			"description": "Высококачественная акустическая система",
-			"price": 800,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 26,
-			"name": "Саундбар Sonos",
-			"description": "Саундбар с отличным качеством звука",
-			"price": 600,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 27,
-			"name": "Наушники Sony WH-1000XM4",
-			"description": "Беспроводные наушники с шумоподавлением",
-			"price": 350,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 28,
-			"name": "Наушники Apple AirPods Pro",
-			"description": "Беспроводные наушники с активным шумоподавлением",
-			"price": 250,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 29,
-			"name": "Колонка JBL Charge 4",
-			"description": "Портативная колонка с отличным звуком",
-			"price": 150,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 30,
-			"name": "Система домашнего кинотеатра Yamaha",
-			"description": "Полная система домашнего кинотеатра",
-			"price": 1000,
-			"category_id": 3,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 31,
-			"name": "Фотоаппарат Canon EOS R5",
-			"description": "Полнокадровая беззеркальная камера",
-			"price": 3500,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 32,
-			"name": "Фотоаппарат Nikon Z7 II",
-			"description": "Беззеркальная камера с высоким разрешением",
-			"price": 3000,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 33,
-			"name": "Фотоаппарат Sony A7 III",
-			"description": "Полнокадровая беззеркальная камера",
-			"price": 2000,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 34,
-			"name": "Видеокамера GoPro HERO9",
-			"description": "Экшн-камера с поддержкой 5K видео",
-			"price": 500,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 35,
-			"name": "Фотоаппарат Fujifilm X-T4",
-			"description": "Беззеркальная камера с ретро-дизайном",
-			"price": 1800,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 36,
-			"name": "Видеокамера Panasonic Lumix GH5",
-			"description": "Камера для профессиональной видеосъемки",
-			"price": 2200,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 37,
-			"name": "Фотоаппарат Olympus OM-D E-M1 Mark III",
-			"description": "Беззеркальная камера с отличной стабилизацией",
-			"price": 1700,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 38,
-			"name": "Фотоаппарат Leica Q2",
-			"description": "Компактная камера с полнокадровым сенсором",
-			"price": 5000,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 39,
-			"name": "Фотоаппарат Canon PowerShot G7 X Mark III",
-			"description": "Компактная камера для видеоблогеров",
-			"price": 900,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 40,
-			"name": "Видеокамера DJI Osmo Pocket",
-			"description": "Компактная камера со стабилизацией",
-			"price": 350,
-			"category_id": 4,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 41,
-			"name": "Игровая приставка Sony PlayStation 5",
-			"description": "Новейшая игровая консоль от Sony",
-			"price": 500,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 42,
-			"name": "Игровая приставка Microsoft Xbox Series X",
-			"description": "Мощная игровая консоль от Microsoft",
-			"price": 500,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 43,
-			"name": "Игровая приставка Nintendo Switch",
-			"description": "Гибридная игровая консоль от Nintendo",
-			"price": 300,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 44,
-			"name": "Игра The Legend of Zelda: Breath of the Wild",
-			"description": "Приключенческая игра для Nintendo Switch",
-			"price": 60,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 45,
-			"name": "Игра Cyberpunk 2077",
-			"description": "Ролевая игра с открытым миром",
-			"price": 60,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 46,
-			"name": "Игра Halo Infinite",
-			"description": "Шутер от первого лица для Xbox",
-			"price": 60,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 47,
-			"name": "Игра God of War",
-			"description": "Экшн-игра для PlayStation",
-			"price": 60,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 48,
-			"name": "Игровой контроллер DualSense",
-			"description": "Контроллер для PlayStation 5",
-			"price": 70,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 49,
-			"name": "Игровой контроллер Xbox Wireless Controller",
-			"description": "Контроллер для Xbox Series X",
-			"price": 60,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 50,
-			"name": "Игровая гарнитура SteelSeries Arctis 7",
-			"description": "Беспроводная игровая гарнитура",
-			"price": 150,
-			"category_id": 5,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 51,
-			"name": "Клавиатура Logitech MX Keys",
-			"description": "Беспроводная клавиатура для работы и игр",
-			"price": 100,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 52,
-			"name": "Мышь Logitech MX Master 3",
-			"description": "Беспроводная мышь с высокой точностью",
-			"price": 100,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 53,
-			"name": "Внешний жесткий диск Seagate 2TB",
-			"description": "Надежный внешний жесткий диск",
-			"price": 80,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 54,
-			"name": "Портативный SSD Samsung T5 1TB",
-			"description": "Быстрый и компактный SSD",
-			"price": 150,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 55,
-			"name": "Веб-камера Logitech C920",
-			"description": "Веб-камера с высоким разрешением",
-			"price": 70,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 56,
-			"name": "USB-хаб Anker 4-Port",
-			"description": "USB-хаб с четырьмя портами",
-			"price": 30,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 57,
-			"name": "Зарядное устройство Anker PowerPort",
-			"description": "Быстрое зарядное устройство",
-			"price": 25,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 58,
-			"name": "Коврик для мыши SteelSeries QcK",
-			"description": "Качественный коврик для мыши",
-			"price": 15,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 59,
-			"name": "Беспроводная зарядка Belkin",
-			"description": "Удобная беспроводная зарядка",
-			"price": 40,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		},
-		{
-			"id": 60,
-			"name": "Сетевой адаптер TP-Link",
-			"description": "Сетевой адаптер для быстрого интернета",
-			"price": 20,
-			"category_id": 6,
-			"image_url": "url_to_image"
-		}
-	],
-	"orders": [
-		{
-			"id": 1,
-			"user_id": 1,
-			"total_price": 1000,
-			"created_at": "2022-01-01 00:00:00"
-		},
-		{
-			"id": 2,
-			"user_id": 2,
-			"total_price": 2000,
-			"created_at": "2024-10-12 00:00:00"
-		},
-		{
-			"id": 3,
-			"user_id": 1,
-			"total_price": 3000,
-			"created_at": "2022-01-01 00:00:00"
-		}
-	],
-	"order_items": [
-		{
-			"id": 1,
-			"order_id": 1,
-			"product_id": 1,
-			"quantity": 1
-		},
-		{
-			"id": 2,
-			"order_id": 2,
-			"product_id": 2,
-			"quantity": 2
-		},
-		{
-			"id": 3,
-			"order_id": 3,
-			"product_id": 3,
-			"quantity": 3
-		}
-	],
-	"sessions": {
-		"hash": "0.97353330609233079684372569317929446697235107421875",
-		"user": {
-			"id": 1,
-			"login": "admin",
-			"registered_at": "2022-01-01 00:00:00",
-			"role_id": 1
-		}
-	}
+  "users": [
+    {
+      "id": 1,
+      "login": "admin",
+      "password": "admin",
+      "registered_at": "2022-01-01 00:00:00",
+      "role_id": 1
+    },
+    {
+      "id": 2,
+      "login": "user",
+      "password": "user",
+      "registered_at": "2024-10-12 00:00:00",
+      "role_id": 2
+    }
+  ],
+  "roles": [
+    {
+      "id": 1,
+      "name": "Администратор"
+    },
+    {
+      "id": 2,
+      "name": "Пользователь"
+    }
+  ],
+  "category": [
+    {
+      "id": 1,
+      "name": "Компьютеры и ноутбуки",
+      "catalog": [
+        {
+          "id": 1,
+          "name": "Ноутбуки"
+        },
+        {
+          "id": 2,
+          "name": "Компьютеры"
+        },
+        {
+          "id": 3,
+          "name": "Десктопы"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Телефоны и планшеты",
+      "catalog": [
+        {
+          "id": 4,
+          "name": "Смартфоны"
+        },
+        {
+          "id": 5,
+          "name": "Планшеты"
+        },
+        {
+          "id": 6,
+          "name": "Умные часы"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Аудио и видео",
+      "catalog": [
+        {
+          "id": 7,
+          "name": "Телевизоры"
+        },
+        {
+          "id": 8,
+          "name": "Наушники"
+        },
+        {
+          "id": 9,
+          "name": "Колонки"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Фото и видеокамеры",
+      "catalog": [
+        {
+          "id": 10,
+          "name": "Фотоаппараты"
+        },
+        {
+          "id": 11,
+          "name": "Видеокамеры"
+        },
+        {
+          "id": 12,
+          "name": "Дроны"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Игровые приставки и игры",
+      "catalog": [
+        {
+          "id": 13,
+          "name": "Игровые приставки"
+        },
+        {
+          "id": 14,
+          "name": "Игры"
+        },
+        {
+          "id": 15,
+          "name": "Контроллеры"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Аксессуары и комплектующие",
+      "catalog": [
+        {
+          "id": 16,
+          "name": "Клавиатуры"
+        },
+        {
+          "id": 17,
+          "name": "Мыши"
+        },
+        {
+          "id": 18,
+          "name": "Внешние накопители"
+        }
+      ]
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Ноутбук Dell XPS 13",
+      "description": "Ультрабук с экраном 13 дюймов",
+      "price": 1000,
+      "category_id": 1,
+      "catalog_id": 1,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 2,
+      "name": "Ноутбук MacBook Pro 16",
+      "description": "Ноутбук Apple с экраном 16 дюймов",
+      "price": 2500,
+      "category_id": 1,
+      "catalog_id": 1,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 3,
+      "name": "Смартфон iPhone 12",
+      "description": "Смартфон Apple с экраном 6.1 дюймов",
+      "price": 999,
+      "category_id": 2,
+      "catalog_id": 4,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 4,
+      "name": "Смартфон Samsung Galaxy S21",
+      "description": "Смартфон Samsung с экраном 6.2 дюймов",
+      "price": 799,
+      "category_id": 2,
+      "catalog_id": 4,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 5,
+      "name": "Телевизор LG OLED55",
+      "description": "OLED телевизор с диагональю 55 дюймов",
+      "price": 1500,
+      "category_id": 3,
+      "catalog_id": 7,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 6,
+      "name": "Наушники Sony WH-1000XM4",
+      "description": "Беспроводные наушники с шумоподавлением",
+      "price": 350,
+      "category_id": 3,
+      "catalog_id": 8,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 7,
+      "name": "Фотоаппарат Canon EOS R5",
+      "description": "Полнокадровая беззеркальная камера",
+      "price": 3500,
+      "category_id": 4,
+      "catalog_id": 10,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 8,
+      "name": "Видеокамера GoPro HERO9",
+      "description": "Экшн-камера с поддержкой 5K видео",
+      "price": 500,
+      "category_id": 4,
+      "catalog_id": 11,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 9,
+      "name": "Игровая приставка Sony PlayStation 5",
+      "description": "Новейшая игровая консоль от Sony",
+      "price": 500,
+      "category_id": 5,
+      "catalog_id": 13,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 10,
+      "name": "Игра The Legend of Zelda: Breath of the Wild",
+      "description": "Приключенческая игра для Nintendo Switch",
+      "price": 60,
+      "category_id": 5,
+      "catalog_id": 14,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 11,
+      "name": "Клавиатура Logitech MX Keys",
+      "description": "Беспроводная клавиатура для работы и игр",
+      "price": 100,
+      "category_id": 6,
+      "catalog_id": 16,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 12,
+      "name": "Мышь Logitech MX Master 3",
+      "description": "Беспроводная мышь с высокой точностью",
+      "price": 100,
+      "category_id": 6,
+      "catalog_id": 17,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 13,
+      "name": "Внешний жесткий диск Seagate 2TB",
+      "description": "Надежный внешний жесткий диск",
+      "price": 80,
+      "category_id": 6,
+      "catalog_id": 18,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 14,
+      "name": "Ноутбук HP Pavilion 15",
+      "description": "Мощный ноутбук для работы и игр",
+      "price": 1200,
+      "category_id": 1,
+      "catalog_id": 1,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 15,
+      "name": "Компьютер Lenovo ThinkCentre",
+      "description": "Настольный компьютер для бизнеса",
+      "price": 900,
+      "category_id": 1,
+      "catalog_id": 2,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 16,
+      "name": "Десктоп Apple iMac 24",
+      "description": "Моноблок Apple с экраном 24 дюйма",
+      "price": 2000,
+      "category_id": 1,
+      "catalog_id": 3,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 17,
+      "name": "Планшет iPad Pro 11",
+      "description": "Мощный планшет Apple для профессионалов",
+      "price": 800,
+      "category_id": 2,
+      "catalog_id": 5,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 18,
+      "name": "Умные часы Apple Watch Series 6",
+      "description": "Умные часы с множеством функций",
+      "price": 400,
+      "category_id": 2,
+      "catalog_id": 6,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 19,
+      "name": "Телевизор Samsung QLED 65",
+      "description": "Телевизор с технологией QLED и диагональю 65 дюймов",
+      "price": 1800,
+      "category_id": 3,
+      "catalog_id": 7,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 20,
+      "name": "Колонка JBL Charge 4",
+      "description": "Беспроводная колонка с мощным звуком",
+      "price": 150,
+      "category_id": 3,
+      "catalog_id": 9,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 21,
+      "name": "Видеокамера Sony Handycam",
+      "description": "Цифровая видеокамера для съемки в HD",
+      "price": 600,
+      "category_id": 4,
+      "catalog_id": 11,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 22,
+      "name": "Дрон DJI Mavic Air 2",
+      "description": "Дрон с поддержкой 4K видео",
+      "price": 800,
+      "category_id": 4,
+      "catalog_id": 12,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 23,
+      "name": "Игра FIFA 21",
+      "description": "Популярная футбольная игра",
+      "price": 50,
+      "category_id": 5,
+      "catalog_id": 14,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 24,
+      "name": "Контроллер Xbox Wireless",
+      "description": "Беспроводной контроллер для Xbox",
+      "price": 60,
+      "category_id": 5,
+      "catalog_id": 15,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 25,
+      "name": "Клавиатура Razer BlackWidow",
+      "description": "Игровая механическая клавиатура",
+      "price": 130,
+      "category_id": 6,
+      "catalog_id": 16,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 26,
+      "name": "Мышь Razer DeathAdder",
+      "description": "Игровая мышь с высокой точностью",
+      "price": 70,
+      "category_id": 6,
+      "catalog_id": 17,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 27,
+      "name": "Внешний SSD Samsung T5 1TB",
+      "description": "Быстрый и надежный внешний SSD",
+      "price": 200,
+      "category_id": 6,
+      "catalog_id": 18,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 28,
+      "name": "Ноутбук ASUS ROG Strix",
+      "description": "Игровой ноутбук с экраном 15.6 дюймов",
+      "price": 1500,
+      "category_id": 1,
+      "catalog_id": 1,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 29,
+      "name": "Компьютер Dell OptiPlex",
+      "description": "Компьютер для офиса и дома",
+      "price": 800,
+      "category_id": 1,
+      "catalog_id": 2,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 30,
+      "name": "Десктоп HP Envy",
+      "description": "Настольный компьютер для развлечений и работы",
+      "price": 1100,
+      "category_id": 1,
+      "catalog_id": 3,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 31,
+      "name": "Смартфон Google Pixel 5",
+      "description": "Смартфон с чистым Android",
+      "price": 700,
+      "category_id": 2,
+      "catalog_id": 4,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 32,
+      "name": "Планшет Samsung Galaxy Tab S7",
+      "description": "Планшет для работы и развлечений",
+      "price": 650,
+      "category_id": 2,
+      "catalog_id": 5,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 33,
+      "name": "Умные часы Samsung Galaxy Watch 3",
+      "description": "Умные часы с множеством функций",
+      "price": 350,
+      "category_id": 2,
+      "catalog_id": 6,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 34,
+      "name": "Телевизор Sony Bravia 55",
+      "description": "Телевизор с технологией 4K и диагональю 55 дюймов",
+      "price": 1400,
+      "category_id": 3,
+      "catalog_id": 7,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 35,
+      "name": "Наушники Bose QuietComfort 35 II",
+      "description": "Наушники с активным шумоподавлением",
+      "price": 300,
+      "category_id": 3,
+      "catalog_id": 8,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 36,
+      "name": "Фотоаппарат Nikon Z6",
+      "description": "Полнокадровая беззеркальная камера",
+      "price": 2000,
+      "category_id": 4,
+      "catalog_id": 10,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 37,
+      "name": "Видеокамера Panasonic HC-V770",
+      "description": "Видеокамера для профессиональной съемки",
+      "price": 700,
+      "category_id": 4,
+      "catalog_id": 11,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 38,
+      "name": "Дрон Parrot Anafi",
+      "description": "Компактный дрон с 4K камерой",
+      "price": 600,
+      "category_id": 4,
+      "catalog_id": 12,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 39,
+      "name": "Игровая приставка Microsoft Xbox Series X",
+      "description": "Мощная игровая приставка от Microsoft",
+      "price": 500,
+      "category_id": 5,
+      "catalog_id": 13,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 40,
+      "name": "Игра Cyberpunk 2077",
+      "description": "Ожидаемая RPG игра",
+      "price": 60,
+      "category_id": 5,
+      "catalog_id": 14,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 41,
+      "name": "Контроллер Sony DualSense",
+      "description": "Беспроводной контроллер для PlayStation 5",
+      "price": 70,
+      "category_id": 5,
+      "catalog_id": 15,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 42,
+      "name": "Клавиатура Corsair K95",
+      "description": "Механическая клавиатура с RGB подсветкой",
+      "price": 150,
+      "category_id": 6,
+      "catalog_id": 16,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 43,
+      "name": "Мышь SteelSeries Rival 600",
+      "description": "Игровая мышь с двумя сенсорами",
+      "price": 80,
+      "category_id": 6,
+      "catalog_id": 17,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 44,
+      "name": "Внешний SSD WD My Passport 1TB",
+      "description": "Надежный внешний SSD",
+      "price": 150,
+      "category_id": 6,
+      "catalog_id": 18,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 45,
+      "name": "Ноутбук Acer Aspire 5",
+      "description": "Ноутбук с экраном 15.6 дюймов и процессором Intel",
+      "price": 700,
+      "category_id": 1,
+      "catalog_id": 1,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 46,
+      "name": "Компьютер Apple Mac Mini",
+      "description": "Компактный настольный компьютер от Apple",
+      "price": 800,
+      "category_id": 1,
+      "catalog_id": 2,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 47,
+      "name": "Десктоп Dell Inspiron",
+      "description": "Настольный компьютер для повседневных задач",
+      "price": 600,
+      "category_id": 1,
+      "catalog_id": 3,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 48,
+      "name": "Смартфон OnePlus 8T",
+      "description": "Смартфон с экраном 6.55 дюймов и быстрой зарядкой",
+      "price": 600,
+      "category_id": 2,
+      "catalog_id": 4,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 49,
+      "name": "Планшет Microsoft Surface Pro 7",
+      "description": "Планшет с возможностью использования как ноутбук",
+      "price": 900,
+      "category_id": 2,
+      "catalog_id": 5,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 50,
+      "name": "Умные часы Garmin Fenix 6",
+      "description": "Многофункциональные умные часы для спорта",
+      "price": 600,
+      "category_id": 2,
+      "catalog_id": 6,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 51,
+      "name": "Телевизор Philips Ambilight 55",
+      "description": "Телевизор с технологией Ambilight и диагональю 55 дюймов",
+      "price": 1300,
+      "category_id": 3,
+      "catalog_id": 7,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 52,
+      "name": "Колонка Bose SoundLink Mini II",
+      "description": "Портативная колонка с отличным звуком",
+      "price": 200,
+      "category_id": 3,
+      "catalog_id": 9,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 53,
+      "name": "Фотоаппарат Fujifilm X-T4",
+      "description": "Беззеркальная камера с матрицей APS-C",
+      "price": 1700,
+      "category_id": 4,
+      "catalog_id": 10,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 54,
+      "name": "Видеокамера Canon Vixia HF R800",
+      "description": "Компактная видеокамера для повседневной съемки",
+      "price": 300,
+      "category_id": 4,
+      "catalog_id": 11,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 55,
+      "name": "Дрон DJI Mini 2",
+      "description": "Компактный дрон с поддержкой 4K видео",
+      "price": 450,
+      "category_id": 4,
+      "catalog_id": 12,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 56,
+      "name": "Игровая приставка Nintendo Switch",
+      "description": "Гибридная игровая консоль от Nintendo",
+      "price": 300,
+      "category_id": 5,
+      "catalog_id": 13,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 57,
+      "name": "Игра Red Dead Redemption 2",
+      "description": "Популярная приключенческая игра",
+      "price": 60,
+      "category_id": 5,
+      "catalog_id": 14,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 58,
+      "name": "Контроллер Nintendo Switch Pro",
+      "description": "Беспроводной контроллер для Nintendo Switch",
+      "price": 70,
+      "category_id": 5,
+      "catalog_id": 15,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 59,
+      "name": "Клавиатура HyperX Alloy Elite 2",
+      "description": "Игровая клавиатура с RGB подсветкой",
+      "price": 130,
+      "category_id": 6,
+      "catalog_id": 16,
+      "image_url": "url_to_image"
+    },
+    {
+      "id": 60,
+      "name": "Мышь ASUS ROG Gladius II",
+      "description": "Игровая мышь с высокой точностью",
+      "price": 90,
+      "category_id": 6,
+      "catalog_id": 17,
+      "image_url": "url_to_image"
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "user_id": 1,
+      "total_price": 1000,
+      "created_at": "2022-01-01 00:00:00"
+    },
+    {
+      "id": 2,
+      "user_id": 2,
+      "total_price": 2000,
+      "created_at": "2024-10-12 00:00:00"
+    },
+    {
+      "id": 3,
+      "user_id": 1,
+      "total_price": 3000,
+      "created_at": "2022-01-01 00:00:00"
+    }
+  ],
+  "order_items": [
+    {
+      "id": 1,
+      "order_id": 1,
+      "product_id": 1,
+      "quantity": 1
+    },
+    {
+      "id": 2,
+      "order_id": 2,
+      "product_id": 2,
+      "quantity": 2
+    },
+    {
+      "id": 3,
+      "order_id": 3,
+      "product_id": 3,
+      "quantity": 3
+    }
+  ],
+  "sessions": {
+    "hash": "0.70653396762970643862900033127516508102416992187500",
+    "user": {
+      "id": 1,
+      "login": "admin",
+      "registered_at": "2022-01-01 00:00:00",
+      "role_id": 1
+    }
+  }
 }

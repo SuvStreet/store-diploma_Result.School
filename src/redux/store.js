@@ -5,7 +5,7 @@ import {
 	appReducer,
 	userReducer,
 	productsReducer,
-	categoriesReducer,
+	categoryReducer,
 	cartReducer,
 	orderReducer,
 } from './reducers'
@@ -14,7 +14,7 @@ const reducer = combineReducers({
 	app: appReducer,
 	user: userReducer,
 	products: productsReducer,
-	categories: categoriesReducer,
+	category: categoryReducer,
 	cart: cartReducer,
 	order: orderReducer,
 })

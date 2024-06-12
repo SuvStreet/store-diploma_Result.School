@@ -1,3 +1,3 @@
 export * from './select-user'
 export * from './select-user-login'
-export * from './select-categories'
+export * from './select-category'

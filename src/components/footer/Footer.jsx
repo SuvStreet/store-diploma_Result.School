@@ -12,6 +12,8 @@ const FooterContainer = ({ className }) => {
 
 export const Footer = styled(FooterContainer)`
 	height: 120px;
+	width: 100%;
+	box-shadow: 0 -5px 5px -5px #5e5e5e;
 `
 
 FooterContainer.propTypes = {

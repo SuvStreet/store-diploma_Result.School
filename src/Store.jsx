@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 import { Header, Footer, ProtectedRoute } from './components'
-import { Authorization, Registration } from './pages'
+import { Authorization, Catalog, Registration } from './pages'
 
 import styled from 'styled-components'
 
@@ -11,7 +11,7 @@ const AppContainer = styled.div`
 	align-items: center;
 	max-width: 1200px;
 	width: 100%;
-	height: 100dvh;
+	min-height: 100dvh;
 	margin: 0 auto;
 	text-align: center;
 	padding: 0 20px;
@@ -19,7 +19,7 @@ const AppContainer = styled.div`
 
 const Page = styled.div`
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	width: 100%;
 	flex: 1 0 auto;
 	padding: 20px 0;
@@ -49,9 +49,11 @@ export const Store = () => {
 						}
 					/>
 					<Route path='/profile' element={<div>Личный кабинет (Profile)</div>} />
-					<Route path='/catalog/:id' element={<div>Каталог (Catalog)</div>} />
+					<Route path='/catalog/:id' element={<Catalog />} >
+						<Route path='products/' element={<div>Каталог (Catalog)</div>} />
+						<Route path='products/:id' element={<div>Каталог (Catalog)</div>} />
+					</Route>
 					<Route path='/cart' element={<div>Корзина (Cart)</div>} />
-					<Route path='/product/:id' element={<div>Страница товара (Product)</div>} />
 					<Route path='*' element={<div>Ошибка</div>} />
 				</Routes>
 			</Page>

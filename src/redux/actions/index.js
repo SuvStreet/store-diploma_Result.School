@@ -1,3 +1,3 @@
 export * from './action-type'
 export * from './set-user'
-export * from './set-categories'
+export * from './set-category'
