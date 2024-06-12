@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 import { Header, Footer, ProtectedRoute } from './components'
-import { Authorization, Catalog, Registration } from './pages'
+import { Authorization, Catalog, Products, Registration } from './pages'
 
 import styled from 'styled-components'
 
@@ -49,10 +49,10 @@ export const Store = () => {
 						}
 					/>
 					<Route path='/profile' element={<div>Личный кабинет (Profile)</div>} />
-					<Route path='/catalog/:id' element={<Catalog />} >
-						<Route path='products/' element={<div>Каталог (Catalog)</div>} />
-						<Route path='products/:id' element={<div>Каталог (Catalog)</div>} />
+					<Route path='/catalog/:catalogId' element={<Catalog />} >
+						<Route path='products/:productsId' element={<Products />} />
 					</Route>
+					<Route path='/product/:id' element={<div>Карточка товара (Products)</div>} />
 					<Route path='/cart' element={<div>Корзина (Cart)</div>} />
 					<Route path='*' element={<div>Ошибка</div>} />
 				</Routes>

@@ -5,4 +5,5 @@ export const ERROR = {
 	USER_NOT_AUTHORIZED: 'Пользователь не авторизован',
 	USER_NOT_CREATED: 'Пользователь не создан',
 	CATEGORY_NOT_FOUND: 'Категория не найдена',
+	PRODUCTS_NOT_FOUND: 'Товыры выбранного каталога, не найдены',
 }

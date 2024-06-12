@@ -32,15 +32,13 @@
       "catalog": [
         {
           "id": 1,
-          "name": "Ноутбуки"
+          "name": "Ноутбуки",
+					"image_url": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2022/5/pr_2022_5_26_8_26_2_407_00.jpg"
         },
         {
           "id": 2,
-          "name": "Компьютеры"
-        },
-        {
-          "id": 3,
-          "name": "Десктопы"
+          "name": "Компьютеры",
+					"image_url": "https://img.mvideo.ru/Pdb/400308686m.jpg"
         }
       ]
     },
@@ -50,15 +48,18 @@
       "catalog": [
         {
           "id": 4,
-          "name": "Смартфоны"
+          "name": "Смартфоны",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_04.09.2023_12_22_5_50.png"
         },
         {
           "id": 5,
-          "name": "Планшеты"
+          "name": "Планшеты",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2022-09-15_14_7_39_468.png"
         },
         {
           "id": 6,
-          "name": "Умные часы"
+          "name": "Умные часы",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2022-09-15_14_11_23_258.png"
         }
       ]
     },
@@ -68,15 +69,18 @@
       "catalog": [
         {
           "id": 7,
-          "name": "Телевизоры"
+          "name": "Телевизоры",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2016-10-10_12_6_53_950.png"
         },
         {
           "id": 8,
-          "name": "Наушники"
+          "name": "Наушники",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2021-12-15_13_59_31_685.jpg"
         },
         {
           "id": 9,
-          "name": "Колонки"
+          "name": "Колонки",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2021-12-17_8_59_11_742.jpg"
         }
       ]
     },
@@ -86,15 +90,18 @@
       "catalog": [
         {
           "id": 10,
-          "name": "Фотоаппараты"
+          "name": "Фотоаппараты",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2016-10-10_15_3_21_126.png"
         },
         {
           "id": 11,
-          "name": "Видеокамеры"
+          "name": "Видеокамеры",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2020-05-28_14_9_9_204.png"
         },
         {
           "id": 12,
-          "name": "Дроны"
+          "name": "Дроны",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2020-02-26_15_28_40_498.png"
         }
       ]
     },
@@ -104,15 +111,18 @@
       "catalog": [
         {
           "id": 13,
-          "name": "Игровые приставки"
+          "name": "Игровые приставки",
+					"image_url": "https://img.mvideo.ru/Pdb/small_pic/480/40079651b.jpg"
         },
         {
           "id": 14,
-          "name": "Игры"
+          "name": "Игры",
+					"image_url": "https://img.mvideo.ru/Big/40078996bb.jpg"
         },
         {
           "id": 15,
-          "name": "Контроллеры"
+          "name": "Контроллеры",
+					"image_url": "https://img.mvideo.ru/Pdb/small_pic/200/400235085b.jpg"
         }
       ]
     },
@@ -122,15 +132,18 @@
       "catalog": [
         {
           "id": 16,
-          "name": "Клавиатуры"
+          "name": "Клавиатуры",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2021-12-15_13_39_47_529.jpg"
         },
         {
           "id": 17,
-          "name": "Мыши"
+          "name": "Мыши",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2021-12-15_13_38_26_495.jpg"
         },
         {
           "id": 18,
-          "name": "Внешние накопители"
+          "name": "Внешние накопители",
+					"image_url": "https://cdn.x-kom.pl/i/img/category/large,,cat_2021-12-15_13_26_27_377.jpg"
         }
       ]
     }
@@ -143,7 +156,7 @@
       "price": 1000,
       "category_id": 1,
       "catalog_id": 1,
-      "image_url": "url_to_image"
+      "image_url": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2024/3/pr_2024_3_21_14_46_10_294_00.jpg"
     },
     {
       "id": 2,
@@ -152,7 +165,7 @@
       "price": 2500,
       "category_id": 1,
       "catalog_id": 1,
-      "image_url": "url_to_image"
+      "image_url": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-large,,2023/10/pr_2023_10_31_7_13_37_534_00.jpg"
     },
     {
       "id": 3,
@@ -260,7 +273,7 @@
       "price": 1200,
       "category_id": 1,
       "catalog_id": 1,
-      "image_url": "url_to_image"
+      "image_url": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2021/11/pr_2021_11_12_10_25_57_845_00.jpg"
     },
     {
       "id": 15,
@@ -386,7 +399,7 @@
       "price": 1500,
       "category_id": 1,
       "catalog_id": 1,
-      "image_url": "url_to_image"
+      "image_url": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/2/pr_2023_2_7_14_4_14_324_00.jpg"
     },
     {
       "id": 29,
@@ -539,7 +552,7 @@
       "price": 700,
       "category_id": 1,
       "catalog_id": 1,
-      "image_url": "url_to_image"
+      "image_url": "https://cdn.x-kom.pl/i/setup/images/prod/big/product-new-big,,2023/11/pr_2023_11_6_13_21_10_206_00.jpg"
     },
     {
       "id": 46,
