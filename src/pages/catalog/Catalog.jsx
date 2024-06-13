@@ -82,12 +82,12 @@ export const Catalog = styled(CatalogContainer)`
 	}
 
 	.card__img {
-		width: 230px;
-		height: 200px;
+		max-width: 250px;
+		height: 230px;
 		overflow: hidden;
 
 		img {
-			width: 100%;
+			max-width: 100%;
 			height: 100%;
 			object-fit: cover;
 			border-radius: 10px;
@@ -102,6 +102,7 @@ export const Catalog = styled(CatalogContainer)`
 
 	h2 {
 		margin: 0;
+		margin-top: 10px;
 		font-size: 1.2rem;
 	}
 `

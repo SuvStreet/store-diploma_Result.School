@@ -34,7 +34,17 @@ const ErrorContainer = ({ className, titleError, ...props }) => {
 	)
 }
 
-export const Error = styled(ErrorContainer)``
+export const Error = styled(ErrorContainer)`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+
+	.error__text {
+		margin-top: 20px;
+		text-align: center;
+	}
+`
 
 ErrorContainer.propTypes = {
 	className: PropTypes.string.isRequired,
