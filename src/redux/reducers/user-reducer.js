@@ -3,8 +3,10 @@ import { ACTION_TYPE } from '../actions'
 const initialState = {
 	id: null,
 	login: '',
-	registeredAt: '',
-	roleId: null,
+	imgUserUrl: '',
+	role: null,
+	createdAt: '',
+	updatedAt: '',
 }
 
 export const userReducer = (state = initialState, action) => {

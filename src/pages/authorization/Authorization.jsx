@@ -1,26 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import PropType from 'prop-types'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button, FormError, H2, InfoAccount, Input, Loader } from '../../components'
-import { useServerRequest } from '../../hooks'
-import { setUser } from '../../redux/actions'
-import { setSessionHash } from '../../utils'
+import { selectAuthError, selectIsAuth, selectIsLoading } from '../../redux/selectors'
+import { authorization } from '../../redux/actions'
 
 import styled from 'styled-components'
 
 const authFormSchema = yup.object().shape({
-	login: yup
+	email: yup
 		.string()
-		.required('Логин не может быть пустым')
-		.matches(/^[A-Za-zА-Яа-я0-9]+$/, 'Неверный логин. Допускаются только буквы и цифры')
-		.min('4', 'Неверный логин. Минимальная длина логина - 4 символа')
-		.max('15', 'Неверный логин. Максимальная длина логина - 15 символов'),
-
+		.required('Электронная почта не может быть пустой')
+		.matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Некорректная электронная почта'),
 	password: yup
 		.string()
 		.required('Пароль не может быть пустым')
@@ -36,8 +32,9 @@ const AuthorizationContainer = ({ className }) => {
 	const navigate = useNavigate()
 	const [serverError, setServerError] = useState(null)
 	const dispatch = useDispatch()
-	const [isLoading, setIsLoading] = useState(false)
-	const requestServer = useServerRequest()
+	const error = useSelector(selectAuthError)
+	const isLoading = useSelector(selectIsLoading)
+	const isAuth = useSelector(selectIsAuth)
 
 	const {
 		register,
@@ -45,30 +42,28 @@ const AuthorizationContainer = ({ className }) => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			login: '',
+			email: '',
 			password: '',
 		},
 		resolver: yupResolver(authFormSchema),
 	})
 
-	const onSubmit = ({ login, password }) => {
-		setIsLoading(true)
-		requestServer('authorize', null, login, password)
-			.then(({ error, res }) => {
-				if (error) {
-					setServerError(error)
-					return
-				}
+	useEffect(() => {
+		if (error) {
+			setServerError(error)
+			return
+		}
 
-				const { id, login, registeredAt, roleId, sessionHash } = res
-				dispatch(setUser({ id, login, registeredAt, roleId }))
-				setSessionHash(sessionHash)
-				navigate('/')
-			})
-			.finally(() => setIsLoading(false))
+		if (isAuth) {
+			navigate('/')
+		}
+	}, [error, isAuth, navigate])
+
+	const onSubmit = ({ email, password }) => {
+		dispatch(authorization({ email, password }))
 	}
 
-	const formError = errors?.login?.message || errors?.password?.message
+	const formError = errors?.email?.message || errors?.password?.message
 
 	const errorMessage = formError || serverError
 
@@ -80,19 +75,15 @@ const AuthorizationContainer = ({ className }) => {
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							type='text'
-							{...register('login', { onChange: () => setServerError(null) })}
-							placeholder='Логин'
+							{...register('email', { onChange: () => setServerError(null) })}
+							placeholder='Email'
 						/>
 						<Input
 							type='password'
 							{...register('password', { onChange: () => setServerError(null) })}
 							placeholder='Пароль'
 						/>
-						<Button
-							type='submit'
-							disabled={!!formError || isLoading}
-							solid='#5e5e5e'
-						>
+						<Button type='submit' disabled={!!formError || isLoading} solid='#5e5e5e'>
 							{isLoading ? <Loader /> : 'Авторизоваться'}
 						</Button>
 						{errorMessage && <FormError>{errorMessage}</FormError>}
