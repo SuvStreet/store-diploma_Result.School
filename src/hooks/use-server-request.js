@@ -13,6 +13,7 @@ export const useServerRequest = () => {
 				'register',
 				'fetchCategory',
 				'fetchProducts',
+				'fetchCatalog',
 			].includes(operation)
 				? params
 				: [session, ...params]

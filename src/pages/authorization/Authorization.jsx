@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Button, H2, InfoAccount, Input, Loader } from '../../components'
+import { Button, FormError, H2, InfoAccount, Input, Loader } from '../../components'
 import { useServerRequest } from '../../hooks'
 import { setUser } from '../../redux/actions'
 import { setSessionHash } from '../../utils'
@@ -31,18 +31,6 @@ const authFormSchema = yup.object().shape({
 		.min('4', 'Неверный пороль. Минимальная длина пороля - 4 символа')
 		.max('30', 'Неверный пороль. Максимальная длина пороля - 30 символов'),
 })
-
-export const AuthFormError = styled.div`
-	background-color: #ff4f4f;
-	color: black;
-	// color: red;
-	padding: 10px 5px;
-	border-radius: 10px;
-	margin: 10px 0;
-	text-align: center;
-	font-size: 20px;
-	line-height: 1;
-`
 
 const AuthorizationContainer = ({ className }) => {
 	const navigate = useNavigate()
@@ -103,12 +91,11 @@ const AuthorizationContainer = ({ className }) => {
 						<Button
 							type='submit'
 							disabled={!!formError || isLoading}
-							height='40px'
 							solid='#5e5e5e'
 						>
 							{isLoading ? <Loader /> : 'Авторизоваться'}
 						</Button>
-						{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
+						{errorMessage && <FormError>{errorMessage}</FormError>}
 					</form>
 				</div>
 			</div>

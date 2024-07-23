@@ -1,4 +1,4 @@
-import { ENDPOINT } from '../constants'
+import { ENDPOINT, ROLE } from '../constants'
 import { transformUser } from '../transformers'
 
 export const addUser = (login, password) =>
@@ -11,7 +11,7 @@ export const addUser = (login, password) =>
 			login,
 			password,
 			registered_at: new Date().toISOString().substring(0, 16).replace('T', ' '),
-			role_id: 2,
+			role_id: ROLE.USER,
 		}),
 	})
 		.then((createdUser) => createdUser.json())

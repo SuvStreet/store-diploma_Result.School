@@ -6,9 +6,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
-import { Button, H2, InfoAccount, Input, Loader } from '../../components'
+import { Button, H2, InfoAccount, Input, FormError, Loader } from '../../components'
 import { useServerRequest } from '../../hooks'
-import { AuthFormError } from '../authorization/Authorization'
 import { setUser } from '../../redux/actions'
 import { setSessionHash } from '../../utils'
 
@@ -109,7 +108,7 @@ const RegistrationContainer = ({ className }) => {
 						>
 							{isLoading ? <Loader /> : 'Создать аккаунт'}
 						</Button>
-						{errorMessage && <AuthFormError>{errorMessage}</AuthFormError>}
+						{errorMessage && <FormError>{errorMessage}</FormError>}
 					</form>
 				</div>
 				<div className='link-auth'>

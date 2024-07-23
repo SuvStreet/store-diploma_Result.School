@@ -1,37 +1,63 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 
-import { useServerRequest } from '../../hooks'
-import { Error, Loader } from '../../components'
-import { setProducts } from '../../redux/actions'
+import { useInfiniteScroll, useServerRequest } from '../../hooks'
+import { Error, InfiniteScrollList, Loader } from '../../components'
+import { addProducts, setProducts } from '../../redux/actions'
 import { selectProducts } from '../../redux/selectors'
 import { CardProduct } from './components'
 
 import styled from 'styled-components'
 
 const ProductsContainer = ({ className }) => {
-	const [isLoading, setIsLoading] = useState(false)
 	const [titleError, setTitleError] = useState('')
 	const { productsId } = useParams()
 	const dispatch = useDispatch()
 	const products = useSelector(selectProducts)
 	const serverRequest = useServerRequest()
 
-	useEffect(() => {
-		setIsLoading(true)
-		serverRequest('fetchProducts', productsId)
-			.then(({ res, error }) => {
-				if (error) {
-					setTitleError(error)
-					return
-				}
+	const fetchProducts = async (page) => {
+		const response = await serverRequest('fetchProducts', productsId, page)
 
-				dispatch(setProducts(res.products))
-			})
-			.finally(() => setIsLoading(false))
-	}, [productsId, serverRequest, dispatch])
+		const {
+			error,
+			res: { products: newProducts, lastPage },
+		} = response
+
+		if (error) {
+			setTitleError(error)
+			return { error }
+		}
+
+		if (page === 1) {
+			dispatch(setProducts(newProducts))
+		} else {
+			dispatch(addProducts(newProducts))
+		}
+
+		return { lastPage }
+	}
+
+	const { isLoading, lastElementRef } = useInfiniteScroll(fetchProducts)
+
+	const renderProductRow = (product, ref) => {
+		const { name, description, price, imageUrl } = product
+
+		return (
+			<Link to={`/product/${product.id}`} key={product.id}>
+				<CardProduct
+					ref={ref}
+					product={product}
+					name={name}
+					description={description}
+					price={price}
+					imageUrl={imageUrl}
+				/>
+			</Link>
+		)
+	}
 
 	if (isLoading) {
 		return <Loader fontSize='150px' />
@@ -43,16 +69,11 @@ const ProductsContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			{products.map(({ id, name, description, price, imageUrl }) => (
-				<Link to={`/product/${id}`} key={id}>
-					<CardProduct
-						name={name}
-						description={description}
-						price={price}
-						imageUrl={imageUrl}
-					/>
-				</Link>
-			))}
+			<InfiniteScrollList
+				items={products}
+				renderItem={renderProductRow}
+				ref={lastElementRef}
+			/>
 		</div>
 	)
 }

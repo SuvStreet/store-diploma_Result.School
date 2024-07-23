@@ -1,16 +1,17 @@
 import propTypes from 'prop-types'
 
-import styled from 'styled-components'
 import { Tabs } from './components/tabs/Tabs'
+
+import styled from 'styled-components'
 
 const TabData = [
 	{
 		title: 'Пользователи',
-		content: 'Content 1',
+		path: '/admin/users',
 	},
 	{
 		title: 'Работа с товарами',
-		content: 'Content 2',
+		path: '/admin/products/add',
 	},
 ]
 

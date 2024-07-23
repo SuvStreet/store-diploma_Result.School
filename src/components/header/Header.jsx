@@ -51,7 +51,9 @@ export const Header = styled(HeaderContainer)`
 	box-shadow: 0 5px 5px -5px #5e5e5e;
 	position: sticky;
 	top: 0;
+	z-index: 10;
 	background-color: #242424;
+	/* height: 150px; */
 
 	& .header-info {
 		display: flex;
