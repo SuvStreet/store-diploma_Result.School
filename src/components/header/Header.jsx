@@ -3,31 +3,28 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Logo, Search, ControlPanel, CategoriesProducts } from './components'
-import { getSessionHash } from '../../utils'
-import { useServerRequest } from '../../hooks'
-import { setUser } from '../../redux/actions'
-import { selectUserLogin } from '../../redux/selectors'
+import { getUser, logout } from '../../redux/actions'
+import { selectIsAuth, selectUserLogin } from '../../redux/selectors'
 
 import styled from 'styled-components'
+import localStorageService from '../../../service/localStorageService'
 
 const HeaderContainer = ({ className }) => {
-	const serverRequest = useServerRequest()
 	const dispatch = useDispatch()
-	const session = getSessionHash()
+	const isAuth = useSelector(selectIsAuth)
 	const login = useSelector(selectUserLogin)
 
 	useEffect(() => {
-		if (session !== null) {
-			serverRequest('authorize', session, null, null).then(({ res, error }) => {
-				if (error) {
-					return
-				}
+		if (isAuth && !login) {
+			if (localStorageService.getGetTokenExpiresDate() > Date.now()) {
+				dispatch(logout())
 
-				const { id, login, registeredAt, roleId } = res
-				dispatch(setUser({ id, login, registeredAt, roleId }))
-			})
+				return
+			}
+
+			dispatch(getUser())
 		}
-	}, [session, serverRequest, dispatch])
+	}, [dispatch, isAuth, login])
 
 	return (
 		<>
@@ -53,7 +50,6 @@ export const Header = styled(HeaderContainer)`
 	top: 0;
 	z-index: 10;
 	background-color: #242424;
-	/* height: 150px; */
 
 	& .header-info {
 		display: flex;
