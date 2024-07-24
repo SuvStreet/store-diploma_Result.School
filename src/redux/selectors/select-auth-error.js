@@ -1,1 +1,1 @@
-export const selectAuthError = ({ app }) => app.error
+export const selectAuthError = ({ auth }) => auth.error

@@ -16,7 +16,7 @@ const HeaderContainer = ({ className }) => {
 
 	useEffect(() => {
 		if (isAuth && !login) {
-			if (localStorageService.getGetTokenExpiresDate() > Date.now()) {
+			if (localStorageService.getGetTokenExpiresDate() < Date.now()) {
 				dispatch(logout())
 
 				return

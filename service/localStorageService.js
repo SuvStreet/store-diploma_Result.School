@@ -2,7 +2,7 @@ const TOKEN_KEY = 'jwt-token'
 const EXPIRES_KEY = 'jwt-expires'
 
 export const setToken = ({ accessToken, expiresIn = '3600' }) => {
-	const expiresData = new Date().getTime() + expiresIn * 1000
+	const expiresData = expiresIn * 1000
 
 	localStorage.setItem(TOKEN_KEY, accessToken)
 	localStorage.setItem(EXPIRES_KEY, expiresData.toString())

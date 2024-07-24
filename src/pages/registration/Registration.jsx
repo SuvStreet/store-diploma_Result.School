@@ -1,26 +1,26 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Button, H2, InfoAccount, Input, FormError, Loader } from '../../components'
-import { useServerRequest } from '../../hooks'
-import { setUser } from '../../redux/actions'
-import { setSessionHash } from '../../utils'
+import { registration } from '../../redux/actions'
+import {
+	selectIsAuth,
+	selectRegistrationError,
+	selectRegistrationIsLoading,
+} from '../../redux/selectors'
 
 import styled from 'styled-components'
 
 const authFormSchema = yup.object().shape({
-	login: yup
+	email: yup
 		.string()
-		.required('Логин не может быть пустым')
-		.matches(/^[A-Za-zА-Яа-я0-9]+$/, 'Неверный логин. Допускаются только буквы и цифры')
-		.min('4', 'Неверный логин. Минимальная длина логина - 4 символа')
-		.max('15', 'Неверный логин. Максимальная длина логина - 15 символов'),
-
+		.required('Электронная почта не может быть пустой')
+		.matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Некорректная электронная почта'),
 	password: yup
 		.string()
 		.required('Пароль не может быть пустым')
@@ -30,7 +30,6 @@ const authFormSchema = yup.object().shape({
 		)
 		.min('4', 'Неверный пороль. Минимальная длина пороля - 4 символа')
 		.max('30', 'Неверный пороль. Максимальная длина пороля - 30 символов'),
-
 	passCheck: yup
 		.string()
 		.required('Поле "повтора пороля" не может быть пустым')
@@ -39,10 +38,11 @@ const authFormSchema = yup.object().shape({
 
 const RegistrationContainer = ({ className }) => {
 	const navigate = useNavigate()
-	const requestServer = useServerRequest()
 	const [serverError, setServerError] = useState(null)
-	const [isLoading, setIsLoading] = useState(false)
 	const dispatch = useDispatch()
+	const error = useSelector(selectRegistrationError)
+	const isAuth = useSelector(selectIsAuth)
+	const isLoading = useSelector(selectRegistrationIsLoading)
 
 	const {
 		register,
@@ -50,32 +50,30 @@ const RegistrationContainer = ({ className }) => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			login: '',
+			email: '',
 			password: '',
 		},
 		resolver: yupResolver(authFormSchema),
 	})
 
-	const onSubmit = ({ login, password }) => {
-		setIsLoading(true)
-		requestServer('register', login, password)
-			.then(({ error, res }) => {
-				if (error) {
-					setServerError(error)
-					return
-				}
+	useEffect(() => {
+		if (error) {
+			setServerError(error)
+		}
 
-				const { id, login, registeredAt, roleId, sessionHash } = res
+		if (isAuth) {
+			navigate('/')
+		}
+	}, [error, isAuth, navigate])
 
-				dispatch(setUser({ id, login, registeredAt, roleId }))
-				setSessionHash(sessionHash)
-				navigate('/')
-			})
-			.finally(() => setIsLoading(false))
+	const onSubmit = ({ email, password }) => {
+		dispatch(
+			registration({ email, password, created_at: new Date(), updated_at: new Date() }),
+		)
 	}
 
 	const formError =
-		errors?.login?.message || errors?.password?.message || errors?.passCheck?.message
+		errors?.email?.message || errors?.password?.message || errors?.passCheck?.message
 
 	const errorMessage = formError || serverError
 
@@ -87,7 +85,7 @@ const RegistrationContainer = ({ className }) => {
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<Input
 							type='text'
-							{...register('login', { onChange: () => setServerError(null) })}
+							{...register('email', { onChange: () => setServerError(null) })}
 							placeholder='Логин...'
 						/>
 						<Input

@@ -5,7 +5,7 @@ const initialState = localStorageService.getAccessToken()
 	? { isAuth: true, isLoading: false, error: null }
 	: { isAuth: false, isLoading: false, error: null }
 
-export const appReducer = (state = initialState, action) => {
+export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ACTION_TYPE.AUTH_REQUEST:
 			return {

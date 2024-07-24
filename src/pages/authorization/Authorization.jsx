@@ -7,7 +7,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button, FormError, H2, InfoAccount, Input, Loader } from '../../components'
-import { selectAuthError, selectIsAuth, selectIsLoading } from '../../redux/selectors'
+import { selectAuthError, selectIsAuth, selectAuthIsLoading } from '../../redux/selectors'
 import { authorization } from '../../redux/actions'
 
 import styled from 'styled-components'
@@ -33,7 +33,7 @@ const AuthorizationContainer = ({ className }) => {
 	const [serverError, setServerError] = useState(null)
 	const dispatch = useDispatch()
 	const error = useSelector(selectAuthError)
-	const isLoading = useSelector(selectIsLoading)
+	const isLoading = useSelector(selectAuthIsLoading)
 	const isAuth = useSelector(selectIsAuth)
 
 	const {

@@ -1,1 +1,1 @@
-export const selectIsAuth = ({ app }) => app.isAuth
+export const selectIsAuth = ({ auth }) => auth.isAuth

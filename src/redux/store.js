@@ -2,7 +2,8 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { thunk } from 'redux-thunk'
 
 import {
-	appReducer,
+	authReducer,
+	registerReducer,
 	userReducer,
 	productsReducer,
 	categoryReducer,
@@ -11,7 +12,8 @@ import {
 } from './reducers'
 
 const reducer = combineReducers({
-	app: appReducer,
+	auth: authReducer,
+	register: registerReducer,
 	user: userReducer,
 	products: productsReducer,
 	category: categoryReducer,

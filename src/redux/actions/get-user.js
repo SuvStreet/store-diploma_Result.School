@@ -1,5 +1,6 @@
 import { URL } from '../../constants/url'
 import { request } from '../../utils'
+import { logout } from './logout'
 import { setUser } from './set-user'
 
 export const getUser = () => async (dispatch) => {
@@ -7,7 +8,11 @@ export const getUser = () => async (dispatch) => {
 		const { error, data } = await request(URL.USER, 'GET')
 
 		if (error) {
-			console.error('error ', error)
+			if (error === 'Авторизованного пользователя нет!') {
+				dispatch(logout())
+				return
+			}
+			console.error('error', error)
 			return
 		}
 
