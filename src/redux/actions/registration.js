@@ -1,8 +1,8 @@
-import { setToken } from "../../../service/localStorageService"
-import { URL } from "../../constants/url"
-import { request } from "../../utils"
-import { ACTION_TYPE } from "./action-type"
-import { setUser } from "./set-user"
+import { setToken } from '../../../service/localStorageService'
+import { URL } from '../../constants/url'
+import { request } from '../../utils'
+import { ACTION_TYPE } from './action-type'
+import { setUser } from './set-user'
 
 export const registration = (arg) => async (dispatch) => {
 	try {

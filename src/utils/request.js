@@ -9,6 +9,5 @@ export const request = (url, method = 'GET', data = null) => {
 		},
 		method,
 		body: data && JSON.stringify(data),
-	})
-	.then((response) => response.json())
+	}).then((response) => response.json())
 }
