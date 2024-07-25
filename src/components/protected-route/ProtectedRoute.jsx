@@ -1,11 +1,11 @@
 import PropType from 'prop-types'
 import { Navigate } from 'react-router-dom'
 
-import { getSessionHash } from '../../utils'
+import localStorageService from '../../service/localStorageService'
 
 export const ProtectedRoute = ({ children, redirectTo }) => {
-	const session = getSessionHash()
-	return session ? <Navigate to={redirectTo} /> : children
+	const session = localStorageService.getAccessToken()
+	return session ? children : <Navigate to={redirectTo} />
 }
 
 ProtectedRoute.propTypes = {

@@ -1,4 +1,4 @@
-import localStorageService from '../../service/localStorageService'
+import localStorageService from '../service/localStorageService'
 import { URL } from '../constants/url'
 
 export const request = (url, method = 'GET', data = null) => {

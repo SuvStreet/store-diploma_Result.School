@@ -2,6 +2,7 @@ import { ACTION_TYPE } from '../actions'
 
 const initialState = {
 	id: null,
+	email: '',
 	login: '',
 	imgUserUrl: '',
 	roleId: null,
@@ -15,6 +16,11 @@ export const userReducer = (state = initialState, action) => {
 			return {
 				...state,
 				...action.payload,
+			}
+
+		case ACTION_TYPE.RESET_USER:
+			return {
+				...initialState,
 			}
 		default:
 			return state

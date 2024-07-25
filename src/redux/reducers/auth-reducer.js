@@ -1,4 +1,4 @@
-import localStorageService from '../../../service/localStorageService'
+import localStorageService from '../../service/localStorageService'
 import { ACTION_TYPE } from '../actions'
 
 const initialState = localStorageService.getAccessToken()

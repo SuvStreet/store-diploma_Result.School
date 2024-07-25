@@ -1,10 +1,21 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 
 import { Header, Footer, ProtectedRoute } from './components'
-import { Authorization, Catalog, Products, Registration, Admin, Main, Product } from './pages'
+import {
+	Authorization,
+	Catalog,
+	Products,
+	Registration,
+	Admin,
+	Main,
+	Product,
+	Profile,
+} from './pages'
 import { WorkWithProducts } from './pages/admin/components'
 
 import styled from 'styled-components'
+import { useSelector } from 'react-redux'
+import { selectIsAuth } from './redux/selectors'
 
 const AppContainer = styled.div`
 	display: flex;
@@ -27,6 +38,12 @@ const Page = styled.div`
 `
 
 export const Store = () => {
+	const isAuth = useSelector(selectIsAuth)
+
+	const isAuthorized = ({ children, redirectTo }) => {
+		return isAuth ? <Navigate to={redirectTo} /> : children
+	}
+
 	return (
 		<AppContainer>
 			<Header />
@@ -35,21 +52,26 @@ export const Store = () => {
 					<Route path='/' element={<Main />} />
 					<Route
 						path='/authorize'
-						element={
-							<ProtectedRoute redirectTo='/'>
-								<Authorization />
-							</ProtectedRoute>
-						}
+						element={isAuthorized({
+							children: <Authorization />,
+							redirectTo: '/',
+						})}
 					/>
 					<Route
 						path='/register'
+						element={isAuthorized({
+							children: <Registration />,
+							redirectTo: '/',
+						})}
+					/>
+					<Route
+						path='/profile'
 						element={
-							<ProtectedRoute redirectTo='/'>
-								<Registration />
+							<ProtectedRoute redirectTo='/authorize'>
+								<Profile />
 							</ProtectedRoute>
 						}
 					/>
-					<Route path='/profile' element={<div>Личный кабинет (Profile)</div>} />
 					<Route path='/catalog/:catalogId' element={<Catalog />}>
 						<Route path='products/:productsId' element={<Products />} />
 					</Route>

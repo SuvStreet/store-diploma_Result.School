@@ -7,7 +7,7 @@ import { getUser, logout } from '../../redux/actions'
 import { selectIsAuth, selectUserLogin } from '../../redux/selectors'
 
 import styled from 'styled-components'
-import localStorageService from '../../../service/localStorageService'
+import localStorageService from '../../service/localStorageService'
 
 const HeaderContainer = ({ className }) => {
 	const dispatch = useDispatch()

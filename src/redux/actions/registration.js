@@ -1,4 +1,4 @@
-import { setToken } from '../../../service/localStorageService'
+import { setToken } from '../../service/localStorageService'
 import { URL } from '../../constants/url'
 import { request } from '../../utils'
 import { ACTION_TYPE } from './action-type'
