@@ -1,11 +1,12 @@
-import { faGear } from '@fortawesome/free-solid-svg-icons'
 import PropTypes from 'prop-types'
 
-import styled from 'styled-components'
+import { faGear, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { Icon } from '../icon/Icon'
 
+import styled from 'styled-components'
+
 const ErrorContainer = ({ className, titleError, ...props }) => {
-	const { spin } = props
+	const { spin, noAccess } = props
 
 	return (
 		<div className={className}>
@@ -25,6 +26,18 @@ const ErrorContainer = ({ className, titleError, ...props }) => {
 						cursor='default'
 						spin
 						spinReverse
+					/>
+				</>
+			)}
+
+			{noAccess && (
+				<>
+					<Icon
+						fontSize='3rem'
+						margin='20px auto 0'
+						iconCode={faTriangleExclamation}
+						cursor='default'
+						bounce
 					/>
 				</>
 			)}
@@ -49,5 +62,6 @@ export const Error = styled(ErrorContainer)`
 ErrorContainer.propTypes = {
 	className: PropTypes.string.isRequired,
 	titleError: PropTypes.string.isRequired,
-	spin: PropTypes.bool.isRequired,
+	spin: PropTypes.bool,
+	noAccess: PropTypes.bool,
 }

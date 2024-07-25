@@ -3,4 +3,5 @@ export const URL = {
 	USER: '/user',
 	AUTHORIZE: '/authorize',
 	REGISTER: '/register',
+	GET_PRODUCT: '/product',
 }

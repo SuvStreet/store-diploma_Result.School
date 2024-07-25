@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 
 import { Header, Footer, ProtectedRoute } from './components'
-import { Authorization, Catalog, Products, Registration, Admin } from './pages'
+import { Authorization, Catalog, Products, Registration, Admin, Main, Product } from './pages'
 import { WorkWithProducts } from './pages/admin/components'
 
 import styled from 'styled-components'
@@ -32,7 +32,7 @@ export const Store = () => {
 			<Header />
 			<Page>
 				<Routes>
-					<Route path='/' element={<div>Главная страница (Home)</div>} />
+					<Route path='/' element={<Main />} />
 					<Route
 						path='/authorize'
 						element={
@@ -53,7 +53,7 @@ export const Store = () => {
 					<Route path='/catalog/:catalogId' element={<Catalog />}>
 						<Route path='products/:productsId' element={<Products />} />
 					</Route>
-					<Route path='/product/:id' element={<div>Карточка товара (Products)</div>} />
+					<Route path='/product/:id' element={<Product />} />
 					<Route path='/admin/*' element={<Admin />}>
 						<Route path='users' element={<div>Редактирование пользователей</div>} />
 						<Route path='products/add' element={<WorkWithProducts />} />

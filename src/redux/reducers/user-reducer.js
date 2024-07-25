@@ -4,7 +4,7 @@ const initialState = {
 	id: null,
 	login: '',
 	imgUserUrl: '',
-	role: null,
+	roleId: null,
 	createdAt: '',
 	updatedAt: '',
 }
