@@ -7,15 +7,22 @@ import styled from 'styled-components'
 import { transformDate } from '../../utils'
 import { ROLE } from '../../constants'
 import { logout } from '../../redux/actions'
+import { Outlet, useMatch, useNavigate } from 'react-router-dom'
 
 const ProfileContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const user = useSelector(selectUser)
 	const isLoading = useSelector(selectAuthIsLoading)
 	const error = useSelector(selectAuthError)
+	const navigate = useNavigate()
+	const isEdit = !!useMatch('/profile/:id/edit')
 
 	const handleLogout = () => {
 		dispatch(logout())
+	}
+
+	const handleEdit = () => {
+		navigate(`/profile/${user.id}/edit`)
 	}
 
 	if (isLoading) {
@@ -24,6 +31,10 @@ const ProfileContainer = ({ className }) => {
 
 	if (error) {
 		return <Error titleError={error} noAccess />
+	}
+
+	if (isEdit) {
+		return <Outlet />
 	}
 
 	return (
@@ -35,7 +46,7 @@ const ProfileContainer = ({ className }) => {
 				<div className='profile__title-container'>
 					<div className='profile__title-info'>
 						<H2 className='profile__title'>О себе</H2>
-						<Button className='profile__button'>Редактировать</Button>
+						<Button className='profile__button' onClick={() => handleEdit()}>Редактировать</Button>
 						<Button className='profile__button' solid='red' onClick={() => handleLogout()}>Выйти</Button>
 					</div>
 					<div className='profile__info'>
@@ -62,6 +73,7 @@ const ProfileContainer = ({ className }) => {
 					</div>
 				</div>
 			</div>
+			{/* TODO: сделать отслеживание заказов и комментариев к товарам */}
 			{/* <div className='profile__history'>
 				<H2 className='profile__title'>История покупок</H2>
 			</div> */}

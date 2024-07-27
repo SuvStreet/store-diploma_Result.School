@@ -5,13 +5,17 @@ import { Icon } from '../../../icon/Icon'
 
 import { faHeart, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import { useSelector } from 'react-redux'
+import { selectUserId } from '../../../../redux/selectors'
+
 import styled from 'styled-components'
 
 const ControlPanelContainer = ({ className, userLogin }) => {
 	const navigate = useNavigate()
+	const userId = useSelector(selectUserId)
 
 	const handleClickUser = () => {
-		navigate(!userLogin ? '/authorize' : '/profile')
+		navigate(!userLogin ? '/authorize' : `/profile/${userId}`)
 	}
 
 	return (

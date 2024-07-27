@@ -6,8 +6,8 @@ const initialState = {
 	login: '',
 	imgUserUrl: '',
 	roleId: null,
-	createdAt: '',
-	updatedAt: '',
+	createdAt: null,
+	updatedAt: null,
 }
 
 export const userReducer = (state = initialState, action) => {

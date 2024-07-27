@@ -1,11 +1,20 @@
 export const transformDate = (date) => {
-	return new Date(date).toLocaleString('ru-RU', {
-		timeZone: 'UTC',
+	// Получаем время с сервера (например, '2023-07-27T12:00:00Z')
+	const serverTime = new Date(date)
+
+	// Получаем часовой пояс пользователя
+	const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+	// Форматируем время в часовом поясе пользователя
+	const userTime = new Intl.DateTimeFormat('ru-RU', {
+		timeZone: userTimeZone,
 		year: 'numeric',
-		month: '2-digit',
-		day: '2-digit',
-		hour: '2-digit',
-		minute: '2-digit',
-		second: '2-digit',
-	})
+		month: 'long',
+		day: 'numeric',
+		hour: 'numeric',
+		minute: 'numeric',
+		second: 'numeric',
+	}).format(serverTime)
+
+	return userTime
 }

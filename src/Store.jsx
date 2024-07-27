@@ -13,9 +13,11 @@ import {
 } from './pages'
 import { WorkWithProducts } from './pages/admin/components'
 
-import styled from 'styled-components'
 import { useSelector } from 'react-redux'
 import { selectIsAuth } from './redux/selectors'
+import { EditForm } from './pages/profile/components'
+
+import styled from 'styled-components'
 
 const AppContainer = styled.div`
 	display: flex;
@@ -65,13 +67,15 @@ export const Store = () => {
 						})}
 					/>
 					<Route
-						path='/profile'
+						path='/profile/:id'
 						element={
 							<ProtectedRoute redirectTo='/authorize'>
 								<Profile />
 							</ProtectedRoute>
 						}
-					/>
+					>
+						<Route path='edit' element={<EditForm />} />
+					</Route>
 					<Route path='/catalog/:catalogId' element={<Catalog />}>
 						<Route path='products/:productsId' element={<Products />} />
 					</Route>
