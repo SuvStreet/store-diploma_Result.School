@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ProductRow, TableRow } from './components'
 import { Loader, InfiniteScrollList } from '../../../../../../components'
 import { useServerRequest, useInfiniteScroll } from '../../../../../../hooks'
-import { selectProducts } from '../../../../../../redux/selectors'
+// import { selectProducts } from '../../../../../../redux/selectors'
 import {
 	RESET_LIST_PRODUCTS,
 	addProducts,
@@ -16,7 +16,7 @@ import { useEffect } from 'react'
 
 const ProductListContainer = ({ className }) => {
 	const dispatch = useDispatch()
-	const products = useSelector(selectProducts)
+	// const products = useSelector(selectProducts)
 	const serverRequest = useServerRequest()
 
 	useEffect(() => {

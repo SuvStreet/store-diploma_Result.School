@@ -7,8 +7,12 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 import { Button, FormError, H2, InfoAccount, Input, Loader } from '../../components'
-import { selectAuthError, selectIsAuth, selectAuthIsLoading } from '../../redux/selectors'
-import { authorization } from '../../redux/actions'
+import {
+	selectAppError,
+	selectAppIsAuth,
+	selectAppIsLoading,
+} from '../../redux/selectors'
+import { ACTION_TYPE, authorization } from '../../redux/actions'
 
 import styled from 'styled-components'
 
@@ -32,9 +36,9 @@ const AuthorizationContainer = ({ className }) => {
 	const navigate = useNavigate()
 	const [serverError, setServerError] = useState(null)
 	const dispatch = useDispatch()
-	const error = useSelector(selectAuthError)
-	const isLoading = useSelector(selectAuthIsLoading)
-	const isAuth = useSelector(selectIsAuth)
+	const error = useSelector(selectAppError)
+	const isLoading = useSelector(selectAppIsLoading)
+	const isAuth = useSelector(selectAppIsAuth)
 
 	const {
 		register,
@@ -50,14 +54,15 @@ const AuthorizationContainer = ({ className }) => {
 
 	useEffect(() => {
 		if (error) {
+			dispatch({ type: ACTION_TYPE.RESET_ERROR })
 			setServerError(error)
 			return
 		}
 
-		if (isAuth) {
+		if (isAuth && !error) {
 			navigate('/')
 		}
-	}, [error, isAuth, navigate])
+	}, [error, isAuth, navigate, dispatch])
 
 	const onSubmit = ({ email, password }) => {
 		dispatch(authorization({ email, password }))

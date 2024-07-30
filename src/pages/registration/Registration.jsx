@@ -7,11 +7,11 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 
 import { Button, H2, InfoAccount, Input, FormError, Loader } from '../../components'
-import { registration } from '../../redux/actions'
+import { ACTION_TYPE, registration } from '../../redux/actions'
 import {
-	selectIsAuth,
-	selectRegistrationError,
-	selectRegistrationIsLoading,
+	selectAppIsAuth,
+	selectAppError,
+	selectAppIsLoading,
 } from '../../redux/selectors'
 
 import styled from 'styled-components'
@@ -40,9 +40,9 @@ const RegistrationContainer = ({ className }) => {
 	const navigate = useNavigate()
 	const [serverError, setServerError] = useState(null)
 	const dispatch = useDispatch()
-	const error = useSelector(selectRegistrationError)
-	const isAuth = useSelector(selectIsAuth)
-	const isLoading = useSelector(selectRegistrationIsLoading)
+	const error = useSelector(selectAppError)
+	const isAuth = useSelector(selectAppIsAuth)
+	const isLoading = useSelector(selectAppIsLoading)
 
 	const {
 		register,
@@ -58,17 +58,18 @@ const RegistrationContainer = ({ className }) => {
 
 	useEffect(() => {
 		if (error) {
+			dispatch({ type: ACTION_TYPE.RESET_ERROR })
 			setServerError(error)
 		}
 
-		if (isAuth) {
+		if (isAuth && !error) {
 			navigate('/')
 		}
-	}, [error, isAuth, navigate])
+	}, [error, isAuth, navigate, dispatch])
 
 	const onSubmit = ({ email, password }) => {
 		dispatch(
-			registration({ email, password, created_at: new Date(), updated_at: new Date() }),
+			registration({ email, password }),
 		)
 	}
 

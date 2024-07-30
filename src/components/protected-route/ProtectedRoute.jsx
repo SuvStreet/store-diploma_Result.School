@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom'
 import localStorageService from '../../service/localStorageService'
 
 export const ProtectedRoute = ({ children, redirectTo }) => {
-	const session = localStorageService.getAccessToken()
+	const session = localStorageService.getAuth()
 	return session ? children : <Navigate to={redirectTo} />
 }
 

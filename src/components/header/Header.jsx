@@ -3,25 +3,18 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Logo, Search, ControlPanel, CategoriesProducts } from './components'
-import { getUser, logout } from '../../redux/actions'
-import { selectIsAuth, selectUserLogin } from '../../redux/selectors'
+import { getUser } from '../../redux/actions'
+import { selectAppIsAuth, selectUserLogin } from '../../redux/selectors'
 
 import styled from 'styled-components'
-import localStorageService from '../../service/localStorageService'
 
 const HeaderContainer = ({ className }) => {
 	const dispatch = useDispatch()
-	const isAuth = useSelector(selectIsAuth)
+	const isAuth = useSelector(selectAppIsAuth)
 	const login = useSelector(selectUserLogin)
 
 	useEffect(() => {
-		if (isAuth && !login) {
-			if (localStorageService.getGetTokenExpiresDate() < Date.now()) {
-				dispatch(logout())
-
-				return
-			}
-
+		if(isAuth && !login) {
 			dispatch(getUser())
 		}
 	}, [dispatch, isAuth, login])

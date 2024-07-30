@@ -4,4 +4,5 @@ export const URL = {
 	AUTHORIZE: '/authorize',
 	REGISTER: '/register',
 	GET_PRODUCT: '/product',
+	LOGOUT: '/logout',
 }

@@ -6,13 +6,14 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-import { Input, Button, Loader, Error, FormError } from '../../../../components'
+import { Input, Button, Loader, FormError, Error } from '../../../../components'
 import {
 	selectAppError,
 	selectAppIsLoading,
 	selectUser,
 } from '../../../../redux/selectors'
 import { ACTION_TYPE, editUser } from '../../../../redux/actions'
+import { REGEX } from '../../../../constants'
 
 import styled from 'styled-components'
 
@@ -20,17 +21,11 @@ const editProfileUserFormSchema = yup.object().shape({
 	imgUserUrl: yup
 		.string()
 		.required('Изображение не может быть пустым')
-		.matches(
-			/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()!@:%_\+.~#?&\/\/=]*)/,
-			'Некорректный URL',
-		),
+		.matches(REGEX.URL, 'Некорректный URL'),
 	login: yup
 		.string()
 		.required('Логин не может быть пустым')
-		.matches(
-			/^[A-Za-zА-Яа-я0-9]+$/,
-			'Неверно заполнен логин. Допускаются только буквы и цифры',
-		)
+		.matches(REGEX.LOGIN, 'Неверно заполнен логин. Допускаются только буквы и цифры')
 		.min('4', 'Неверный логин. Минимальная длина логина - 4 символа')
 		.max('30', 'Неверный логин. Максимальная длина логина - 30 символов'),
 })
@@ -46,11 +41,12 @@ const EditFormContainer = ({ className }) => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
-			imgUserUrl: user.imgUserUrl,
-			login: user.login,
+			imgUserUrl: '',
+			login: '',
 		},
 		resolver: yupResolver(editProfileUserFormSchema),
 	})
@@ -61,17 +57,24 @@ const EditFormContainer = ({ className }) => {
 			return
 		}
 
-		setIsSubmitted(true)
-
 		dispatch(
 			editUser(user.id, {
 				imgUserUrl,
 				login,
 			}),
 		)
+
+		setIsSubmitted(true)
 	}
 
 	useEffect(() => {
+		if (user.id && !isLoading && !error) {
+			reset({
+				imgUserUrl: user.imgUserUrl,
+				login: user.login,
+			})
+		}
+
 		if (error) {
 			setIsSubmitted(false)
 		}
@@ -79,7 +82,7 @@ const EditFormContainer = ({ className }) => {
 		if (isSubmitted && !isLoading && !error) {
 			navigate(`/profile/${user.id}`)
 		}
-	}, [isSubmitted, isLoading, error, navigate, user.id])
+	}, [isSubmitted, isLoading, navigate, user, reset])
 
 	const handleChange = () => {
 		if (error) {
@@ -90,6 +93,14 @@ const EditFormContainer = ({ className }) => {
 	const formError = errors?.imgUserUrl?.message || errors?.login?.message
 
 	const errorMessage = formError || error
+
+	if (!user.id && isLoading) {
+		return <Loader fontSize='150px' />
+	}
+
+	if(!user.id && error) {
+		return <Error titleError={error} noAccess />
+	}
 
 	return (
 		<form className={className} onSubmit={handleSubmit(onSubmit)}>

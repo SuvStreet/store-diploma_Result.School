@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 
 import { useInfiniteScroll, useServerRequest } from '../../hooks'
 import { Error, InfiniteScrollList, Loader } from '../../components'
 import { addProducts, setProducts } from '../../redux/actions'
-import { selectProducts } from '../../redux/selectors'
 import { CardProduct } from './components'
 
 import styled from 'styled-components'
@@ -15,7 +14,6 @@ const ProductsContainer = ({ className }) => {
 	const [titleError, setTitleError] = useState('')
 	const { productsId } = useParams()
 	const dispatch = useDispatch()
-	const products = useSelector(selectProducts)
 	const serverRequest = useServerRequest()
 
 	const fetchProducts = async (page) => {
@@ -70,7 +68,7 @@ const ProductsContainer = ({ className }) => {
 	return (
 		<div className={className}>
 			<InfiniteScrollList
-				items={products}
+				items={[]}
 				renderItem={renderProductRow}
 				ref={lastElementRef}
 			/>

@@ -1,30 +1,21 @@
-const TOKEN_KEY = 'jwt-token'
-const EXPIRES_KEY = 'jwt-expires'
+const SET_AUTH = 'set-auth'
 
-export const setToken = ({ accessToken, expiresIn = '3600' }) => {
-	const expiresData = expiresIn * 1000
-
-	localStorage.setItem(TOKEN_KEY, accessToken)
-	localStorage.setItem(EXPIRES_KEY, expiresData.toString())
+const setAuth = (auth) => {
+	localStorage.setItem(SET_AUTH, auth)
 }
 
-const getAccessToken = () => {
-	return localStorage.getItem(TOKEN_KEY)
-}
-const getGetTokenExpiresDate = () => {
-	return localStorage.getItem(EXPIRES_KEY)
+const getAuth = () => {
+	return localStorage.getItem(SET_AUTH)
 }
 
 const removeAuthData = () => {
-	localStorage.removeItem(TOKEN_KEY)
-	localStorage.removeItem(EXPIRES_KEY)
+	localStorage.removeItem(SET_AUTH)
 }
 
 const localStorageService = {
-	getAccessToken,
 	removeAuthData,
-	getGetTokenExpiresDate,
-	setToken,
+	getAuth,
+	setAuth,
 }
 
 export default localStorageService

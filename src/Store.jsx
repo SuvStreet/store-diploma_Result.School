@@ -14,7 +14,7 @@ import {
 import { WorkWithProducts } from './pages/admin/components'
 
 import { useSelector } from 'react-redux'
-import { selectIsAuth } from './redux/selectors'
+import { selectAppIsAuth } from './redux/selectors'
 import { EditForm } from './pages/profile/components'
 
 import styled from 'styled-components'
@@ -40,7 +40,7 @@ const Page = styled.div`
 `
 
 export const Store = () => {
-	const isAuth = useSelector(selectIsAuth)
+	const isAuth = useSelector(selectAppIsAuth)
 
 	const isAuthorized = ({ children, redirectTo }) => {
 		return isAuth ? <Navigate to={redirectTo} /> : children

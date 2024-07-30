@@ -1,6 +1,6 @@
 import PropsTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAuthError, selectAuthIsLoading, selectUser } from '../../redux/selectors'
+import { selectAppError, selectAppIsLoading, selectUser } from '../../redux/selectors'
 import { Button, Error, H2, Loader } from '../../components'
 
 import styled from 'styled-components'
@@ -12,8 +12,8 @@ import { Outlet, useMatch, useNavigate } from 'react-router-dom'
 const ProfileContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const user = useSelector(selectUser)
-	const isLoading = useSelector(selectAuthIsLoading)
-	const error = useSelector(selectAuthError)
+	const isLoading = useSelector(selectAppIsLoading)
+	const error = useSelector(selectAppError)
 	const navigate = useNavigate()
 	const isEdit = !!useMatch('/profile/:id/edit')
 
@@ -25,11 +25,11 @@ const ProfileContainer = ({ className }) => {
 		navigate(`/profile/${user.id}/edit`)
 	}
 
-	if (isLoading) {
+	if (isLoading && !isEdit) {
 		return <Loader fontSize='150px' />
 	}
 
-	if (error) {
+	if (error && !isEdit) {
 		return <Error titleError={error} noAccess />
 	}
 

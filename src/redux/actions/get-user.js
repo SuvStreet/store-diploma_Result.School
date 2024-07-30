@@ -6,25 +6,32 @@ import { setUser } from './set-user'
 
 export const getUser = () => async (dispatch) => {
 	try {
-		dispatch({ type: ACTION_TYPE.AUTH_REQUEST })
+		dispatch({ type: ACTION_TYPE.REQUEST })
 
 		const { error, data } = await request(URL.USER, 'GET')
 
 		if (error) {
-			if (error === 'Авторизованного пользователя нет!') {
+			if (
+				error === 'Авторизованного пользователя нет!' ||
+				error === 'jwt expired' ||
+				error === 'jwt must be provided'
+			) {
 				dispatch(logout())
-				dispatch({ type: ACTION_TYPE.AUTH_ERROR, payload: error })
+				dispatch({
+					type: ACTION_TYPE.REQUEST_ERROR,
+					payload: 'Требуется авторизация!',
+				})
 				return
 			}
 
-			dispatch({ type: ACTION_TYPE.AUTH_ERROR, payload: error })
-			console.error('error', error)
+			dispatch({ type: ACTION_TYPE.REQUEST_ERROR, payload: error })
 			return
 		}
 
+		dispatch({ type: ACTION_TYPE.SET_AUTH })
 		dispatch(setUser(data.user))
-		dispatch({ type: ACTION_TYPE.AUTH_SUCCESS })
 	} catch (error) {
+		dispatch({ type: ACTION_TYPE.REQUEST_ERROR, payload: error })
 		console.error('error ', error)
 	}
 }

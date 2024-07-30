@@ -1,8 +1,10 @@
+import localStorageService from '../../service/localStorageService'
 import { ACTION_TYPE } from '../actions'
 
 const initialState = {
 	isLoading: false,
 	error: null,
+	isAuth: false || localStorageService.getAuth(),
 }
 
 export const appReducer = (state = initialState, action) => {
@@ -20,17 +22,31 @@ export const appReducer = (state = initialState, action) => {
 				error: null,
 			}
 
+			case ACTION_TYPE.REQUEST_ERROR:
+				return {
+					...initialState,
+					isLoading: false,
+					error: action.payload,
+				}
+
 		case ACTION_TYPE.RESET_ERROR:
 			return {
 				...state,
 				error: null,
 			}
 
-		case ACTION_TYPE.REQUEST_ERROR:
+		case ACTION_TYPE.SET_AUTH:
 			return {
-				...initialState,
+				...state,
 				isLoading: false,
-				error: action.payload,
+				isAuth: true,
+			}
+
+		case ACTION_TYPE.LOGOUT:
+			return {
+				...state,
+				isLoading: false,
+				isAuth: false,
 			}
 
 		default:
