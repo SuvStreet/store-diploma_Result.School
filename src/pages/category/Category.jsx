@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useMatch, useParams } from 'react-router-dom'
 
 import { Error, H2, Loader } from '../../components'
-import { getProduct, getSubCategories } from '../../redux/actions'
+import { getSubCategories } from '../../redux/actions'
 import {
 	selectAppError,
 	selectAppIsLoading,

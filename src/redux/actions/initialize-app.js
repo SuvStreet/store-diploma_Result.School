@@ -1,12 +1,11 @@
 import { setUser } from './set-user'
 import { setCategories } from './set-categories'
-import { setSubCategories } from './set-sub-categories'
 import { ACTION_TYPE } from './action-type'
 import { request } from '../../utils'
 import { logout } from './logout'
 import { URL } from '../../constants/url'
 
-export const initializeApp = (categoryId) => async (dispatch) => {
+export const initializeApp = () => async (dispatch) => {
 	dispatch({ type: ACTION_TYPE.REQUEST })
 
 	try {
@@ -42,12 +41,6 @@ export const initializeApp = (categoryId) => async (dispatch) => {
 		}
 
 		dispatch(setCategories(categories.data.categories))
-
-		// Условная загрузка подкатегорий только если выбрана категория
-		if (categoryId) {
-			const subCategories = await request(`${URL.SUB_CATEGORY}/${categoryId}`)
-			dispatch(setSubCategories(subCategories.data.subCategories))
-		}
 
 		dispatch({ type: ACTION_TYPE.REQUEST_SUCCESS })
 	} catch (error) {
