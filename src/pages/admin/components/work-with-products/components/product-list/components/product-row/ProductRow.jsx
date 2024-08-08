@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import { forwardRef } from 'react'
 
-import { CATALOG_LIST } from '../../../../../../../../constants'
-
 import styled from 'styled-components'
 
 const ProductRowContainer = forwardRef(({ className, product }, ref) => {
@@ -13,7 +11,7 @@ const ProductRowContainer = forwardRef(({ className, product }, ref) => {
 			<span>{id}</span>
 			<img src={imageUrl} alt={name} />
 			<div className='name'>{name}</div>
-			<div className='category'>{CATALOG_LIST[catalogId]}</div>
+			{/* <div className='category'>{CATALOG_LIST[catalogId]}</div> */}
 			<div className='price'>{price} ₽</div>
 		</div>
 	)

@@ -5,4 +5,6 @@ export const URL = {
 	REGISTER: '/register',
 	GET_PRODUCT: '/product',
 	LOGOUT: '/logout',
+	CATEGORIES: '/category',
+	SUB_CATEGORY: '/sub-category',
 }

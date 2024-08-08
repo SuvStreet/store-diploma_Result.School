@@ -1,21 +1,29 @@
+import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { CATEGORIES } from '../../../../constants'
 import { NavLink } from 'react-router-dom'
+import { selectAppIsLoading, selectCategories } from '../../../../redux/selectors'
+import { Loader } from '../../../loader/Loader'
 
 import styled from 'styled-components'
 
 const CategoriesProductsContainer = ({ className }) => {
+	const categories = useSelector(selectCategories)
+	const isLoading = useSelector(selectAppIsLoading)
 
 	return (
 		<div className={className}>
-				<ul>
-					{CATEGORIES.map(({ id, name }) => (
-						<NavLink to={`/catalog/${id}`} key={id}>
+			<ul>
+				{isLoading && !categories.length ? (
+					<Loader />
+				) : (
+					categories.map(({ id, name }) => (
+						<NavLink to={`/categories/${id}`} key={id}>
 							<li>{name}</li>
 						</NavLink>
-					))}
-				</ul>
+					))
+				)}
+			</ul>
 		</div>
 	)
 }
@@ -38,7 +46,7 @@ export const CategoriesProducts = styled(CategoriesProductsContainer)`
 	}
 
 	li {
-		padding: 0 10px 20px 10px;
+		padding: 0 10px;
 		font-weight: 500;
 		font-size: 14px;
 	}

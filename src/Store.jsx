@@ -3,13 +3,13 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { Header, Footer, ProtectedRoute } from './components'
 import {
 	Authorization,
-	Catalog,
 	Products,
 	Registration,
 	Admin,
 	Main,
 	Product,
 	Profile,
+	Category,
 } from './pages'
 import { WorkWithProducts } from './pages/admin/components'
 
@@ -76,7 +76,7 @@ export const Store = () => {
 					>
 						<Route path='edit' element={<EditForm />} />
 					</Route>
-					<Route path='/catalog/:catalogId' element={<Catalog />}>
+					<Route path='/categories/:id' element={<Category />}>
 						<Route path='products/:productsId' element={<Products />} />
 					</Route>
 					<Route path='/product/:id' element={<Product />} />

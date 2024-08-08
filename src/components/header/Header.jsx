@@ -3,7 +3,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 import { Logo, Search, ControlPanel, CategoriesProducts } from './components'
-import { getUser } from '../../redux/actions'
+import { initializeApp } from '../../redux/actions'
 import { selectAppIsAuth, selectUserLogin } from '../../redux/selectors'
 
 import styled from 'styled-components'
@@ -15,7 +15,7 @@ const HeaderContainer = ({ className }) => {
 
 	useEffect(() => {
 		if(isAuth && !login) {
-			dispatch(getUser())
+			dispatch(initializeApp())
 		}
 	}, [dispatch, isAuth, login])
 

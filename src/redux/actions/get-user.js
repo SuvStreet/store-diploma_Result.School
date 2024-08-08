@@ -6,8 +6,6 @@ import { setUser } from './set-user'
 
 export const getUser = () => async (dispatch) => {
 	try {
-		dispatch({ type: ACTION_TYPE.REQUEST })
-
 		const { error, data } = await request(URL.USER, 'GET')
 
 		if (error) {

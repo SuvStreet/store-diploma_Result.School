@@ -13,8 +13,6 @@ import {
 	Select,
 } from '../../../../../../components'
 
-import { useServerRequest } from '../../../../../../hooks'
-
 import styled from 'styled-components'
 import { useMatch } from 'react-router-dom'
 
@@ -38,21 +36,21 @@ const ProductFormContainer = ({ className }) => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [serverError, setServerError] = useState(null)
 	const [catalogList, setCatalogList] = useState([])
-	const serverRequest = useServerRequest()
+	// const serverRequest = useServerRequest()
 	const isAddProduct = !!useMatch('/admin/products/add')
 	// const isEditProduct = !!useMatch('/admin/products/edit/:productId')
 
 	useEffect(() => {
 		// setIsLoading(true)
-		serverRequest('fetchCatalog')
-			.then(({ error, res: { catalog } }) => {
-				if (error) {
-					setServerError(error)
-				}
+		// serverRequest('fetchCatalog')
+		// 	.then(({ error, res: { catalog } }) => {
+		// 		if (error) {
+		// 			setServerError(error)
+		// 		}
 
-				setCatalogList(catalog)
-			})
-			.finally(() => setIsLoading(false))
+		// 		setCatalogList(catalog)
+		// 	})
+		// 	.finally(() => setIsLoading(false))
 	}, [serverRequest])
 
 	const {

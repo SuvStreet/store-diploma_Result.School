@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
 
-import { useInfiniteScroll, useServerRequest } from '../../hooks'
+import { useInfiniteScroll } from '../../hooks'
 import { Error, InfiniteScrollList, Loader } from '../../components'
 import { addProducts, setProducts } from '../../redux/actions'
 import { CardProduct } from './components'
@@ -14,31 +14,31 @@ const ProductsContainer = ({ className }) => {
 	const [titleError, setTitleError] = useState('')
 	const { productsId } = useParams()
 	const dispatch = useDispatch()
-	const serverRequest = useServerRequest()
+	// const serverRequest = useServerRequest()
 
-	const fetchProducts = async (page) => {
-		const response = await serverRequest('fetchProducts', productsId, page)
+	// const fetchProducts = async (page) => {
+	// 	const response = await serverRequest('fetchProducts', productsId, page)
 
-		const {
-			error,
-			res: { products: newProducts, lastPage },
-		} = response
+	// 	const {
+	// 		error,
+	// 		res: { products: newProducts, lastPage },
+	// 	} = response
 
-		if (error) {
-			setTitleError(error)
-			return { error }
-		}
+	// 	if (error) {
+	// 		setTitleError(error)
+	// 		return { error }
+	// 	}
 
-		if (page === 1) {
-			dispatch(setProducts(newProducts))
-		} else {
-			dispatch(addProducts(newProducts))
-		}
+	// 	if (page === 1) {
+	// 		dispatch(setProducts(newProducts))
+	// 	} else {
+	// 		dispatch(addProducts(newProducts))
+	// 	}
 
-		return { lastPage }
-	}
+	// 	return { lastPage }
+	// }
 
-	const { isLoading, lastElementRef } = useInfiniteScroll(fetchProducts)
+	// const { isLoading, lastElementRef } = useInfiniteScroll(fetchProducts)
 
 	const renderProductRow = (product, ref) => {
 		const { name, description, price, imageUrl } = product
@@ -57,9 +57,9 @@ const ProductsContainer = ({ className }) => {
 		)
 	}
 
-	if (isLoading) {
-		return <Loader fontSize='150px' />
-	}
+	// if (isLoading) {
+	// 	return <Loader fontSize='150px' />
+	// }
 
 	if (titleError) {
 		return <Error titleError={titleError} spin />
@@ -70,7 +70,7 @@ const ProductsContainer = ({ className }) => {
 			<InfiniteScrollList
 				items={[]}
 				renderItem={renderProductRow}
-				ref={lastElementRef}
+				// ref={lastElementRef}
 			/>
 		</div>
 	)
