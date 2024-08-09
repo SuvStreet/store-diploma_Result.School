@@ -3,8 +3,9 @@ export const URL = {
 	USER: '/user',
 	AUTHORIZE: '/authorize',
 	REGISTER: '/register',
-	GET_PRODUCT: '/product',
+	// GET_PRODUCT: '/products',
 	LOGOUT: '/logout',
-	CATEGORIES: '/category',
+	CATEGORIES: '/categories',
 	SUB_CATEGORY: '/sub-category',
+	GET_PRODUCTS_LIST: '/products/subCategory',
 }

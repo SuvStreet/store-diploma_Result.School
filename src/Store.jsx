@@ -1,9 +1,9 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 
-import { Header, Footer, ProtectedRoute } from './components'
+import { Header, Footer, ProtectedRoute, Error } from './components'
 import {
 	Authorization,
-	Products,
+	ProductsList,
 	Registration,
 	Admin,
 	Main,
@@ -76,9 +76,8 @@ export const Store = () => {
 					>
 						<Route path='edit' element={<EditForm />} />
 					</Route>
-					<Route path='/categories/:id' element={<Category />}>
-						<Route path='products/:productsId' element={<Products />} />
-					</Route>
+					<Route path='/categories/:id' element={<Category />} />
+					<Route path='/products/subCategory/:subCategoryId' element={<ProductsList />} />
 					<Route path='/product/:id' element={<Product />} />
 					<Route path='/admin/*' element={<Admin />}>
 						<Route path='users' element={<div>Редактирование пользователей</div>} />
@@ -86,7 +85,10 @@ export const Store = () => {
 						<Route path='products/edit/:productId' element={<WorkWithProducts />} />
 					</Route>
 					<Route path='/cart' element={<div>Корзина (Cart)</div>} />
-					<Route path='*' element={<div>Ошибка</div>} />
+					<Route
+						path='*'
+						element={<Error titleError='Страница не найдена' spin></Error>}
+					/>
 				</Routes>
 			</Page>
 			<Footer />

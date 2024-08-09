@@ -8,6 +8,7 @@ const ProductInfoContainer = ({ className, name, description }) => {
 			<div className='title-product'>
 				<p>{name}</p>
 			</div>
+
 			<div className='description-product'>
 				<p>{description}</p>
 			</div>

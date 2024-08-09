@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet, useMatch, useParams } from 'react-router-dom'
+import { Outlet, useMatch, useNavigate, useParams } from 'react-router-dom'
 
 import { Error, H2, Loader } from '../../components'
-import { getSubCategories } from '../../redux/actions'
+import { getProductsList, getSubCategories } from '../../redux/actions'
 import {
 	selectAppError,
 	selectAppIsLoading,
@@ -21,6 +21,7 @@ const CategoryContainer = ({ className }) => {
 	const categories = useSelector(selectCategories)
 	const subCategory = useSelector(selectSubCategories)
 	const error = useSelector(selectAppError)
+	const navigate = useNavigate()
 	const productsList = !!useMatch('/categories/:categoriesId/products/:productsId')
 
 	useEffect(() => {
@@ -30,8 +31,8 @@ const CategoryContainer = ({ className }) => {
 	}, [dispatch, categories, id])
 
 	const handleClickProducts = (subCategoryId) => {
-		console.log('subCategoryId :>> ', subCategoryId)
-		// dispatch(getListProducts(subCategoryId))
+		dispatch(getProductsList(subCategoryId))
+		navigate(`/products/subCategory/${subCategoryId}`)
 	}
 
 	if (isLoading) {

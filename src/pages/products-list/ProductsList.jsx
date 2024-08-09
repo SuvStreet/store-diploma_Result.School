@@ -1,19 +1,25 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, useLocation, useMatch, useMatches, useParams } from 'react-router-dom'
 
 import { useInfiniteScroll } from '../../hooks'
 import { Error, InfiniteScrollList, Loader } from '../../components'
-import { addProducts, setProducts } from '../../redux/actions'
+import { addProducts, getProductsList, setProducts } from '../../redux/actions'
 import { CardProduct } from './components'
 
 import styled from 'styled-components'
+import { selectProductsList } from '../../redux/selectors'
 
-const ProductsContainer = ({ className }) => {
-	const [titleError, setTitleError] = useState('')
-	const { productsId } = useParams()
+const ProductsListContainer = ({ className }) => {
+	const { subCategoryId } = useParams()
 	const dispatch = useDispatch()
+	const { list, isLoading, error } = useSelector(selectProductsList)
+
+	useEffect(() => {
+		dispatch(getProductsList(subCategoryId))
+	}, [dispatch, subCategoryId])
+
 	// const serverRequest = useServerRequest()
 
 	// const fetchProducts = async (page) => {
@@ -41,34 +47,28 @@ const ProductsContainer = ({ className }) => {
 	// const { isLoading, lastElementRef } = useInfiniteScroll(fetchProducts)
 
 	const renderProductRow = (product, ref) => {
-		const { name, description, price, imageUrl } = product
-
 		return (
-			<Link to={`/product/${product.id}`} key={product.id}>
+			<Link to={`/products/${product.id}`} key={product.id}>
 				<CardProduct
 					ref={ref}
 					product={product}
-					name={name}
-					description={description}
-					price={price}
-					imageUrl={imageUrl}
 				/>
 			</Link>
 		)
 	}
 
-	// if (isLoading) {
-	// 	return <Loader fontSize='150px' />
-	// }
+	if (isLoading) {
+		return <Loader fontSize='150px' />
+	}
 
-	if (titleError) {
-		return <Error titleError={titleError} spin />
+	if (error) {
+		return <Error titleError={error} spin />
 	}
 
 	return (
 		<div className={className}>
 			<InfiniteScrollList
-				items={[]}
+				items={list}
 				renderItem={renderProductRow}
 				// ref={lastElementRef}
 			/>
@@ -76,10 +76,10 @@ const ProductsContainer = ({ className }) => {
 	)
 }
 
-export const Products = styled(ProductsContainer)`
+export const ProductsList = styled(ProductsListContainer)`
 	width: 100%;
 `
 
-ProductsContainer.propTypes = {
+ProductsListContainer.propTypes = {
 	className: PropTypes.string.isRequired,
 }

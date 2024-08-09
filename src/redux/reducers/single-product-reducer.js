@@ -17,7 +17,7 @@ const initialState = {
 	comments: [],
 }
 
-export const productReducer = (state = initialState, action) => {
+export const singleProductReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ACTION_TYPE.GET_PRODUCT_REQUEST:
 			return {
