@@ -13,6 +13,7 @@ import {
 	selectAppError,
 	selectAppIsLoading,
 } from '../../redux/selectors'
+import { REGEX } from '../../constants'
 
 import styled from 'styled-components'
 
@@ -20,12 +21,12 @@ const authFormSchema = yup.object().shape({
 	email: yup
 		.string()
 		.required('Электронная почта не может быть пустой')
-		.matches(/^[^\s@]+@[^\s@]+\.[^\s@]+$/, 'Некорректная электронная почта'),
+		.matches(REGEX.EMAIL, 'Некорректная электронная почта'),
 	password: yup
 		.string()
 		.required('Пароль не может быть пустым')
 		.matches(
-			/^[A-Za-zА-Яа-я0-9#%]+$/,
+			REGEX.PASSWORD,
 			'Неверно заполнен пароль. Допускаются только буквы, цифры и знаки # %',
 		)
 		.min('4', 'Неверный пороль. Минимальная длина пороля - 4 символа')
@@ -68,9 +69,7 @@ const RegistrationContainer = ({ className }) => {
 	}, [error, isAuth, navigate, dispatch])
 
 	const onSubmit = ({ email, password }) => {
-		dispatch(
-			registration({ email, password }),
-		)
+		dispatch(registration({ email, password }))
 	}
 
 	const formError =
