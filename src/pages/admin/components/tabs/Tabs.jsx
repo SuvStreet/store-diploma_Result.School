@@ -1,18 +1,15 @@
 import PropTypes from 'prop-types'
-import { useEffect, } from 'react'
-import { NavLink, useLocation, Outlet, useNavigate } from 'react-router-dom'
+import { NavLink, useLocation, Outlet } from 'react-router-dom'
 
 import styled from 'styled-components'
+import { Error } from '../../../../components'
 
 const TabsContainer = ({ className, tabs }) => {
 	const { pathname } = useLocation()
-	const navigate = useNavigate()
 
-	useEffect(() => {
-		if(pathname !== '/admin/users' && pathname !== '/admin/products/add') {
-			navigate('/admin/users')
-		}
-	}, [pathname, navigate])
+	if (pathname !== '/admin/users' && pathname !== '/admin/products/add') {
+		return <Error titleError='Страница не найдена' spin></Error>
+	}
 
 	return (
 		<div className={className}>

@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { selectAppError, selectAppIsLoading, selectUser } from '../../redux/selectors'
 import { Button, Error, H2, Loader } from '../../components'
 
-import styled from 'styled-components'
 import { transformDate } from '../../utils'
 import { ROLE } from '../../constants'
 import { logout } from '../../redux/actions'
-import { Outlet, useMatch, useNavigate } from 'react-router-dom'
+import { Link, Outlet, useMatch, useNavigate } from 'react-router-dom'
+
+import styled from 'styled-components'
 
 const ProfileContainer = ({ className }) => {
 	const dispatch = useDispatch()
@@ -46,8 +47,16 @@ const ProfileContainer = ({ className }) => {
 				<div className='profile__title-container'>
 					<div className='profile__title-info'>
 						<H2 className='profile__title'>О себе</H2>
-						<Button className='profile__button' onClick={() => handleEdit()}>Редактировать</Button>
-						<Button className='profile__button' solid='red' onClick={() => handleLogout()}>Выйти</Button>
+						<Button className='profile__button' onClick={() => handleEdit()}>
+							Редактировать
+						</Button>
+						<Button
+							className='profile__button'
+							solid='red'
+							onClick={() => handleLogout()}
+						>
+							Выйти
+						</Button>
 					</div>
 					<div className='profile__info'>
 						<div className='profile__details'>
@@ -56,7 +65,16 @@ const ProfileContainer = ({ className }) => {
 						</div>
 						<div className='profile__details'>
 							<span>Роль: </span>
-							{user.roleId === ROLE.ADMIN ? 'Администратор' : 'Пользователь'}
+							{user.roleId === ROLE.ADMIN ? (
+								<>
+									<p>Администратор</p>
+									<Link className='admin' to={`/admin/users`}>
+										Панель администратора
+									</Link>
+								</>
+							) : (
+								<p>Пользователь</p>
+							)}
 						</div>
 						<div className='profile__details'>
 							<span>Почта: </span>
@@ -133,15 +151,26 @@ export const Profile = styled(ProfileContainer)`
 
 			.profile__info {
 				width: 100%;
-				display: flex;
-				flex-direction: column;
-				align-items: flex-start;
-				gap: 10px;
 				font-size: 18px;
+				text-align: start;
 
 				border: 1px solid #5e5e5e;
 				border-radius: 10px;
 				padding: 20px;
+
+				.profile__details {
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
+					gap: 10px;
+
+					.admin {
+						display: block;
+						color: #007bff;
+						text-decoration: underline;
+						margin-left: auto;
+					}
+				}
 
 				.profile__details span {
 					font-weight: 500;

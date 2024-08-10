@@ -79,7 +79,7 @@ export const Store = () => {
 					<Route path='/categories/:id' element={<Category />} />
 					<Route path='/products/subCategory/:subCategoryId' element={<ProductsList />} />
 					<Route path='/product/:id' element={<Product />} />
-					<Route path='/admin/*' element={<Admin />}>
+					<Route path='/admin' element={<Admin />}>
 						<Route path='users' element={<div>Редактирование пользователей</div>} />
 						<Route path='products/add' element={<WorkWithProducts />} />
 						<Route path='products/edit/:productId' element={<WorkWithProducts />} />
