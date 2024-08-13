@@ -4,11 +4,11 @@ import { forwardRef } from 'react'
 
 import { Button, Icon } from '../../../../components'
 import { ProductInfo } from '../product-info/ProductInfo'
+import { formatPrice } from '../../../../utils'
 
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import styled from 'styled-components'
-import { formatPrice } from '../../../../utils'
 
 const CardProductContainer = forwardRef(({ className, product, ...props }, ref) => {
 	console.log('CardProductContainer product:>> ', product)

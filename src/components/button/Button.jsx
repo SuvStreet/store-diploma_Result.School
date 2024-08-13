@@ -15,12 +15,13 @@ export const Button = styled(ButtonContainer)`
 	justify-content: center;
 	align-items: center;
 	font-size: 20px;
+	padding: ${({ padding }) => padding || '10px'};
 	width: ${({ width }) => width || '100%'};
 	height: ${({ height }) => height || '40px'};
 	background-color: ${({ solid }) => solid || 'transparent'};
 	border: 1px solid #5e5e5e;
 	border-radius: 10px;
-	color: white;
+	color: ${({ color }) => color || 'white'};
 	transition: 0.3s;
 
 	&:hover {

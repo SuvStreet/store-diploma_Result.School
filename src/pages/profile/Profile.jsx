@@ -68,7 +68,7 @@ const ProfileContainer = ({ className }) => {
 							{user.roleId === ROLE.ADMIN ? (
 								<>
 									<p>Администратор</p>
-									<Link className='admin' to={`/admin/users`}>
+									<Link className='admin' to={`/admin`}>
 										Панель администратора
 									</Link>
 								</>

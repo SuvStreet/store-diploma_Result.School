@@ -6,15 +6,22 @@ export const getProductsList = (subCategoryId) => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST })
 
-		const { error, data } = await request(`${URL.GET_PRODUCTS_LIST}/${subCategoryId}`)
+		let response = null
 
+		if (!subCategoryId) {
+			response = await request(URL.GET_PRODUCTS)
+		} else {
+			response = await request(`${URL.GET_PRODUCTS_LIST}/${subCategoryId}`)
+		}
+
+		const { error, data } = response
+		
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST_ERROR, payload: error })
 			return
 		}
 
 		dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST_SUCCESS, payload: data.products })
-
 	} catch (error) {
 		dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST_ERROR, payload: error })
 		console.error('error: ', error)

@@ -1,4 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectAppIsAuth } from './redux/selectors'
 
 import { Header, Footer, ProtectedRoute, Error } from './components'
 import {
@@ -11,10 +13,6 @@ import {
 	Profile,
 	Category,
 } from './pages'
-import { WorkWithProducts } from './pages/admin/components'
-
-import { useSelector } from 'react-redux'
-import { selectAppIsAuth } from './redux/selectors'
 import { EditForm } from './pages/profile/components'
 
 import styled from 'styled-components'
@@ -23,7 +21,7 @@ const AppContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	max-width: 1200px;
+	max-width: 1400px;
 	width: 100%;
 	min-height: 100dvh;
 	margin: 0 auto;
@@ -79,11 +77,7 @@ export const Store = () => {
 					<Route path='/categories/:id' element={<Category />} />
 					<Route path='/products/subCategory/:subCategoryId' element={<ProductsList />} />
 					<Route path='/product/:id' element={<Product />} />
-					<Route path='/admin' element={<Admin />}>
-						<Route path='users' element={<div>Редактирование пользователей</div>} />
-						<Route path='products/add' element={<WorkWithProducts />} />
-						<Route path='products/edit/:productId' element={<WorkWithProducts />} />
-					</Route>
+					<Route path='/admin/*' element={<Admin />} />
 					<Route path='/cart' element={<div>Корзина (Cart)</div>} />
 					<Route
 						path='*'

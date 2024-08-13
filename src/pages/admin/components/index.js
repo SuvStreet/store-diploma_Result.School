@@ -1,1 +1,3 @@
-export * from './work-with-products/WorkWithProducts'
+export * from './sidebar/Sidebar'
+export * from './header/Header'
+export * from './content/Content'

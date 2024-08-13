@@ -3,7 +3,7 @@ export const URL = {
 	USER: '/user',
 	AUTHORIZE: '/authorize',
 	REGISTER: '/register',
-	// GET_PRODUCT: '/products',
+	GET_PRODUCTS: '/products',
 	LOGOUT: '/logout',
 	CATEGORIES: '/categories',
 	SUB_CATEGORY: '/sub-category',
