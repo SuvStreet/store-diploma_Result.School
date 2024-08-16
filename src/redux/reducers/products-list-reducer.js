@@ -2,7 +2,7 @@ import { handleRequestState } from '../../utils'
 import { ACTION_TYPE } from '../actions'
 
 const initialState = {
-	list: [],
+	products: [],
 	isLoading: false,
 	error: null,
 }
@@ -16,6 +16,6 @@ export const productsListReducer = (state = initialState, action) => {
 			success: ACTION_TYPE.REQUEST_PRODUCTS_LIST_SUCCESS,
 			error: ACTION_TYPE.REQUEST_PRODUCTS_LIST_ERROR,
 		},
-		'list',
+		'products',
 	)
 }

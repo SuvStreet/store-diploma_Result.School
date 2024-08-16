@@ -8,8 +8,8 @@ import { getProductsList, getSubCategories } from '../../redux/actions'
 import {
 	selectAppError,
 	selectAppIsLoading,
-	selectCategories,
-	selectSubCategories,
+	selectCategoriesList,
+	selectSubCategoriesList,
 } from '../../redux/selectors'
 
 import styled from 'styled-components'
@@ -18,8 +18,8 @@ const CategoryContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const { id } = useParams()
 	const isLoading = useSelector(selectAppIsLoading)
-	const categories = useSelector(selectCategories)
-	const subCategory = useSelector(selectSubCategories)
+	const categories = useSelector(selectCategoriesList)
+	const subCategory = useSelector(selectSubCategoriesList)
 	const error = useSelector(selectAppError)
 	const navigate = useNavigate()
 	const productsList = !!useMatch('/categories/:categoriesId/products/:productsId')

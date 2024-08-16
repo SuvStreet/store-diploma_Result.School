@@ -2,13 +2,13 @@ import { useSelector } from 'react-redux'
 import PropTypes from 'prop-types'
 
 import { NavLink } from 'react-router-dom'
-import { selectAppIsLoading, selectCategories } from '../../../../redux/selectors'
+import { selectAppIsLoading, selectCategoriesList } from '../../../../redux/selectors'
 import { Loader } from '../../../loader/Loader'
 
 import styled from 'styled-components'
 
 const CategoriesProductsContainer = ({ className }) => {
-	const categories = useSelector(selectCategories)
+	const categories = useSelector(selectCategoriesList)
 	const isLoading = useSelector(selectAppIsLoading)
 
 	return (
@@ -33,7 +33,7 @@ export const CategoriesProducts = styled(CategoriesProductsContainer)`
 	justify-content: space-between;
 	align-items: center;
 	cursor: pointer;
-	height: 62px;
+	padding: 20px 0;
 
 	ul {
 		display: flex;

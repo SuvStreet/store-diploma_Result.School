@@ -11,6 +11,7 @@ export const Products = () => {
 			TableComponent={ProductTable}
 			addPath='/admin/products/add'
 			editPath='/admin/products/edit/:id'
+			dataKey='products'
 		/>
 	)
 }

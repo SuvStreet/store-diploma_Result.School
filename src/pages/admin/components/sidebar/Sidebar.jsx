@@ -7,6 +7,9 @@ const SidebarContainer = ({ className }) => {
 	return (
 		<div className={className}>
 			<ul>
+				{/* <li>
+					<NavLink to='/admin/main'>Главная</NavLink>
+				</li> */}
 				<li>
 					<NavLink to='/admin/products'>Товары</NavLink>
 				</li>

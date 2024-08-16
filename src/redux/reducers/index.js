@@ -1,5 +1,6 @@
 export * from './cart-reducer'
-export * from './categories-reducer'
+export * from './categories-list-reducer'
+export * from './sub-categories-list-reducer'
 export * from './order-reducer'
 export * from './single-product-reducer'
 export * from './user-reducer'

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Route, Routes } from 'react-router-dom'
 
-import { Products } from './pages'
+import { Categories, Products } from './pages'
 
 import styled from 'styled-components'
 
@@ -14,7 +14,7 @@ const ContentContainer = ({ className }) => {
 					<Route path='add' element={<div>Добавить продукт</div>} />
 					<Route path='edit/:id' element={<div>Добавить продукт</div>} />
 				</Route>
-				<Route path='categories' element={<div>Категории</div>} />
+				<Route path='categories' element={<Categories />} />
 				<Route path='sub-categories' element={<div>Подкатегории</div>} />
 				<Route path='orders' element={<div>Заказы</div>} />
 				<Route path='users' element={<div>Пользователи</div>} />

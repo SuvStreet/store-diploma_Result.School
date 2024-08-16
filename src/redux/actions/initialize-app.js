@@ -1,9 +1,8 @@
 import { setUser } from './set-user'
-import { setCategories } from './set-categories'
 import { ACTION_TYPE } from './action-type'
 import { request } from '../../utils'
 import { logout } from './logout'
-import { URL } from '../../constants/url'
+import { URL } from '../../constants'
 
 export const initializeApp = () => async (dispatch) => {
 	dispatch({ type: ACTION_TYPE.REQUEST })
@@ -33,14 +32,20 @@ export const initializeApp = () => async (dispatch) => {
 		dispatch(setUser(userData.data.user))
 
 		// Загрузка категорий товаров
-		const categories = await request(URL.CATEGORIES)
+		const categories = await request(URL.GET_CATEGORIES_LIST)
 
-		if(categories.error) {
-			dispatch({ type: ACTION_TYPE.REQUEST_ERROR, payload: categories.error })
+		if (categories.error) {
+			dispatch({
+				type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_ERROR,
+				payload: categories.error,
+			})
 			return
 		}
 
-		dispatch(setCategories(categories.data.categories))
+		dispatch({
+			type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_SUCCESS,
+			payload: categories.data.categories,
+		})
 
 		dispatch({ type: ACTION_TYPE.REQUEST_SUCCESS })
 	} catch (error) {

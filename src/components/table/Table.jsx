@@ -16,7 +16,11 @@ const TableContainer = ({ className, headers, data, renderRow, titlesAddButton }
 		<div className={className}>
 			<div className='header'>
 				{headers.map((header, index) => (
-					<div key={index} className='cell prompt' title={header}>
+					<div
+						key={index}
+						className={`cell prompt ${header === 'Действия' ? 'actions' : ''}`}
+						title={header}
+					>
 						{header}
 					</div>
 				))}
@@ -71,10 +75,6 @@ export const Table = styled(TableContainer)`
 		&:first-of-type {
 			flex: 0.2;
 		}
-
-		&:last-of-type {
-			flex: 1.5;
-		}
 	}
 
 	.prompt {
@@ -85,9 +85,11 @@ export const Table = styled(TableContainer)`
 		border-bottom: 1px solid #5e5e5e;
 	}
 
-	.buttons {
+	.buttons,
+	.actions {
 		display: flex;
 		gap: 10px;
 		justify-content: center;
+		max-width: 100px;
 	}
 `

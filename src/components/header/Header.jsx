@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useMatch } from 'react-router-dom'
 
 import { Logo, Search, ControlPanel, CategoriesProducts } from './components'
 import { initializeApp } from '../../redux/actions'
@@ -12,9 +13,10 @@ const HeaderContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const isAuth = useSelector(selectAppIsAuth)
 	const login = useSelector(selectUserLogin)
+	const pathname = useMatch('/admin/*')
 
 	useEffect(() => {
-		if(isAuth && !login) {
+		if (isAuth && !login) {
 			dispatch(initializeApp())
 		}
 	}, [dispatch, isAuth, login])
@@ -22,14 +24,16 @@ const HeaderContainer = ({ className }) => {
 	return (
 		<>
 			<div className={className}>
-				<div className='header-info'>
+				<div className={`header-info ${pathname ? 'header-info--admin' : ''}`}>
 					<Logo />
 					<Search />
 					<ControlPanel userLogin={login} />
 				</div>
-				<div className='header-menu'>
-					<CategoriesProducts />
-				</div>
+				{!pathname && (
+					<div className='header-menu'>
+						<CategoriesProducts />
+					</div>
+				)}
 			</div>
 		</>
 	)
@@ -48,11 +52,14 @@ export const Header = styled(HeaderContainer)`
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+
+		&--admin {
+			margin-bottom: 20px;
+		}
 	}
 
 	& .header-menu {
 		width: 100%;
-		padding-top: 20px;
 	}
 `
 
