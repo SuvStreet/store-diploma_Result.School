@@ -14,7 +14,7 @@ import { selectProductsList } from '../../redux/selectors'
 const ProductsListContainer = ({ className }) => {
 	const { subCategoryId } = useParams()
 	const dispatch = useDispatch()
-	const { list, isLoading, error } = useSelector(selectProductsList)
+	const { products, isLoading, error } = useSelector(selectProductsList)
 
 	useEffect(() => {
 		dispatch(getProductsList(subCategoryId))
@@ -49,10 +49,7 @@ const ProductsListContainer = ({ className }) => {
 	const renderProductRow = (product, ref) => {
 		return (
 			<Link to={`/products/${product.id}`} key={product.id}>
-				<CardProduct
-					ref={ref}
-					product={product}
-				/>
+				<CardProduct ref={ref} product={product} />
 			</Link>
 		)
 	}
@@ -68,7 +65,7 @@ const ProductsListContainer = ({ className }) => {
 	return (
 		<div className={className}>
 			<InfiniteScrollList
-				items={list}
+				items={products}
 				renderItem={renderProductRow}
 				// ref={lastElementRef}
 			/>

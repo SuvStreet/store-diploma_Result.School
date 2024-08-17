@@ -8,7 +8,7 @@ import { Loader } from '../../../loader/Loader'
 import styled from 'styled-components'
 
 const CategoriesProductsContainer = ({ className }) => {
-	const categories = useSelector(selectCategoriesList)
+	const { categories } = useSelector(selectCategoriesList)
 	const isLoading = useSelector(selectAppIsLoading)
 
 	return (

@@ -20,13 +20,13 @@ export const subCategoriesListReducer = (state = initialState, action) => {
 					success: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_SUCCESS,
 					error: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_ERROR,
 				},
-				'categories',
+				'subCategories',
 			)
 
 		case ACTION_TYPE.SET_SUB_CATEGORIES:
 			return {
 				...state,
-				categories: [...state.subCategories, ...action.payload],
+				subCategories: [...state.subCategories, ...action.payload],
 			}
 
 		default:

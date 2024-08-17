@@ -18,8 +18,8 @@ const CategoryContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const { id } = useParams()
 	const isLoading = useSelector(selectAppIsLoading)
-	const categories = useSelector(selectCategoriesList)
-	const subCategory = useSelector(selectSubCategoriesList)
+	const { categories } = useSelector(selectCategoriesList)
+	const { subCategories } = useSelector(selectSubCategoriesList)
 	const error = useSelector(selectAppError)
 	const navigate = useNavigate()
 	const productsList = !!useMatch('/categories/:categoriesId/products/:productsId')
@@ -49,7 +49,7 @@ const CategoryContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			{subCategory.map(({ id, name, imgUrl }) => (
+			{subCategories.map(({ id, name, imgUrl }) => (
 				<div className='wrapper' key={id}>
 					<div className='card' onClick={() => handleClickProducts(id)}>
 						<div className='card__img'>
