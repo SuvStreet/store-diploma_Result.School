@@ -2,11 +2,19 @@ import { URL } from '../../constants/url'
 import { request } from '../../utils'
 import { ACTION_TYPE } from './action-type'
 
-export const getSubCategories = (id) => async (dispatch) => {
+export const getSubCategoriesList = (id) => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST })
 
-		const { error, data } = await request(`${URL.SUB_CATEGORY}/${id}`)
+		let response = null
+
+		if(!id){
+			response = await request(URL.GET_SUB_CATEGORY_LIST)
+		} else {
+			response = await request(`${URL.GET_SUB_CATEGORY_LIST}/${id}`)
+		}
+
+		const { error, data } = response
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_ERROR, payload: error })

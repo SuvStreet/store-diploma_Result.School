@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useMatch, useNavigate, useParams } from 'react-router-dom'
 
 import { Error, H2, Loader } from '../../components'
-import { getProductsList, getSubCategories } from '../../redux/actions'
+import { getProductsList, getSubCategoriesList } from '../../redux/actions'
 import {
 	selectAppError,
 	selectAppIsLoading,
@@ -26,7 +26,7 @@ const CategoryContainer = ({ className }) => {
 
 	useEffect(() => {
 		if (categories.length) {
-			dispatch(getSubCategories(id))
+			dispatch(getSubCategoriesList(id))
 		}
 	}, [dispatch, categories, id])
 

@@ -6,6 +6,6 @@ export const URL = {
 	GET_PRODUCTS: '/products',
 	LOGOUT: '/logout',
 	GET_CATEGORIES_LIST: '/categories',
-	SUB_CATEGORY: '/sub-category',
+	GET_SUB_CATEGORY_LIST: '/sub-category',
 	GET_PRODUCTS_LIST: '/products/subCategory',
 }
