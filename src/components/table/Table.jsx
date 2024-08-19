@@ -26,9 +26,11 @@ const TableContainer = ({ className, headers, data, renderRow, titlesAddButton }
 				))}
 			</div>
 			<div className='body'>
-				<Button className='add' solid='green' onClick={() => handelAddClick()}>
-					<span>Добавить {titlesAddButton}</span>
-				</Button>
+				{titlesAddButton && (
+					<Button className='add' solid='green' onClick={() => handelAddClick()}>
+						<span>Добавить {titlesAddButton}</span>
+					</Button>
+				)}
 				{data.map((item, index) => (
 					<div key={index} className='row'>
 						{renderRow(item, index)}
@@ -44,7 +46,7 @@ TableContainer.propTypes = {
 	headers: PropTypes.arrayOf(PropTypes.string).isRequired,
 	data: PropTypes.array.isRequired,
 	renderRow: PropTypes.func.isRequired,
-	titlesAddButton: PropTypes.string.isRequired,
+	titlesAddButton: PropTypes.string,
 }
 
 export const Table = styled(TableContainer)`

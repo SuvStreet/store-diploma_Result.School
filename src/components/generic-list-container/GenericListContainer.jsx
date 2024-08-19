@@ -15,11 +15,10 @@ export const GenericListContainer = ({
 }) => {
 	const dispatch = useDispatch()
 	const { [dataKey]: list, isLoading, error } = useSelector(selectData)
-	const isAdd = !!useMatch(addPath)
-	const isEdit = !!useMatch(editPath)
-	
-	useEffect(() => {
+	const isAdd = !!useMatch(addPath || '/')
+	const isEdit = !!useMatch(editPath || '/')
 
+	useEffect(() => {
 		dispatch(fetchData())
 	}, [dispatch, fetchData])
 
@@ -38,7 +37,7 @@ GenericListContainer.propTypes = {
 	fetchData: PropTypes.func.isRequired,
 	selectData: PropTypes.func.isRequired,
 	TableComponent: PropTypes.elementType.isRequired,
-	addPath: PropTypes.string.isRequired,
-	editPath: PropTypes.string.isRequired,
+	addPath: PropTypes.string,
+	editPath: PropTypes.string,
 	dataKey: PropTypes.string.isRequired,
 }

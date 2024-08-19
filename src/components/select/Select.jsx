@@ -1,20 +1,21 @@
 import PropTypes from 'prop-types'
-import { forwardRef } from 'react'
+import { forwardRef, useState } from 'react'
 
 import styled from 'styled-components'
 
-const SelectContainer = forwardRef(({ className, list, name, setValue }, ref) => {
-	const onChange = ({ target: { value } }) => {
-		setValue(name, Number(value))
+const SelectContainer = forwardRef(({ className, list, name, initValue, onChange }, ref) => {
+	const [value, setValue] = useState(initValue)
+
+	const handleChange = ({ target: { value } }) => {
+		const newValue = Number(value)
+		setValue(newValue)
+		if (onChange) {
+			onChange(newValue)
+		}
 	}
 
 	return (
-		<select
-			name={name}
-			className={className}
-			onChange={onChange}
-			ref={ref}
-		>
+		<select name={name} className={className} value={value} onChange={handleChange} ref={ref}>
 			{list.map(({ id, name }) => (
 				<option key={id} value={id}>
 					{name}
@@ -48,5 +49,6 @@ SelectContainer.propTypes = {
 	className: PropTypes.string.isRequired,
 	list: PropTypes.array.isRequired,
 	name: PropTypes.string.isRequired,
-	setValue: PropTypes.func.isRequired,
+	initValue: PropTypes.number.isRequired,
+	onChange: PropTypes.func.isRequired,
 }

@@ -8,4 +8,6 @@ export const URL = {
 	GET_CATEGORIES_LIST: '/categories',
 	GET_SUB_CATEGORY_LIST: '/sub-category',
 	GET_PRODUCTS_LIST: '/products/subCategory',
+	GET_USERS_LIST: '/user/users',
+	GET_ROLES_LIST: '/user/roles',
 }
