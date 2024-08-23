@@ -4,6 +4,7 @@ export const URL = {
 	AUTHORIZE: '/authorize',
 	REGISTER: '/register',
 	GET_PRODUCTS: '/products',
+	ADD_PRODUCTS: '/products/add',
 	LOGOUT: '/logout',
 	GET_CATEGORIES_LIST: '/categories',
 	GET_SUB_CATEGORY_LIST: '/sub-category',

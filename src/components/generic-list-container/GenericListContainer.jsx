@@ -22,11 +22,11 @@ export const GenericListContainer = ({
 		dispatch(fetchData())
 	}, [dispatch, fetchData])
 
-	if (isLoading) {
+	if (isLoading && !isAdd && !isEdit) {
 		return <Loader fontSize='150px' />
 	}
 
-	if (error) {
+	if (error && !isAdd && !isEdit) {
 		return <Error titleError={error} noAccess />
 	}
 

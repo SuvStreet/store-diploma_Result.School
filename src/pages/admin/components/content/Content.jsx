@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 import { Categories, Products, SubCategories, Users } from './pages'
 
 import styled from 'styled-components'
+import { ProductForm } from './forms/product-form/ProductForm'
 
 const ContentContainer = ({ className }) => {
 	return (
@@ -11,7 +12,7 @@ const ContentContainer = ({ className }) => {
 			<Routes>
 				<Route path='/' element={<div>Добро пожаловать в Dashboard</div>} />
 				<Route path='products' element={<Products />}>
-					<Route path='add' element={<div>Добавить продукт</div>} />
+					<Route path='add' element={<ProductForm />} />
 					<Route path='edit/:id' element={<div>Добавить продукт</div>} />
 				</Route>
 				<Route path='categories' element={<Categories />}>
