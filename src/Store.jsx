@@ -2,7 +2,7 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectAppIsAuth } from './redux/selectors'
 
-import { Header, Footer, ProtectedRoute, Error } from './components'
+import { Header, Footer, ProtectedRoute, Error, Modal } from './components'
 import {
 	Authorization,
 	ProductsList,
@@ -86,6 +86,7 @@ export const Store = () => {
 				</Routes>
 			</Page>
 			<Footer />
+			<Modal />
 		</AppContainer>
 	)
 }

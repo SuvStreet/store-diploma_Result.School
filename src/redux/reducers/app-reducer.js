@@ -5,6 +5,12 @@ const initialState = {
 	isLoading: false,
 	error: null,
 	isAuth: false || localStorageService.getAuth(),
+	modal: {
+		isOpen: false,
+		textModal: '',
+		onConfirm: () => {},
+		onCancel: () => {},
+	},
 }
 
 export const appReducer = (state = initialState, action) => {
@@ -22,12 +28,12 @@ export const appReducer = (state = initialState, action) => {
 				error: null,
 			}
 
-			case ACTION_TYPE.REQUEST_ERROR:
-				return {
-					...initialState,
-					isLoading: false,
-					error: action.payload,
-				}
+		case ACTION_TYPE.REQUEST_ERROR:
+			return {
+				...initialState,
+				isLoading: false,
+				error: action.payload,
+			}
 
 		case ACTION_TYPE.RESET_ERROR:
 			return {
@@ -47,6 +53,24 @@ export const appReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				isAuth: false,
+			}
+
+		case ACTION_TYPE.OPEN_MODAL:
+			return {
+				...state,
+				modal: {
+					...state.modal,
+					...action.payload,
+					isOpen: true,
+				},
+			}
+
+		case ACTION_TYPE.CLOSE_MODAL:
+			return {
+				...state,
+				modal: {
+					...initialState.modal,
+				},
 			}
 
 		default:

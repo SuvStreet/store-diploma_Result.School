@@ -18,9 +18,7 @@ const ProductRowContainer = ({ item, index }) => {
 	}
 
 	const handelRemoveClick = () => {
-		console.log('remove :>> ', item.id)
-
-		dispatch(removeProduct(item.id))
+		dispatch(removeProduct(item.id, name))
 	}
 
 	return (

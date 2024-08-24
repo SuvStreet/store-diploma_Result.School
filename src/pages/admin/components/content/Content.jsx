@@ -7,8 +7,6 @@ import styled from 'styled-components'
 import { ProductForm } from './forms/product-form/ProductForm'
 
 const ContentContainer = ({ className }) => {
-	console.log('ContentContainer')
-
 	return (
 		<div className={className}>
 			<Routes>
