@@ -14,13 +14,14 @@ const UsersRowContainer = ({ item, index }) => {
 
 	const { login, email, imgUserUrl, roleId, createdAt } = item
 
-	const [selectedRoleId, setSelectedRoleId] = useState(roleId)
+	const [selectedRoleId, setSelectedRoleId] = useState(String(roleId))
 
-	const handleRoleChange = (newRoleId) => {
-		setSelectedRoleId(newRoleId)
+	const onChange = (newRoleId) => {
+		console.log('newRoleId :>> ', newRoleId.target.value)
+		setSelectedRoleId(newRoleId.target.value)
 	}
 
-	const isRoleChanged = selectedRoleId !== roleId
+	const isRoleChanged = selectedRoleId !== String(roleId)
 
 	const handleSaveClick = () => {
 		if (isRoleChanged) {
@@ -40,7 +41,7 @@ const UsersRowContainer = ({ item, index }) => {
 			</div>
 			<div className='cell'>{login}</div>
 			<div className='cell'>
-				<Select name='role' list={roles} initValue={roleId} onChange={handleRoleChange} />
+				<Select name='role' list={roles} value={selectedRoleId} onChange={onChange} />
 			</div>
 			<div className='cell'>{transformDate(createdAt)}</div>
 			<div className='cell buttons'>

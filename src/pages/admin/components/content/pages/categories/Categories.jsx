@@ -4,6 +4,9 @@ import { selectCategoriesList } from '../../../../../../redux/selectors'
 import { CategoriesTable } from './components'
 
 export const Categories = () => {
+
+	console.log('Categories')
+
 	return (
 		<GenericListContainer
 			fetchData={getCategoriesList}

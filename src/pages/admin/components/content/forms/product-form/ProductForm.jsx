@@ -1,15 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useForm, useFieldArray, Controller } from 'react-hook-form'
+import { useMatch, useNavigate, useParams } from 'react-router-dom'
+import { useForm, useFieldArray } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useDispatch, useSelector } from 'react-redux'
 
 import {
 	ACTION_TYPE,
-	addProducts,
+	addProduct,
 	getSubCategoriesList,
+	editProduct,
 } from '../../../../../../redux/actions'
 import {
 	selectProductsList,
@@ -69,9 +71,14 @@ const ProductFormContainer = ({ className }) => {
 	const [submitSuccess, setSubmitSuccess] = useState(false)
 	const dispatch = useDispatch()
 	const { subCategories, isLoading: isLoadingSub } = useSelector(selectSubCategoriesList)
-	const { isLoading: isLoadingServer, error: errorServer } =
-		useSelector(selectProductsList)
+	const {
+		isLoading: isLoadingServer,
+		error: errorServer,
+		products,
+	} = useSelector(selectProductsList)
 	const navigate = useNavigate()
+	const { id } = useParams()
+	const isEdit = !!useMatch('/admin/products/edit/:id')
 
 	const {
 		control,
@@ -85,7 +92,7 @@ const ProductFormContainer = ({ className }) => {
 		defaultValues: {
 			name: '',
 			description: '',
-			subcategory_id: subCategories[0]?.id,
+			subcategory_id: '',
 			images: [''],
 			brand: '',
 			features: [{ key: '', value: '' }],
@@ -114,8 +121,10 @@ const ProductFormContainer = ({ className }) => {
 	})
 
 	useEffect(() => {
-		if (!subCategories.length && !isLoadingSub) {
+		if (!subCategories.length) {
 			dispatch(getSubCategoriesList())
+		} else {
+			setValue('subcategory_id', subCategories[0].id)
 		}
 
 		if (submitFlag) {
@@ -132,17 +141,24 @@ const ProductFormContainer = ({ className }) => {
 		if (imageFields.length === 0) {
 			appendImage('')
 		}
+
+		if (isEdit && products.length && !isLoadingServer) {
+			setValue('name', products.find((item) => item.id === id).name)
+			setValue('description', products.find((item) => item.id === id).description)
+			setValue('subcategory_id', products.find((item) => item.id === id).subCategoryId.id)
+			setValue('images', products.find((item) => item.id === id).images)
+			setValue('brand', products.find((item) => item.id === id).brand)
+			setValue('features', products.find((item) => item.id === id).features)
+			setValue('variants', products.find((item) => item.id === id).variants)
+		}
 	}, [
 		dispatch,
 		subCategories,
-		isLoadingSub,
 		errorServer,
 		navigate,
 		submitSuccess,
-		imageFields.length,
-		appendImage,
-		isLoadingServer,
 		submitFlag,
+		isLoadingServer,
 	])
 
 	const onAddVariant = () => {
@@ -171,18 +187,18 @@ const ProductFormContainer = ({ className }) => {
 	}
 
 	const onSubmit = (data) => {
-		dispatch(addProducts(data))
+		isEdit ? dispatch(editProduct(id, data)) : dispatch(addProduct(data))
 		setSubmitFlag(true)
 	}
 
 	const resetError = () => {
 		if (errorServer) {
-			dispatch({ type: ACTION_TYPE.RESET_PRODUCTS_ERROR })
+			dispatch({ type: ACTION_TYPE.RESET_PRODUCT_ERROR })
 			setSubmitFlag(false)
 		}
 	}
 
-	if (!subCategories.length) {
+	if (!subCategories.length || isLoadingSub) {
 		return <Loader fontSize='150px' />
 	}
 
@@ -217,11 +233,11 @@ const ProductFormContainer = ({ className }) => {
 				<div className='form__input'>
 					<Select
 						name='subcategory_id'
-						list={subCategories} // массив подкатегорий
-						value={subCategories[0]?.id || ''} // значение по умолчанию
+						list={subCategories}
+						value={getValues('subcategory_id')}
 						{...register('subcategory_id', {
 							onChange: () => {
-								resetError()(null)
+								resetError()
 							},
 						})}
 					/>
@@ -241,7 +257,6 @@ const ProductFormContainer = ({ className }) => {
 									type='text'
 									{...register(`images.${idx}`, {
 										onChange: () => resetError(),
-										value: img.url || '',
 									})}
 									placeholder='URL изображения'
 								/>

@@ -1,3 +1,4 @@
+import { ROLE } from '../../constants'
 import { handleRequestState } from '../../utils'
 import { ACTION_TYPE } from '../actions'
 
@@ -6,7 +7,7 @@ const initialState = {
 	email: '',
 	login: '',
 	imgUserUrl: '',
-	roleId: null,
+	roleId: ROLE.USER,
 	createdAt: null,
 	updatedAt: null,
 	users: {

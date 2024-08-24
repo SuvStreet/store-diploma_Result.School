@@ -28,7 +28,9 @@ const SubCategoriesRowContainer = ({ item, index }) => {
 				{name}
 			</div>
 			<div className='cell'>{category}</div>
-			<div className='cell'>{products.length}</div>
+			<div className='cell'>
+				{products.reduce((acc, product) => acc + product.variants, 0)}
+			</div>
 			<div className='cell buttons'>
 				<Button className='edit' onClick={() => handelEditClick()}>
 					<Icon iconCode={faEdit} fontSize='1rem' />

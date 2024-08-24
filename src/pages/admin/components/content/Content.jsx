@@ -7,13 +7,15 @@ import styled from 'styled-components'
 import { ProductForm } from './forms/product-form/ProductForm'
 
 const ContentContainer = ({ className }) => {
+	console.log('ContentContainer')
+
 	return (
 		<div className={className}>
 			<Routes>
 				<Route path='/' element={<div>Добро пожаловать в Dashboard</div>} />
 				<Route path='products' element={<Products />}>
 					<Route path='add' element={<ProductForm />} />
-					<Route path='edit/:id' element={<div>Добавить продукт</div>} />
+					<Route path='edit/:id' element={<ProductForm />} />
 				</Route>
 				<Route path='categories' element={<Categories />}>
 					<Route path='add' element={<div>Добавить категорию</div>} />

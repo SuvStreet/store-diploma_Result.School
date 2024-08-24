@@ -5,7 +5,7 @@ import { Link, useLocation, useMatch, useMatches, useParams } from 'react-router
 
 import { useInfiniteScroll } from '../../hooks'
 import { Error, InfiniteScrollList, Loader } from '../../components'
-import { addProducts, getProductsList, setProducts } from '../../redux/actions'
+import { addProduct, getProductsList, setProducts } from '../../redux/actions'
 import { CardProduct } from './components'
 
 import styled from 'styled-components'

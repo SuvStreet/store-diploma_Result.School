@@ -34,7 +34,7 @@ const CategoriesRowContainer = ({ item, index }) => {
 			<div className='cell'>
 				{subcategories.map((subcategories) => (
 					<div key={subcategories.id} className='cell'>
-						{subcategories.products.map((product) => product.variants.length)}
+						{subcategories.products.reduce((acc, product) => acc + product.variants, 0)}
 					</div>
 				))}
 			</div>

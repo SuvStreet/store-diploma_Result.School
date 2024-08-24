@@ -9,13 +9,13 @@ export const getProductsList = (subCategoryId) => async (dispatch) => {
 		let response = null
 
 		if (!subCategoryId) {
-			response = await request(URL.GET_PRODUCTS)
+			response = await request(URL.PRODUCTS)
 		} else {
 			response = await request(`${URL.GET_PRODUCTS_LIST}/${subCategoryId}`)
 		}
 
 		const { error, data } = response
-		
+
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST_ERROR, payload: error })
 			return

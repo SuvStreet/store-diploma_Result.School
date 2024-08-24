@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
+import { removeProduct } from '../../../../../../../../redux/actions'
 import { Button, Icon } from '../../../../../../../../components'
 
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
 
 const ProductRowContainer = ({ item, index }) => {
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 	const { images, name, subCategoryId, variants } = item
 
 	const handelEditClick = () => {
@@ -16,6 +19,8 @@ const ProductRowContainer = ({ item, index }) => {
 
 	const handelRemoveClick = () => {
 		console.log('remove :>> ', item.id)
+
+		dispatch(removeProduct(item.id))
 	}
 
 	return (
