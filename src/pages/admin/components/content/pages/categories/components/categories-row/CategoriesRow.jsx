@@ -1,13 +1,15 @@
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { Button, Icon } from '../../../../../../../../components'
+import { removeCategory } from '../../../../../../../../redux/actions'
 
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
-import styled from 'styled-components'
 
-const CategoriesRowContainer = ({ item, index }) => {
+export const CategoriesRow = ({ item, index }) => {
 	const navigate = useNavigate()
+	const dispatch = useDispatch()
 	const { name, subcategories } = item
 
 	const handelEditClick = () => {
@@ -15,7 +17,7 @@ const CategoriesRowContainer = ({ item, index }) => {
 	}
 
 	const handelRemoveClick = () => {
-		console.log('remove :>> ', item.id)
+		dispatch(removeCategory(item.id, name))
 	}
 
 	return (
@@ -24,20 +26,34 @@ const CategoriesRowContainer = ({ item, index }) => {
 			<div className='cell prompt' title={name}>
 				{name}
 			</div>
-			<div className='cell'>
-				{subcategories.map((subcategories) => (
-					<div key={subcategories.id} className='cell prompt' title={subcategories.name}>
-						{subcategories.name}
+			{subcategories.length === 0 ? (
+				<div className='cell cell-2'>Подкатегории не найдены</div>
+			) : (
+				<>
+					<div className='cell'>
+						{subcategories.map((subcategories) => (
+							<div
+								key={subcategories.id}
+								className='cell prompt'
+								title={subcategories.name}
+							>
+								{subcategories.name}
+							</div>
+						))}
 					</div>
-				))}
-			</div>
-			<div className='cell'>
-				{subcategories.map((subcategories) => (
-					<div key={subcategories.id} className='cell'>
-						{subcategories.products.reduce((acc, product) => acc + product.variants, 0)}
+					<div className='cell'>
+						{subcategories.map((subcategories) => (
+							<div key={subcategories.id} className='cell'>
+								{subcategories.products.reduce(
+									(acc, product) => acc + product.variants,
+									0,
+								)}
+							</div>
+						))}
 					</div>
-				))}
-			</div>
+				</>
+			)}
+
 			<div className='cell buttons'>
 				<Button className='edit' onClick={() => handelEditClick()}>
 					<Icon iconCode={faEdit} fontSize='1rem' />
@@ -50,9 +66,7 @@ const CategoriesRowContainer = ({ item, index }) => {
 	)
 }
 
-export const CategoriesRow = styled(CategoriesRowContainer)``
-
-CategoriesRowContainer.propTypes = {
+CategoriesRow.propTypes = {
 	item: PropTypes.object.isRequired,
 	index: PropTypes.number.isRequired,
 }

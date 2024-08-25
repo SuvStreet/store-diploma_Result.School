@@ -17,7 +17,6 @@ const UsersRowContainer = ({ item, index }) => {
 	const [selectedRoleId, setSelectedRoleId] = useState(String(roleId))
 
 	const onChange = (newRoleId) => {
-		console.log('newRoleId :>> ', newRoleId.target.value)
 		setSelectedRoleId(newRoleId.target.value)
 	}
 

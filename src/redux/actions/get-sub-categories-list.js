@@ -18,13 +18,14 @@ export const getSubCategoriesList = (id) => async (dispatch) => {
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_ERROR, payload: error })
-			return
+			return false
 		}
 
 		dispatch({
 			type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_SUCCESS,
 			payload: data.subCategories,
 		})
+		return true
 	} catch (error) {
 		dispatch({ type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_ERROR, payload: error })
 		console.error('error ', error)

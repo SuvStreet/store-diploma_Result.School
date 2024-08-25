@@ -10,10 +10,11 @@ export const editProduct = (id, product) => async (dispatch) => {
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_EDIT_PRODUCT_ERROR, payload: error })
-			return
+			return false
 		}
 
 		dispatch({ type: ACTION_TYPE.REQUEST_EDIT_PRODUCT_SUCCESS, payload: data.product })
+		return true
 	} catch (error) {
 		dispatch({ type: ACTION_TYPE.REQUEST_EDIT_PRODUCT_ERROR, payload: error })
 		console.error('error: ', error)

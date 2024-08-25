@@ -34,7 +34,7 @@ export const initializeApp = () => async (dispatch) => {
 		// Загрузка категорий товаров
 		dispatch({ type: ACTION_TYPE.REQUEST_CATEGORIES_LIST })
 
-		const categories = await request(URL.GET_CATEGORIES_LIST)
+		const categories = await request(URL.CATEGORIES)
 
 		if (categories.error) {
 			dispatch({

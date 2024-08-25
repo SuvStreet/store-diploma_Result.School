@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import { Route, Routes } from 'react-router-dom'
 
 import { Categories, Products, SubCategories, Users } from './pages'
+import { ProductForm, CategoriesForm } from './forms'
 
 import styled from 'styled-components'
-import { ProductForm } from './forms/product-form/ProductForm'
 
 const ContentContainer = ({ className }) => {
 	return (
@@ -16,8 +16,8 @@ const ContentContainer = ({ className }) => {
 					<Route path='edit/:id' element={<ProductForm />} />
 				</Route>
 				<Route path='categories' element={<Categories />}>
-					<Route path='add' element={<div>Добавить категорию</div>} />
-					<Route path='edit/:id' element={<div>Добавить категорию</div>} />
+					<Route path='add' element={<CategoriesForm />} />
+					<Route path='edit/:id' element={<CategoriesForm />} />
 				</Route>
 				<Route path='sub-categories' element={<SubCategories />}>
 					<Route path='add' element={<div>Добавить подкатегорию</div>} />

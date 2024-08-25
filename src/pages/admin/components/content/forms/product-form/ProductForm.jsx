@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useMatch, useNavigate, useParams } from 'react-router-dom'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -67,8 +66,6 @@ const schema = yup.object().shape({
 })
 
 const ProductFormContainer = ({ className }) => {
-	const [submitFlag, setSubmitFlag] = useState(false)
-	const [submitSuccess, setSubmitSuccess] = useState(false)
 	const dispatch = useDispatch()
 	const { subCategories, isLoading: isLoadingSub } = useSelector(selectSubCategoriesList)
 	const {
@@ -77,7 +74,7 @@ const ProductFormContainer = ({ className }) => {
 		products,
 	} = useSelector(selectProductsList)
 	const navigate = useNavigate()
-	const { id } = useParams()
+	const { id: idSub } = useParams()
 	const isEdit = !!useMatch('/admin/products/edit/:id')
 
 	const {
@@ -123,46 +120,30 @@ const ProductFormContainer = ({ className }) => {
 	useEffect(() => {
 		if (!subCategories.length) {
 			dispatch(getSubCategoriesList())
-		} else {
-			setValue('subcategory_id', subCategories[0].id)
-		}
-
-		if (submitFlag) {
-			if (!isLoadingServer && !errorServer) {
-				setSubmitFlag(false)
-				setSubmitSuccess(true)
-			}
-		}
-
-		if (!errorServer && submitSuccess) {
-			navigate('/admin/products')
-		}
-
-		if (imageFields.length === 0) {
-			appendImage('')
 		}
 
 		if (isEdit && products.length && !isLoadingServer) {
-			setValue('name', products.find((item) => item.id === id).name)
-			setValue('description', products.find((item) => item.id === id).description)
-			setValue('subcategory_id', products.find((item) => item.id === id).subCategoryId.id)
-			setValue('images', products.find((item) => item.id === id).images)
-			setValue('brand', products.find((item) => item.id === id).brand)
-			setValue('features', products.find((item) => item.id === id).features)
-			setValue('variants', products.find((item) => item.id === id).variants)
+			const product = products.find((item) => item.id === idSub)
+			if (product) {
+				setValue('name', product.name)
+				setValue('description', product.description)
+				setValue('subcategory_id', product.subCategoryId.id)
+				setValue('images', product.images)
+				setValue('brand', product.brand)
+				setValue('features', product.features)
+				setValue('variants', product.variants)
+			}
+		} else if (!isEdit && subCategories.length) {
+			setValue('subcategory_id', subCategories[0].id)
 		}
-	}, [
-		dispatch,
-		subCategories,
-		errorServer,
-		navigate,
-		submitSuccess,
-		submitFlag,
-		isLoadingServer,
-	])
+
+		if (imageFields.length === 0 && !isEdit) {
+			appendImage('')
+		}
+	}, [subCategories, isEdit, products, isLoadingServer])
 
 	const onAddVariant = () => {
-		const firstVariantFeatures = variantFields[0].additionalFeatures.map((feature) => ({
+		const firstVariantFeatures = variantFields[0]?.additionalFeatures.map((feature) => ({
 			key: feature.key,
 			value: '',
 		}))
@@ -179,22 +160,25 @@ const ProductFormContainer = ({ className }) => {
 		const variants = getValues('variants')
 		const newFeature = { key: '', value: '' }
 
-		variants.forEach((variant) => {
-			variant.additionalFeatures = [...variant.additionalFeatures, newFeature]
-		})
+		const updatedVariants = variants.map((variant) => ({
+			...variant,
+			additionalFeatures: [...variant.additionalFeatures, newFeature],
+		}))
 
-		setValue('variants', variants)
+		setValue('variants', updatedVariants)
 	}
 
 	const onSubmit = (data) => {
-		isEdit ? dispatch(editProduct(id, data)) : dispatch(addProduct(data))
-		setSubmitFlag(true)
+		dispatch(isEdit ? editProduct(idSub, data) : addProduct(data)).then((message) => {
+			if (message) {
+				navigate('/admin/products')
+			}
+		})
 	}
 
 	const resetError = () => {
 		if (errorServer) {
 			dispatch({ type: ACTION_TYPE.RESET_PRODUCT_ERROR })
-			setSubmitFlag(false)
 		}
 	}
 
@@ -234,12 +218,7 @@ const ProductFormContainer = ({ className }) => {
 					<Select
 						name='subcategory_id'
 						list={subCategories}
-						value={getValues('subcategory_id')}
-						{...register('subcategory_id', {
-							onChange: () => {
-								resetError()
-							},
-						})}
+						{...register('subcategory_id')}
 					/>
 					{errors.subcategory_id && (
 						<FormError>{errors.subcategory_id.message}</FormError>

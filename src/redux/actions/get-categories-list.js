@@ -6,7 +6,7 @@ export const getCategoriesList = () => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_CATEGORIES_LIST })
 
-		const { error, data } = await request(URL.GET_CATEGORIES_LIST)
+		const { error, data } = await request(URL.CATEGORIES)
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_ERROR, payload: error })

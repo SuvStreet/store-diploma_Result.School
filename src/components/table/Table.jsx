@@ -79,6 +79,10 @@ export const Table = styled(TableContainer)`
 		}
 	}
 
+	.cell-2{
+		flex: 2;
+	}
+
 	.prompt {
 		cursor: pointer;
 	}
