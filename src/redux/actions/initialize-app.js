@@ -4,7 +4,7 @@ import { request } from '../../utils'
 import { logout } from './logout'
 import { URL } from '../../constants'
 
-export const initializeApp = () => async (dispatch) => {
+export const initializeApp = (pathnameAdmin) => async (dispatch) => {
 	dispatch({ type: ACTION_TYPE.REQUEST })
 
 	try {
@@ -32,22 +32,24 @@ export const initializeApp = () => async (dispatch) => {
 		dispatch(setUser(userData.data.user))
 
 		// Загрузка категорий товаров
-		dispatch({ type: ACTION_TYPE.REQUEST_CATEGORIES_LIST })
+		if (!pathnameAdmin) {
+			dispatch({ type: ACTION_TYPE.REQUEST_CATEGORIES_LIST })
 
-		const categories = await request(URL.CATEGORIES)
+			const categories = await request(URL.CATEGORIES)
 
-		if (categories.error) {
+			if (categories.error) {
+				dispatch({
+					type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_ERROR,
+					payload: categories.error,
+				})
+				return
+			}
+
 			dispatch({
-				type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_ERROR,
-				payload: categories.error,
+				type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_SUCCESS,
+				payload: categories.data.categories,
 			})
-			return
 		}
-
-		dispatch({
-			type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_SUCCESS,
-			payload: categories.data.categories,
-		})
 
 		dispatch({ type: ACTION_TYPE.REQUEST_SUCCESS })
 	} catch (error) {

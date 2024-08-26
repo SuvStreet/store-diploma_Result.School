@@ -6,7 +6,7 @@ export const getUsersList = () => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_USERS_LIST })
 
-		Promise.all([request(URL.GET_USERS_LIST), request(URL.GET_ROLES_LIST)]).then(
+		Promise.all([request(URL.USERS_LIST), request(URL.ROLES_LIST)]).then(
 			([users, roles]) => {
 				if (users.error || roles.error) {
 					dispatch({
@@ -15,7 +15,7 @@ export const getUsersList = () => async (dispatch) => {
 					})
 					return
 				}
-				
+
 				dispatch({
 					type: ACTION_TYPE.REQUEST_USERS_LIST_SUCCESS,
 					payload: users.data.users,

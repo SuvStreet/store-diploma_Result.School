@@ -1,4 +1,3 @@
-import { ROLE } from '../../constants'
 import { handleRequestState } from '../../utils'
 import { ACTION_TYPE } from '../actions'
 
@@ -7,11 +6,12 @@ const initialState = {
 	email: '',
 	login: '',
 	imgUserUrl: '',
-	roleId: ROLE.USER,
+	roleId: null,
 	createdAt: null,
 	updatedAt: null,
 	users: {
 		isLoading: false,
+		isRoleUpdating: false,
 		error: null,
 		users: [],
 		roles: [],
@@ -46,6 +46,39 @@ export const userReducer = (state = initialState, action) => {
 					},
 					'users',
 				),
+			}
+
+		case ACTION_TYPE.REQUEST_EDIT_USER_ROLE_SUCCESS:
+			return {
+				...state,
+				users: {
+					...state.users,
+					isRoleUpdating: false,
+					users: state.users.users.map((user) =>
+						user.id === action.payload.id
+							? { ...user, roleId: action.payload.roleId }
+							: user,
+					),
+				},
+			}
+
+		case ACTION_TYPE.REQUEST_EDIT_USER_ROLE:
+			return {
+				...state,
+				users: {
+					...state.users,
+					isRoleUpdating: true,
+				},
+			}
+
+		case ACTION_TYPE.REQUEST_EDIT_USER_ROLE_ERROR:
+			return {
+				...state,
+				users: {
+					...state.users,
+					isRoleUpdating: false,
+					error: action.payload,
+				},
 			}
 
 		case ACTION_TYPE.SET_ROLES_LIST:

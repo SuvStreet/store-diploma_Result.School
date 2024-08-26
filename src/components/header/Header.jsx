@@ -4,8 +4,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useMatch } from 'react-router-dom'
 
 import { Logo, Search, ControlPanel, CategoriesProducts } from './components'
-import { initializeApp } from '../../redux/actions'
-import { selectAppIsAuth, selectUserLogin } from '../../redux/selectors'
+import { getCategoriesList, initializeApp } from '../../redux/actions'
+import {
+	selectAppIsAuth,
+	selectCategoriesList,
+	selectUserLogin,
+} from '../../redux/selectors'
 
 import styled from 'styled-components'
 
@@ -13,23 +17,28 @@ const HeaderContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const isAuth = useSelector(selectAppIsAuth)
 	const login = useSelector(selectUserLogin)
-	const pathname = useMatch('/admin/*')
+	const { categories } = useSelector(selectCategoriesList)
+	const noIsAdmin = useMatch('/')
+	const pathnameAdmin = useMatch('/admin/*')
 
 	useEffect(() => {
 		if (isAuth && !login) {
-			dispatch(initializeApp())
+			dispatch(initializeApp(pathnameAdmin))
 		}
-	}, [dispatch, isAuth, login])
+		if (!categories.length && noIsAdmin && pathnameAdmin) {
+			dispatch(getCategoriesList())
+		}
+	}, [dispatch, isAuth, login, pathnameAdmin, categories, noIsAdmin])
 
 	return (
 		<>
 			<div className={className}>
-				<div className={`header-info ${pathname ? 'header-info--admin' : ''}`}>
+				<div className={`header-info ${pathnameAdmin ? 'header-info--admin' : ''}`}>
 					<Logo />
 					<Search />
 					<ControlPanel userLogin={login} />
 				</div>
-				{!pathname && (
+				{!pathnameAdmin && (
 					<div className='header-menu'>
 						<CategoriesProducts />
 					</div>

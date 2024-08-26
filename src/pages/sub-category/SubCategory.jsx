@@ -1,50 +1,39 @@
 import PropTypes from 'prop-types'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet, useMatch, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { Error, H2, Loader } from '../../components'
 import { getProductsList, getSubCategoriesList } from '../../redux/actions'
-import {
-	selectAppError,
-	selectAppIsLoading,
-	selectCategoriesList,
-	selectSubCategoriesList,
-} from '../../redux/selectors'
+import { selectSubCategoriesList } from '../../redux/selectors'
 
 import styled from 'styled-components'
 
-const CategoryContainer = ({ className }) => {
+const SubCategoryContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const { id } = useParams()
-	const isLoading = useSelector(selectAppIsLoading)
-	const { categories } = useSelector(selectCategoriesList)
-	const { subCategories } = useSelector(selectSubCategoriesList)
-	const error = useSelector(selectAppError)
+	const {
+		subCategories,
+		isLoading: subCategoriesIsLoading,
+		error,
+	} = useSelector(selectSubCategoriesList)
 	const navigate = useNavigate()
-	const productsList = !!useMatch('/categories/:categoriesId/products/:productsId')
 
 	useEffect(() => {
-		if (categories.length) {
-			dispatch(getSubCategoriesList(id))
-		}
-	}, [dispatch, categories, id])
+		dispatch(getSubCategoriesList(id))
+	}, [dispatch, id])
 
 	const handleClickProducts = (subCategoryId) => {
 		dispatch(getProductsList(subCategoryId))
-		navigate(`/products/subCategory/${subCategoryId}`)
+		navigate(`/products/sub-category/${subCategoryId}`)
 	}
 
-	if (isLoading) {
+	if (subCategoriesIsLoading) {
 		return <Loader fontSize='150px' />
 	}
 
 	if (error) {
 		return <Error titleError={error} noAccess />
-	}
-
-	if (productsList) {
-		return <Outlet />
 	}
 
 	return (
@@ -65,7 +54,7 @@ const CategoryContainer = ({ className }) => {
 	)
 }
 
-export const Category = styled(CategoryContainer)`
+export const SubCategory = styled(SubCategoryContainer)`
 	display: flex;
 	gap: 10px;
 	width: 100%;
@@ -110,6 +99,6 @@ export const Category = styled(CategoryContainer)`
 	}
 `
 
-CategoryContainer.propTypes = {
+SubCategoryContainer.propTypes = {
 	className: PropTypes.string.isRequired,
 }

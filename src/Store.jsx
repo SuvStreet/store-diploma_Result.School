@@ -11,7 +11,7 @@ import {
 	Main,
 	Product,
 	Profile,
-	Category,
+	SubCategory,
 } from './pages'
 import { EditForm } from './pages/profile/components'
 
@@ -74,9 +74,9 @@ export const Store = () => {
 					>
 						<Route path='edit' element={<EditForm />} />
 					</Route>
-					<Route path='/categories/:id' element={<Category />} />
-					<Route path='/products/subCategory/:subCategoryId' element={<ProductsList />} />
-					<Route path='/product/:id' element={<Product />} />
+					<Route path='/categories/:id' element={<SubCategory />} />
+					<Route path='/products/sub-category/:subCategoryId' element={<ProductsList />} />
+					<Route path='/products/:id' element={<Product />} />
 					<Route path='/admin/*' element={<Admin />} />
 					<Route path='/cart' element={<div>Корзина (Cart)</div>} />
 					<Route
