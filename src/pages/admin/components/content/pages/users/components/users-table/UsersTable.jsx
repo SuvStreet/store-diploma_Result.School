@@ -15,7 +15,7 @@ const UsersTableContainer = ({ items }) => {
 		'Создание аккаунта',
 		'Действия',
 	]
-	
+
 	return (
 		<Table
 			headers={headers}

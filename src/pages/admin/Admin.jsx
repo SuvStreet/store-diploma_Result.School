@@ -1,23 +1,40 @@
 import propTypes from 'prop-types'
+import { useSelector } from 'react-redux'
 
 import { Sidebar, Header, Content } from './components'
+import { selectAppIsLoading, selectUser } from '../../redux/selectors'
+import { ROLE } from '../../constants'
+import { Error, Loader } from '../../components'
 
 import styled from 'styled-components'
 
 const AdminContainer = ({ className }) => {
+	const isLoadingApp = useSelector(selectAppIsLoading)
+	const { roleId } = useSelector(selectUser)
+
+	if (isLoadingApp && !roleId) {
+		return <Loader fontSize='150px' />
+	}
+
 	return (
-		<div className={className}>
-			<Sidebar />
-			<div className='main-content'>
-				<Header />
-				<Content />
-			</div>
-		</div>
+		<>
+			{roleId === ROLE.ADMIN ? (
+				<div className={className}>
+					<Sidebar />
+					<div className='main-content'>
+						<Header />
+						<Content />
+					</div>
+				</div>
+			) : (
+				<Error titleError='У вас нет доступа к этой странице' noAccess />
+			)}
+		</>
 	)
 }
 
 export const Admin = styled(AdminContainer)`
-	width: 100%;
+	flex: 1;
 	display: flex;
 
 	.main-content {

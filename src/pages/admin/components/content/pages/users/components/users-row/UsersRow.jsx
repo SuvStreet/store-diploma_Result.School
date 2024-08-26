@@ -1,20 +1,24 @@
 import { useState } from 'react'
 import PropTypes from 'prop-types'
 
-import { Button, Icon, Select } from '../../../../../../../../components'
+import { Button, Icon, Loader, Select } from '../../../../../../../../components'
 import { transformDate } from '../../../../../../../../utils'
-import { useSelector } from 'react-redux'
-import { selectRoles } from '../../../../../../../../redux/selectors'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectRoles, selectUsersList } from '../../../../../../../../redux/selectors'
+import { editUserRole } from '../../../../../../../../redux/actions'
 
 import { faFloppyDisk } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
 
 const UsersRowContainer = ({ item, index }) => {
+	const dispatch = useDispatch()
 	const roles = useSelector(selectRoles)
+	const { isRoleUpdating } = useSelector(selectUsersList)
 
 	const { login, email, imgUserUrl, roleId, createdAt } = item
 
 	const [selectedRoleId, setSelectedRoleId] = useState(String(roleId))
+	const [loadingUserId, setLoadingUserId] = useState(null)
 
 	const onChange = (newRoleId) => {
 		setSelectedRoleId(newRoleId.target.value)
@@ -24,8 +28,12 @@ const UsersRowContainer = ({ item, index }) => {
 
 	const handleSaveClick = () => {
 		if (isRoleChanged) {
-			// Логика сохранения новой роли
-			console.log(`Saving new role: ${selectedRoleId} for user: ${item.id}`)
+			setLoadingUserId(item.id)
+			dispatch(editUserRole(item.id, selectedRoleId)).then((message) => {
+				if (message) {
+					setLoadingUserId(null)
+				}
+			})
 		}
 	}
 
@@ -44,8 +52,16 @@ const UsersRowContainer = ({ item, index }) => {
 			</div>
 			<div className='cell'>{transformDate(createdAt)}</div>
 			<div className='cell buttons'>
-				<Button className='save' onClick={handleSaveClick} disabled={!isRoleChanged}>
-					<Icon iconCode={faFloppyDisk} cursor='default' fontSize='1rem' />
+				<Button
+					className='save'
+					onClick={handleSaveClick}
+					disabled={!isRoleChanged || (isRoleUpdating && loadingUserId === item.id)}
+				>
+					{isRoleUpdating && loadingUserId === item.id ? (
+						<Loader />
+					) : (
+						<Icon iconCode={faFloppyDisk} cursor='inherit' fontSize='1rem' />
+					)}
 				</Button>
 			</div>
 		</>

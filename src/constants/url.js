@@ -13,7 +13,8 @@ export const URL = {
 	SUB_CATEGORY: '/sub-category',
 	ADD_SUB_CATEGORY: '/sub-category/add',
 	EDIT_SUB_CATEGORY: '/sub-category/edit',
-	GET_PRODUCTS_LIST: '/products/sub-category',
-	GET_USERS_LIST: '/user/users',
-	GET_ROLES_LIST: '/user/roles',
+	PRODUCTS_LIST: '/products/sub-category',
+	USERS_LIST: '/user/users',
+	USER_ROLE: '/user/role',
+	ROLES_LIST: '/user/roles',
 }

@@ -11,7 +11,7 @@ export const getProductsList = (subCategoryId) => async (dispatch) => {
 		if (!subCategoryId) {
 			response = await request(URL.PRODUCTS)
 		} else {
-			response = await request(`${URL.GET_PRODUCTS_LIST}/${subCategoryId}`)
+			response = await request(`${URL.PRODUCTS_LIST}/${subCategoryId}`)
 		}
 
 		const { error, data } = response
