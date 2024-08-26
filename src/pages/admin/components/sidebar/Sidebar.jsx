@@ -11,13 +11,13 @@ const SidebarContainer = ({ className }) => {
 					<NavLink to='/admin/main'>Главная</NavLink>
 				</li> */}
 				<li>
-					<NavLink to='/admin/products'>Товары</NavLink>
-				</li>
-				<li>
 					<NavLink to='/admin/categories'>Категории</NavLink>
 				</li>
 				<li>
 					<NavLink to='/admin/sub-categories'>Подкатегории</NavLink>
+				</li>
+				<li>
+					<NavLink to='/admin/products'>Товары</NavLink>
 				</li>
 				<li>
 					<NavLink to='/admin/orders'>Заказы</NavLink>

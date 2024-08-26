@@ -11,10 +11,6 @@ const ContentContainer = ({ className }) => {
 		<div className={className}>
 			<Routes>
 				<Route path='/' element={<div>Добро пожаловать в Dashboard</div>} />
-				<Route path='products' element={<Products />}>
-					<Route path='add' element={<ProductForm />} />
-					<Route path='edit/:id' element={<ProductForm />} />
-				</Route>
 				<Route path='categories' element={<Categories />}>
 					<Route path='add' element={<CategoriesForm />} />
 					<Route path='edit/:id' element={<CategoriesForm />} />
@@ -22,6 +18,10 @@ const ContentContainer = ({ className }) => {
 				<Route path='sub-categories' element={<SubCategories />}>
 					<Route path='add' element={<SubCategoriesForm />} />
 					<Route path='edit/:id' element={<SubCategoriesForm />} />
+				</Route>
+				<Route path='products' element={<Products />}>
+					<Route path='add' element={<ProductForm />} />
+					<Route path='edit/:id' element={<ProductForm />} />
 				</Route>
 				<Route path='orders' element={<div>Заказы</div>} />
 				<Route path='users' element={<Users />} />
