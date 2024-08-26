@@ -10,8 +10,10 @@ export const URL = {
 	CATEGORIES: '/categories',
 	ADD_CATEGORIES: '/categories/add',
 	EDIT_CATEGORIES: '/categories/edit',
-	GET_SUB_CATEGORY_LIST: '/sub-category',
-	GET_PRODUCTS_LIST: '/products/subCategory',
+	SUB_CATEGORY: '/sub-category',
+	ADD_SUB_CATEGORY: '/sub-category/add',
+	EDIT_SUB_CATEGORY: '/sub-category/edit',
+	GET_PRODUCTS_LIST: '/products/sub-category',
 	GET_USERS_LIST: '/user/users',
 	GET_ROLES_LIST: '/user/roles',
 }

@@ -118,6 +118,9 @@ const ProductFormContainer = ({ className }) => {
 	})
 
 	useEffect(() => {
+		// TODO: Баг при загрузки категорий на главной странице переходя в админку
+		// подкатегория остаётся одна, нужно переделать GenericListContainer
+		// что бы мог принимать два запроса, например товары и подкатегории
 		if (!subCategories.length) {
 			dispatch(getSubCategoriesList())
 		}

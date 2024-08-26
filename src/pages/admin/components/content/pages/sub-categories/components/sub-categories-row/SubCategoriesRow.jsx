@@ -1,12 +1,15 @@
 import PropTypes from 'prop-types'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 import { Button, Icon } from '../../../../../../../../components'
+import { removeSubCategory } from '../../../../../../../../redux/actions'
 
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
 
 const SubCategoriesRowContainer = ({ item, index }) => {
+	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { name, category, imgUrl, products } = item
 
@@ -15,7 +18,7 @@ const SubCategoriesRowContainer = ({ item, index }) => {
 	}
 
 	const handelRemoveClick = () => {
-		console.log('remove :>> ', item.id)
+		dispatch(removeSubCategory(item.id, name))
 	}
 
 	return (
@@ -27,7 +30,7 @@ const SubCategoriesRowContainer = ({ item, index }) => {
 			<div className='cell prompt' title={name}>
 				{name}
 			</div>
-			<div className='cell'>{category}</div>
+			<div className='cell'>{category.name}</div>
 			<div className='cell'>
 				{products.reduce((acc, product) => acc + product.variants, 0)}
 			</div>

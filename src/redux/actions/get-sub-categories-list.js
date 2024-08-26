@@ -4,30 +4,30 @@ import { ACTION_TYPE } from './action-type'
 
 export const getSubCategoriesList = (id) => async (dispatch) => {
 	try {
-		dispatch({ type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST })
+		dispatch({ type: ACTION_TYPE.REQUEST_SUBCATEGORIES_LIST })
 
 		let response = null
 
-		if(!id){
-			response = await request(URL.GET_SUB_CATEGORY_LIST)
+		if (!id) {
+			response = await request(URL.SUB_CATEGORY)
 		} else {
-			response = await request(`${URL.GET_SUB_CATEGORY_LIST}/${id}`)
+			response = await request(`${URL.SUB_CATEGORY}/${id}`)
 		}
 
 		const { error, data } = response
 
 		if (error) {
-			dispatch({ type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_ERROR, payload: error })
+			dispatch({ type: ACTION_TYPE.REQUEST_SUBCATEGORIES_LIST_ERROR, payload: error })
 			return false
 		}
 
 		dispatch({
-			type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_SUCCESS,
+			type: ACTION_TYPE.REQUEST_SUBCATEGORIES_LIST_SUCCESS,
 			payload: data.subCategories,
 		})
 		return true
 	} catch (error) {
-		dispatch({ type: ACTION_TYPE.REQUEST_SUB_CATEGORIES_LIST_ERROR, payload: error })
+		dispatch({ type: ACTION_TYPE.REQUEST_SUBCATEGORIES_LIST_ERROR, payload: error })
 		console.error('error ', error)
 	}
 }
