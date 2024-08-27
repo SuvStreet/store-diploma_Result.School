@@ -12,10 +12,7 @@ import {
 	addSubCategory,
 	editSubCategory,
 } from '../../../../../../redux/actions'
-import {
-	selectCategoriesList,
-	selectSubCategoriesList,
-} from '../../../../../../redux/selectors'
+import { selectSubCategoriesList } from '../../../../../../redux/selectors'
 
 import styled from 'styled-components'
 
@@ -44,11 +41,6 @@ const SubCategoriesFormContainer = ({ className }) => {
 		resolver: yupResolver(SubCategoriesFormSchema),
 	})
 	const {
-		categories,
-		isLoading: categoriesIsLoading,
-		error: categoriesError,
-	} = useSelector(selectCategoriesList)
-	const {
 		subCategories,
 		isLoading: subCategoriesIsLoading,
 		error: subCategoriesError,
@@ -66,10 +58,10 @@ const SubCategoriesFormContainer = ({ className }) => {
 				setValue('category_id', subCategory.category.id)
 				setValue('img_url', subCategory.imgUrl)
 			}
-		} else if (!isEdit && categories.length) {
-			setValue('category_id', categories[0].id)
+		} else {
+			setValue('category_id', categories()[0]?.id)
 		}
-	}, [isEdit, subCategoryId, subCategories, setValue, categories])
+	}, [isEdit, subCategoryId, subCategories, setValue])
 
 	const onSubmit = ({ name, category_id, img_url }) => {
 		dispatch(
@@ -83,6 +75,17 @@ const SubCategoriesFormContainer = ({ className }) => {
 		})
 	}
 
+	const categories = () => {
+		return Array.from(
+			new Map(
+				subCategories.map((sub) => [
+					sub.category.id,
+					{ id: sub.category.id, name: sub.category.name },
+				]),
+			).values(),
+		)
+	}
+
 	const resetServerError = () => {
 		if (subCategoriesError) {
 			dispatch({ type: ACTION_TYPE.RESET_SUBCATEGORY_ERROR })
@@ -92,9 +95,9 @@ const SubCategoriesFormContainer = ({ className }) => {
 	const formError =
 		errors.name?.message || errors.category_id?.message || errors.img_url?.message
 
-	const errorMessage = categoriesError || subCategoriesError || formError
+	const errorMessage = subCategoriesError || formError
 
-	if (categoriesIsLoading) {
+	if (subCategoriesIsLoading) {
 		return <Loader fontSize='150px' />
 	}
 
@@ -116,7 +119,7 @@ const SubCategoriesFormContainer = ({ className }) => {
 				<label>Выбрать категорию:</label>
 				<Select
 					type='text'
-					list={categories}
+					list={categories()}
 					placeholder='Название подкатегории'
 					{...register('category_id', {
 						onChange: () => {

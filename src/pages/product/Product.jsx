@@ -13,13 +13,13 @@ import styled from 'styled-components'
 const ProductContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const { id } = useParams()
-	const product = useSelector(selectProduct)
-	const isLoading = useSelector(selectProductIsLoading)
-	const error = useSelector(selectProductError)
+	// const product = useSelector(selectProduct)
+	// const isLoading = useSelector(selectProductIsLoading)
+	// const error = useSelector(selectProductError)
 
-	useEffect(() => {
-		dispatch(getProduct(id))
-	}, [dispatch, id])
+	// useEffect(() => {
+	// 	dispatch(getProduct(id))
+	// }, [dispatch, id])
 
 	if (isLoading) {
 		return <Loader fontSize='150px' />

@@ -41,16 +41,6 @@ export const CategoriesRow = ({ item, index }) => {
 							</div>
 						))}
 					</div>
-					<div className='cell'>
-						{subcategories.map((subcategories) => (
-							<div key={subcategories.id} className='cell'>
-								{subcategories.products.reduce(
-									(acc, product) => acc + product.variants,
-									0,
-								)}
-							</div>
-						))}
-					</div>
 				</>
 			)}
 

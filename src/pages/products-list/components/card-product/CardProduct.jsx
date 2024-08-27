@@ -11,7 +11,7 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import styled from 'styled-components'
 
 const CardProductContainer = forwardRef(({ className, product, ...props }, ref) => {
-	console.log('CardProductContainer product:>> ', product)
+	// console.log('CardProductContainer product:>> ', product)
 
 	return (
 		<div className={className} ref={ref}>

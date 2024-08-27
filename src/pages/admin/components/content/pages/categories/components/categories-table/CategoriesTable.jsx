@@ -8,7 +8,7 @@ import styled from 'styled-components'
 const CategoriesTableContainer = ({ items }) => {
 	const titlesAddButton = 'новую категорию'
 
-	const headers = ['ID', 'Наименование', 'Подкатегории', 'Количество товаров', 'Действия']
+	const headers = ['ID', 'Наименование', 'Подкатегории', 'Действия']
 
 	return (
 		<Table

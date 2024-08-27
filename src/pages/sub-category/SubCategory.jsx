@@ -24,7 +24,6 @@ const SubCategoryContainer = ({ className }) => {
 	}, [dispatch, id])
 
 	const handleClickProducts = (subCategoryId) => {
-		dispatch(getProductsList(subCategoryId))
 		navigate(`/products/sub-category/${subCategoryId}`)
 	}
 
