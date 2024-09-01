@@ -11,7 +11,6 @@ import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import styled from 'styled-components'
 
 const CardProductContainer = forwardRef(({ className, product, ...props }, ref) => {
-	// console.log('CardProductContainer product:>> ', product)
 
 	return (
 		<div className={className} ref={ref}>
@@ -40,14 +39,14 @@ const CardProductContainer = forwardRef(({ className, product, ...props }, ref) 
 
 					<div className='price-button'>
 						<div className='price-product'>
-							{formatPrice(product.variants[0].price)} ₽
+							{formatPrice(product.price)} ₽
 						</div>
 						<div className='button-product'>
-							<Button>
+							<Button onClick={() => console.log(product)}>
 								<Icon iconCode={faHeart} fontSize='20px'></Icon>
 								<p>В избранное</p>
 							</Button>
-							<Button>
+							<Button onClick={() => console.log(product)}>
 								<Icon iconCode={faCartShopping} fontSize='20px'></Icon>
 								<p>В корзину</p>
 							</Button>

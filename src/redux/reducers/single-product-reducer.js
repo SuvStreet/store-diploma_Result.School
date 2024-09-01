@@ -19,13 +19,13 @@ const initialState = {
 
 export const singleProductReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case ACTION_TYPE.GET_PRODUCT_REQUEST:
+		case ACTION_TYPE.REQUEST_PRODUCT:
 			return {
 				...state,
 				isLoading: true,
 			}
 
-		case ACTION_TYPE.GET_PRODUCT_SUCCESS:
+		case ACTION_TYPE.REQUEST_PRODUCT_SUCCESS:
 			return {
 				...state,
 				isLoading: false,
@@ -33,21 +33,19 @@ export const singleProductReducer = (state = initialState, action) => {
 				...action.payload,
 			}
 
-		case ACTION_TYPE.GET_PRODUCT_ERROR:
+		case ACTION_TYPE.REQUEST_PRODUCT_ERROR:
 			return {
-				...state,
+				...initialState,
 				isLoading: false,
 				error: action.payload,
 			}
 
-		// case ACTION_TYPE.SET_PRODUCTS:
-		// 	return [...action.payload]
+		case ACTION_TYPE.ADD_PRODUCT:
+			return {
+				...state,
+				...action.payload,
+			}
 
-		// case ACTION_TYPE.ADD_PRODUCTS:
-		// 	return [...state, ...action.payload]
-
-		// case ACTION_TYPE.RESET_LIST_PRODUCTS:
-		// 	return initialState
 		default:
 			return state
 	}

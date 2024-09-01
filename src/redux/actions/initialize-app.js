@@ -3,8 +3,9 @@ import { ACTION_TYPE } from './action-type'
 import { request } from '../../utils'
 import { logout } from './logout'
 import { URL } from '../../constants'
+import localStorageService from '../../service/localStorageService'
 
-export const initializeApp = (pathnameAdmin) => async (dispatch) => {
+export const initializeApp = () => async (dispatch) => {
 	dispatch({ type: ACTION_TYPE.REQUEST })
 
 	try {
@@ -30,26 +31,7 @@ export const initializeApp = (pathnameAdmin) => async (dispatch) => {
 		}
 
 		dispatch(setUser(userData.data.user))
-
-		// Загрузка категорий товаров
-		if (!pathnameAdmin) {
-			dispatch({ type: ACTION_TYPE.REQUEST_CATEGORIES_LIST })
-
-			const categories = await request(URL.CATEGORIES)
-
-			if (categories.error) {
-				dispatch({
-					type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_ERROR,
-					payload: categories.error,
-				})
-				return
-			}
-
-			dispatch({
-				type: ACTION_TYPE.REQUEST_CATEGORIES_LIST_SUCCESS,
-				payload: categories.data.categories,
-			})
-		}
+		localStorageService.setAuth(true)
 
 		dispatch({ type: ACTION_TYPE.REQUEST_SUCCESS })
 	} catch (error) {

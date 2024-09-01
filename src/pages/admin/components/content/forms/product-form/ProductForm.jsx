@@ -47,22 +47,12 @@ const schema = yup.object().shape({
 			value: yup.string().required('Значение обязательно'),
 		}),
 	),
-	variants: yup.array().of(
-		yup.object().shape({
-			price: yup
-				.number()
-				.required('Цена обязательна')
-				.positive('Цена должна быть положительной'),
-			discount: yup.number().min(0, 'Скидка не может быть отрицательной'),
-			quantity: yup.number().min(0, 'Количество не может быть отрицательным'),
-			additionalFeatures: yup.array().of(
-				yup.object().shape({
-					key: yup.string().required('Ключ обязателен'),
-					value: yup.string().required('Значение обязательно'),
-				}),
-			),
-		}),
-	),
+	price: yup
+		.number()
+		.required('Цена обязательна')
+		.positive('Цена должна быть положительной'),
+	discount: yup.number().min(0, 'Скидка не может быть отрицательной'),
+	quantity: yup.number().min(0, 'Количество не может быть отрицательным'),
 })
 
 const ProductFormContainer = ({ className }) => {
@@ -81,7 +71,6 @@ const ProductFormContainer = ({ className }) => {
 		control,
 		register,
 		handleSubmit,
-		getValues,
 		setValue,
 		formState: { errors },
 	} = useForm({
@@ -93,14 +82,9 @@ const ProductFormContainer = ({ className }) => {
 			images: [''],
 			brand: '',
 			features: [{ key: '', value: '' }],
-			variants: [
-				{
-					additionalFeatures: [{ key: '', value: '' }],
-					discount: 0,
-					price: 0,
-					quantity: 0,
-				},
-			],
+			discount: 0,
+			price: 0,
+			quantity: 0,
 		},
 	})
 
@@ -112,15 +96,8 @@ const ProductFormContainer = ({ className }) => {
 		control,
 		name: 'features',
 	})
-	const { fields: variantFields, append: appendVariant } = useFieldArray({
-		control,
-		name: 'variants',
-	})
 
 	useEffect(() => {
-		// TODO: Баг при загрузки категорий на главной странице переходя в админку
-		// подкатегория остаётся одна, нужно переделать GenericListContainer
-		// что бы мог принимать два запроса, например товары и подкатегории
 		if (!subCategories.length) {
 			dispatch(getSubCategoriesList())
 		}
@@ -134,7 +111,9 @@ const ProductFormContainer = ({ className }) => {
 				setValue('images', product.images)
 				setValue('brand', product.brand)
 				setValue('features', product.features)
-				setValue('variants', product.variants)
+				setValue('discount', product.discount)
+				setValue('price', product.price)
+				setValue('quantity', product.quantity)
 			}
 		} else if (!isEdit && subCategories.length) {
 			setValue('subcategory_id', subCategories[0].id)
@@ -144,32 +123,6 @@ const ProductFormContainer = ({ className }) => {
 			appendImage('')
 		}
 	}, [subCategories, isEdit, products, isLoadingServer])
-
-	const onAddVariant = () => {
-		const firstVariantFeatures = variantFields[0]?.additionalFeatures.map((feature) => ({
-			key: feature.key,
-			value: '',
-		}))
-
-		appendVariant({
-			additionalFeatures: firstVariantFeatures,
-			discount: 0,
-			price: 0,
-			quantity: 0,
-		})
-	}
-
-	const onAddFeature = () => {
-		const variants = getValues('variants')
-		const newFeature = { key: '', value: '' }
-
-		const updatedVariants = variants.map((variant) => ({
-			...variant,
-			additionalFeatures: [...variant.additionalFeatures, newFeature],
-		}))
-
-		setValue('variants', updatedVariants)
-	}
 
 	const onSubmit = (data) => {
 		dispatch(isEdit ? editProduct(idSub, data) : addProduct(data)).then((message) => {
@@ -309,102 +262,44 @@ const ProductFormContainer = ({ className }) => {
 			</div>
 
 			<div className='form__group'>
-				<label>Дополнительные конфигурации товара:</label>
-				<div className='form__variants'>
-					{variantFields.map((variant, idx) => (
-						<div className='form__variant' key={variant.id}>
-							<div className='variant'>
-								<label>Цена:</label>
-								<div className='form__input'>
-									<Input
-										type='number'
-										{...register(`variants.${idx}.price`, {
-											onChange: () => resetError(),
-										})}
-									/>
-									{errors.variants?.[idx]?.price && (
-										<FormError>{errors.variants[idx].price.message}</FormError>
-									)}
-								</div>
-							</div>
-
-							<div className='variant'>
-								<label>Скидка:</label>
-								<div className='form__input'>
-									<Input
-										type='number'
-										{...register(`variants.${idx}.discount`, {
-											onChange: () => resetError(),
-										})}
-									/>
-									{errors.variants?.[idx]?.discount && (
-										<FormError>{errors.variants[idx].discount.message}</FormError>
-									)}
-								</div>
-							</div>
-
-							<div className='variant'>
-								<label>Количество:</label>
-								<div className='form__input'>
-									<Input
-										type='number'
-										{...register(`variants.${idx}.quantity`, {
-											onChange: () => resetError(),
-										})}
-									/>
-									{errors.variants?.[idx]?.quantity && (
-										<FormError>{errors.variants[idx].quantity.message}</FormError>
-									)}
-								</div>
-							</div>
-
-							<div className='variant form__features-variant'>
-								<label>Дополнительные характеристики:</label>
-								{variant.additionalFeatures.map((feat, featIdx) => (
-									<div className='form__feature-variant' key={featIdx}>
-										<div className='form__input'>
-											<Input
-												type='text'
-												{...register(
-													`variants.${idx}.additionalFeatures.${featIdx}.key`,
-													{ onChange: () => resetError() },
-												)}
-												placeholder='Ключ'
-											/>
-											{errors.variants?.[idx]?.additionalFeatures?.[featIdx]?.key && (
-												<FormError>
-													{errors.variants[idx].additionalFeatures[featIdx].key.message}
-												</FormError>
-											)}
-										</div>
-										<div className='form__input'>
-											<Input
-												type='text'
-												{...register(
-													`variants.${idx}.additionalFeatures.${featIdx}.value`,
-													{ onChange: () => resetError() },
-												)}
-												placeholder='Значение'
-											/>
-											{errors.variants?.[idx]?.additionalFeatures?.[featIdx]?.value && (
-												<FormError>
-													{errors.variants[idx].additionalFeatures[featIdx].value.message}
-												</FormError>
-											)}
-										</div>
-									</div>
-								))}
-								<Button type='button' solid='green' onClick={onAddFeature}>
-									Добавить характеристику
-								</Button>
-							</div>
-						</div>
-					))}
-					<Button type='button' onClick={onAddVariant}>
-						Добавить вариант
-					</Button>
+				<label>Цена:</label>
+				<div className='form__input'>
+					<Input
+						type='number'
+						{...register(`price`, {
+							onChange: () => resetError(),
+						})}
+					/>
+					{errors.price && <FormError>{errors.price.message}</FormError>}
 				</div>
 			</div>
+
+			<div className='form__group'>
+				<label>Скидка:</label>
+				<div className='form__input'>
+					<Input
+						type='number'
+						{...register(`discount`, {
+							onChange: () => resetError(),
+						})}
+					/>
+					{errors.discount && <FormError>{errors.discount.message}</FormError>}
+				</div>
+			</div>
+
+			<div className='form__group'>
+				<label>Количество:</label>
+				<div className='form__input'>
+					<Input
+						type='number'
+						{...register(`quantity`, {
+							onChange: () => resetError(),
+						})}
+					/>
+					{errors.quantity && <FormError>{errors.quantity.message}</FormError>}
+				</div>
+			</div>
+
 			{errorServer && <FormError>{errorServer}</FormError>}
 			<Button type='submit' disabled={isLoadingServer || errorServer}>
 				{isLoadingServer ? <Loader /> : 'Сохранить продукт'}

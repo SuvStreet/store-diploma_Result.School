@@ -10,7 +10,7 @@ const LoaderContainer = ({ className, fontSize }) => {
 		<div className={className}>
 			<Icon
 				iconCode={faEllipsis}
-				fontSize={fontSize || '32px'}
+				fontSize={fontSize || 'auto'}
 				beatFade
 				cursor='inherit'
 			/>

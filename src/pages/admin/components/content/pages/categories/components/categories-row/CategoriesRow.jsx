@@ -27,7 +27,7 @@ export const CategoriesRow = ({ item, index }) => {
 				{name}
 			</div>
 			{subcategories.length === 0 ? (
-				<div className='cell cell-2'>Подкатегории не найдены</div>
+				<div className='cell'>Подкатегории не найдены</div>
 			) : (
 				<>
 					<div className='cell'>

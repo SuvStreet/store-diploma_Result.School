@@ -11,8 +11,12 @@ import {
 	ACTION_TYPE,
 	addSubCategory,
 	editSubCategory,
+	getCategoriesList,
 } from '../../../../../../redux/actions'
-import { selectSubCategoriesList } from '../../../../../../redux/selectors'
+import {
+	selectCategoriesList,
+	selectSubCategoriesList,
+} from '../../../../../../redux/selectors'
 
 import styled from 'styled-components'
 
@@ -48,9 +52,14 @@ const SubCategoriesFormContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const navigate = useNavigate()
 	const { id: subCategoryId } = useParams()
+	const { categories, isLoading: categoriesIsLoading } = useSelector(selectCategoriesList)
 	const isEdit = !!useMatch('/admin/sub-categories/edit/:id')
 
 	useEffect(() => {
+		if (!categories.length && !categoriesIsLoading) {
+			dispatch(getCategoriesList())
+		}
+
 		if (isEdit && subCategoryId) {
 			const subCategory = subCategories.find((item) => item.id === subCategoryId)
 			if (subCategory) {
@@ -59,9 +68,17 @@ const SubCategoriesFormContainer = ({ className }) => {
 				setValue('img_url', subCategory.imgUrl)
 			}
 		} else {
-			setValue('category_id', categories()[0]?.id)
+			setValue('category_id', categories[0]?.id)
 		}
-	}, [isEdit, subCategoryId, subCategories, setValue])
+	}, [
+		isEdit,
+		subCategoryId,
+		subCategories,
+		setValue,
+		categories,
+		dispatch,
+		categoriesIsLoading,
+	])
 
 	const onSubmit = ({ name, category_id, img_url }) => {
 		dispatch(
@@ -75,17 +92,6 @@ const SubCategoriesFormContainer = ({ className }) => {
 		})
 	}
 
-	const categories = () => {
-		return Array.from(
-			new Map(
-				subCategories.map((sub) => [
-					sub.category.id,
-					{ id: sub.category.id, name: sub.category.name },
-				]),
-			).values(),
-		)
-	}
-
 	const resetServerError = () => {
 		if (subCategoriesError) {
 			dispatch({ type: ACTION_TYPE.RESET_SUBCATEGORY_ERROR })
@@ -97,7 +103,7 @@ const SubCategoriesFormContainer = ({ className }) => {
 
 	const errorMessage = subCategoriesError || formError
 
-	if (subCategoriesIsLoading) {
+	if (subCategoriesIsLoading || categoriesIsLoading) {
 		return <Loader fontSize='150px' />
 	}
 
@@ -119,7 +125,7 @@ const SubCategoriesFormContainer = ({ className }) => {
 				<label>Выбрать категорию:</label>
 				<Select
 					type='text'
-					list={categories()}
+					list={categories}
 					placeholder='Название подкатегории'
 					{...register('category_id', {
 						onChange: () => {

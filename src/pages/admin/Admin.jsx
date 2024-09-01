@@ -12,7 +12,7 @@ const AdminContainer = ({ className }) => {
 	const isLoadingApp = useSelector(selectAppIsLoading)
 	const { roleId } = useSelector(selectUser)
 
-	if (isLoadingApp && !roleId) {
+	if (isLoadingApp) {
 		return <Loader fontSize='150px' />
 	}
 

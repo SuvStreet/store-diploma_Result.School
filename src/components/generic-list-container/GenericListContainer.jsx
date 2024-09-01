@@ -19,7 +19,7 @@ export const GenericListContainer = ({
 	const isEdit = !!useMatch(editPath || '/')
 
 	useEffect(() => {
-			dispatch(fetchData())
+		dispatch(fetchData())
 	}, [dispatch, fetchData])
 
 	if (isLoading && !isAdd && !isEdit) {

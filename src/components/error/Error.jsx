@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 
-import { faGear, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
+import { faCartArrowDown, faGear, faTriangleExclamation } from '@fortawesome/free-solid-svg-icons'
 import { Icon } from '../icon/Icon'
 
 import styled from 'styled-components'
 
 const ErrorContainer = ({ className, titleError, ...props }) => {
-	const { spin, noAccess } = props
+	const { spin, noAccess, cartEmpty } = props
 
 	return (
 		<div className={className}>
@@ -42,6 +42,16 @@ const ErrorContainer = ({ className, titleError, ...props }) => {
 				</>
 			)}
 
+			{cartEmpty && (
+				<Icon
+					fontSize='3rem'
+					margin='20px auto 0'
+					iconCode={faCartArrowDown}
+					cursor='default'
+					bounce
+				/>
+			)}
+
 			<p className='error__text'>{titleError}</p>
 		</div>
 	)
@@ -64,4 +74,5 @@ ErrorContainer.propTypes = {
 	titleError: PropTypes.string.isRequired,
 	spin: PropTypes.bool,
 	noAccess: PropTypes.bool,
+	cartEmpty: PropTypes.bool,
 }

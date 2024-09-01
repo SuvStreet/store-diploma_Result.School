@@ -17,10 +17,8 @@ const ProductsListContainer = ({ className }) => {
 	const { products, isLoading, error } = useSelector(selectProductsList)
 
 	useEffect(() => {
-		if (!products.length) {
-			dispatch(getProductsList(subCategoryId))
-		}
-	}, [dispatch, subCategoryId, products])
+		dispatch(getProductsList(subCategoryId))
+	}, [dispatch, subCategoryId])
 
 	// const serverRequest = useServerRequest()
 

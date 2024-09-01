@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { Error, H2, Loader } from '../../components'
-import { getProductsList, getSubCategoriesList } from '../../redux/actions'
+import { getSubCategoriesList } from '../../redux/actions'
 import { selectSubCategoriesList } from '../../redux/selectors'
 
 import styled from 'styled-components'

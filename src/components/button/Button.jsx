@@ -17,7 +17,7 @@ export const Button = styled(ButtonContainer)`
 	font-size: 20px;
 	padding: ${({ padding }) => padding || '10px'};
 	width: ${({ width }) => width || '100%'};
-	height: ${({ height }) => height || '40px'};
+	height: ${({ height }) => height || 'auto'};
 	background-color: ${({ solid }) => solid || 'transparent'};
 	border: 1px solid #5e5e5e;
 	border-radius: 10px;

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { Error, Loader } from '../../components'
-import { getProduct } from '../../redux/actions'
-import { selectProduct, selectProductError, selectProductIsLoading } from '../../redux/selectors'
+import { getProductsList } from '../../redux/actions'
+import { selectProductsList } from '../../redux/selectors'
 import { Card } from './components'
 
 import styled from 'styled-components'
@@ -13,15 +13,15 @@ import styled from 'styled-components'
 const ProductContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const { id } = useParams()
-	// const product = useSelector(selectProduct)
-	// const isLoading = useSelector(selectProductIsLoading)
-	// const error = useSelector(selectProductError)
+	const { products, error } = useSelector(selectProductsList)
 
-	// useEffect(() => {
-	// 	dispatch(getProduct(id))
-	// }, [dispatch, id])
+	useEffect(() => {
+		if (!products.length) {
+			dispatch(getProductsList())
+		}
+	}, [dispatch, products])
 
-	if (isLoading) {
+	if (!products.length) {
 		return <Loader fontSize='150px' />
 	}
 
@@ -31,7 +31,7 @@ const ProductContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Card product={product} />
+			<Card product={products.find((product) => product.id === id)} />
 			{/* <Comments /> */}
 		</div>
 	)

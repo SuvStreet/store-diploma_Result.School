@@ -1,6 +1,6 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import { selectAppIsAuth } from './redux/selectors'
+import { Routes, Route, Navigate, useMatch } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectAppIsAuth, selectCategoriesList, selectUserLogin } from './redux/selectors'
 
 import { Header, Footer, ProtectedRoute, Error, Modal } from './components'
 import {
@@ -12,10 +12,13 @@ import {
 	Product,
 	Profile,
 	SubCategory,
+	Cart,
 } from './pages'
 import { EditForm } from './pages/profile/components'
 
 import styled from 'styled-components'
+import { useEffect } from 'react'
+import { getCategoriesList, initializeApp } from './redux/actions'
 
 const AppContainer = styled.div`
 	display: flex;
@@ -38,7 +41,16 @@ const Page = styled.div`
 `
 
 export const Store = () => {
+	const dispatch = useDispatch()
+	const pathnameAdmin = useMatch('/admin/*')
 	const isAuth = useSelector(selectAppIsAuth)
+	const { categories } = useSelector(selectCategoriesList)
+
+	useEffect(() => {
+		if (!categories.length && !pathnameAdmin) {
+			dispatch(getCategoriesList())
+		}
+	}, [categories, dispatch, pathnameAdmin])
 
 	const isAuthorized = ({ children, redirectTo }) => {
 		return isAuth ? <Navigate to={redirectTo} /> : children
@@ -75,10 +87,13 @@ export const Store = () => {
 						<Route path='edit' element={<EditForm />} />
 					</Route>
 					<Route path='/categories/:id' element={<SubCategory />} />
-					<Route path='/products/sub-category/:subCategoryId' element={<ProductsList />} />
+					<Route
+						path='/products/sub-category/:subCategoryId'
+						element={<ProductsList />}
+					/>
 					<Route path='/products/:id' element={<Product />} />
 					<Route path='/admin/*' element={<Admin />} />
-					<Route path='/cart' element={<div>Корзина (Cart)</div>} />
+					<Route path='/cart' element={<Cart />} />
 					<Route
 						path='*'
 						element={<Error titleError='Страница не найдена' spin></Error>}

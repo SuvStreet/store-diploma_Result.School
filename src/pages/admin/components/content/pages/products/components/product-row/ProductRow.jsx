@@ -11,7 +11,7 @@ import styled from 'styled-components'
 const ProductRowContainer = ({ item, index }) => {
 	const navigate = useNavigate()
 	const dispatch = useDispatch()
-	const { images, name, subCategoryId, variants } = item
+	const { images, name, subCategoryId, quantity, price } = item
 
 	const handelEditClick = () => {
 		navigate(`edit/${item.id}`)
@@ -34,19 +34,10 @@ const ProductRowContainer = ({ item, index }) => {
 				{subCategoryId.name}
 			</div>
 			<div className='cell'>
-				{variants.map((variant, index) => (
-					<div key={variant.id}>{index + 1}</div>
-				))}
+				<div>{quantity}</div>
 			</div>
 			<div className='cell'>
-				{variants.map((variant) => (
-					<div key={variant.id}>{variant.quantity}</div>
-				))}
-			</div>
-			<div className='cell'>
-				{variants.map((variant) => (
-					<div key={variant.id}>{variant.price}</div>
-				))}
+				<div>{price}</div>
 			</div>
 			<div className='cell buttons'>
 				<Button className='edit' onClick={() => handelEditClick()}>
