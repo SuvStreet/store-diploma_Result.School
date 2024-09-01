@@ -13,7 +13,7 @@ export const increaseQuantity = (id) => (dispatch, getState) => {
 			return {
 				...item,
 				quantity: item.quantity + 1,
-				totalPrice: totalPrice,
+				discountedPrice: totalPrice,
 			}
 		}
 		return item

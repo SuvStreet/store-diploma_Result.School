@@ -16,7 +16,7 @@ export const addToCart = (id, name, price, img, discount) => (dispatch, getState
 		price,
 		img,
 		discount,
-		totalPrice: Number(((1 - discount / 100) * price).toFixed()),
+		discountedPrice: Number(((1 - discount / 100) * price).toFixed()),
 		quantity: 1,
 	}
 
