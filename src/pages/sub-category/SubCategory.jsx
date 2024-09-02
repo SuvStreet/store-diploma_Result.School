@@ -11,7 +11,7 @@ import styled from 'styled-components'
 
 const SubCategoryContainer = ({ className }) => {
 	const dispatch = useDispatch()
-	const { id } = useParams()
+	const { categoryId } = useParams()
 	const {
 		subCategories,
 		isLoading: subCategoriesIsLoading,
@@ -20,11 +20,11 @@ const SubCategoryContainer = ({ className }) => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		dispatch(getSubCategoriesList(id))
-	}, [dispatch, id])
+		dispatch(getSubCategoriesList(categoryId))
+	}, [dispatch, categoryId])
 
-	const handleClickProducts = (subCategoryId) => {
-		navigate(`/products/sub-category/${subCategoryId}`)
+	const handleClickProducts = (subcategoryId) => {
+		navigate(`/sub-category/${subcategoryId}`)
 	}
 
 	if (subCategoriesIsLoading) {

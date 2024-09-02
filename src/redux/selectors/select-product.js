@@ -1,1 +1,1 @@
-export const selectProduct = ({ product }) => product
+export const selectProduct = ({ singleProduct }) => singleProduct

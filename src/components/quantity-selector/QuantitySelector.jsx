@@ -1,49 +1,67 @@
 import PropTypes from 'prop-types'
+import { useDispatch } from 'react-redux'
 
 import { Button } from '../button/Button'
-
-import styled from 'styled-components'
-import { useDispatch } from 'react-redux'
 import {
 	decreaseQuantity,
 	increaseQuantity,
 	removeItemFromCart,
+	increaseQuantityAsync,
+	decreaseQuantityAsync,
+	removeItemFromCartAsync,
 } from '../../redux/actions'
 
-const QuantitySelectorContainer = ({ className, id, quantity, quantityAll }) => {
+import styled from 'styled-components'
+
+const QuantitySelectorContainer = ({
+	className,
+	id,
+	cartId,
+	quantity,
+	quantityProductsCart,
+	maxQuantityProducts,
+	isLoading,
+}) => {
 	const dispatch = useDispatch()
-	
+
 	const handleIncrease = () => {
-		dispatch(increaseQuantity(id))
+		cartId ? dispatch(increaseQuantityAsync(cartId, id)) : dispatch(increaseQuantity(id))
 	}
 
 	const handleDecrease = () => {
 		if (quantity === 1) return
-		dispatch(decreaseQuantity(id))
+		cartId ? dispatch(decreaseQuantityAsync(cartId, id)) : dispatch(decreaseQuantity(id))
 	}
 
 	const handleRemove = () => {
-		dispatch(removeItemFromCart(id))
+		cartId
+			? dispatch(removeItemFromCartAsync(cartId, id))
+			: dispatch(removeItemFromCart(id))
 	}
 
 	return (
 		<div className={className}>
 			<Button
 				className='quantity-selector__item'
-				disabled={quantity === 1}
+				disabled={quantity === 1 || isLoading}
 				onClick={handleDecrease}
 			>
 				-
 			</Button>
 			<span className='quantity-selector__item'>{quantity}</span>
-			<Button className='quantity-selector__item' onClick={handleIncrease}>
+			<Button
+				className='quantity-selector__item'
+				disabled={maxQuantityProducts === quantity || isLoading}
+				onClick={handleIncrease}
+			>
 				+
 			</Button>
-			{quantityAll > 1 && (
+			{quantityProductsCart > 1 && (
 				<Button
 					className='quantity-selector__item quantity-selector__item--remove'
 					solid='red'
 					onClick={handleRemove}
+					disabled={isLoading}
 				>
 					x
 				</Button>
@@ -75,6 +93,9 @@ export const QuantitySelector = styled(QuantitySelectorContainer)`
 QuantitySelectorContainer.propTypes = {
 	className: PropTypes.string.isRequired,
 	id: PropTypes.string.isRequired,
+	cartId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	quantity: PropTypes.number.isRequired,
-	quantityAll: PropTypes.number.isRequired,
+	quantityProductsCart: PropTypes.number.isRequired,
+	maxQuantityProducts: PropTypes.number.isRequired,
+	isLoading: PropTypes.bool.isRequired,
 }

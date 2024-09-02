@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate, useMatch } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAppIsAuth, selectCategoriesList, selectUserLogin } from './redux/selectors'
+import { selectAppIsAuth, selectCategoriesList } from './redux/selectors'
 
 import { Header, Footer, ProtectedRoute, Error, Modal } from './components'
 import {
@@ -18,7 +18,7 @@ import { EditForm } from './pages/profile/components'
 
 import styled from 'styled-components'
 import { useEffect } from 'react'
-import { getCategoriesList, initializeApp } from './redux/actions'
+import { getCategoriesList } from './redux/actions'
 
 const AppContainer = styled.div`
 	display: flex;
@@ -86,12 +86,9 @@ export const Store = () => {
 					>
 						<Route path='edit' element={<EditForm />} />
 					</Route>
-					<Route path='/categories/:id' element={<SubCategory />} />
-					<Route
-						path='/products/sub-category/:subCategoryId'
-						element={<ProductsList />}
-					/>
-					<Route path='/products/:id' element={<Product />} />
+					<Route path='/categories/:categoryId' element={<SubCategory />} />
+					<Route path='/sub-category/:subcategoryId' element={<ProductsList />} />
+					<Route path='/products/:productsId' element={<Product />} />
 					<Route path='/admin/*' element={<Admin />} />
 					<Route path='/cart' element={<Cart />} />
 					<Route

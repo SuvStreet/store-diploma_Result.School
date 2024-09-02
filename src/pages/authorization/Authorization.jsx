@@ -61,7 +61,7 @@ const AuthorizationContainer = ({ className }) => {
 		}
 
 		if (isAuth && !error) {
-			navigate('/')
+			navigate(-1)
 		}
 	}, [error, isAuth, navigate, dispatch])
 

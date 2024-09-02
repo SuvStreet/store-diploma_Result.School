@@ -14,12 +14,13 @@ const HeaderContainer = ({ className }) => {
 	const isAuth = useSelector(selectAppIsAuth)
 	const login = useSelector(selectUserLogin)
 	const pathnameAdmin = useMatch('/admin/*')
+	const pathnameCart = useMatch('/cart')
 
 	useEffect(() => {
 		if (isAuth && !login) {
-			dispatch(initializeApp())
+			dispatch(initializeApp(pathnameCart))
 		}
-	}, [dispatch, isAuth, login])
+	}, [dispatch, isAuth, login, pathnameCart])
 
 	return (
 		<>

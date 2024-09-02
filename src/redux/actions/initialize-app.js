@@ -5,7 +5,7 @@ import { logout } from './logout'
 import { URL } from '../../constants'
 import localStorageService from '../../service/localStorageService'
 
-export const initializeApp = () => async (dispatch) => {
+export const initializeApp = (pathnameCart) => async (dispatch) => {
 	dispatch({ type: ACTION_TYPE.REQUEST })
 
 	try {
@@ -34,6 +34,18 @@ export const initializeApp = () => async (dispatch) => {
 		localStorageService.setAuth(true)
 
 		dispatch({ type: ACTION_TYPE.REQUEST_SUCCESS })
+
+		// Загрузка карзины
+		if (!pathnameCart) {
+			const { error, data } = await request(URL.CART)
+
+			if (error) {
+				dispatch({ type: ACTION_TYPE.REQUEST_ERROR, payload: error })
+				return
+			}
+
+			dispatch({ type: ACTION_TYPE.ADD_TO_CART, payload: data.cart })
+		}
 	} catch (error) {
 		dispatch({ type: ACTION_TYPE.REQUEST_ERROR, payload: error.message })
 	}

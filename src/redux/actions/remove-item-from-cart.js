@@ -17,6 +17,7 @@ export const removeItemFromCart = (id) => (dispatch, getState) => {
 	})
 
 	localStorageService.setCart({
+		...cart,
 		items: updatedItems,
 		totalPrice: totalOrderPrice,
 	})

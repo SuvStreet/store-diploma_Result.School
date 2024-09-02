@@ -12,13 +12,13 @@ import styled from 'styled-components'
 import { selectProductsList } from '../../redux/selectors'
 
 const ProductsListContainer = ({ className }) => {
-	const { subCategoryId } = useParams()
+	const { subcategoryId } = useParams()
 	const dispatch = useDispatch()
 	const { products, isLoading, error } = useSelector(selectProductsList)
 
 	useEffect(() => {
-		dispatch(getProductsList(subCategoryId))
-	}, [dispatch, subCategoryId])
+		dispatch(getProductsList(subcategoryId))
+	}, [dispatch, subcategoryId])
 
 	// const serverRequest = useServerRequest()
 
@@ -48,9 +48,9 @@ const ProductsListContainer = ({ className }) => {
 
 	const renderProductRow = (product, ref) => {
 		return (
-			<Link to={`/products/${product.id}`} key={product.id}>
-				<CardProduct ref={ref} product={product} />
-			</Link>
+			// <Link to={`/products/${product.id}`} key={product.id}>
+				<CardProduct ref={ref} product={product} key={product.id} />
+			// {/* </Link> */}
 		)
 	}
 

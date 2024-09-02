@@ -17,4 +17,9 @@ export const URL = {
 	USERS_LIST: '/user/users',
 	USER_ROLE: '/user/role',
 	ROLES_LIST: '/user/roles',
+	ORDER_CREATE: '/order/create',
+	ORDER: '/order',
+	CART: '/cart',
+	ADD_CART: '/cart/add',
+	UPDATE_CART: '/cart/update',
 }

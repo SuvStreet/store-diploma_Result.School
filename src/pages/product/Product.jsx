@@ -4,34 +4,32 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import { Error, Loader } from '../../components'
-import { getProductsList } from '../../redux/actions'
-import { selectProductsList } from '../../redux/selectors'
+import { getProduct } from '../../redux/actions'
+import { selectProduct } from '../../redux/selectors'
 import { Card } from './components'
 
 import styled from 'styled-components'
 
 const ProductContainer = ({ className }) => {
 	const dispatch = useDispatch()
-	const { id } = useParams()
-	const { products, error } = useSelector(selectProductsList)
+	const { productsId } = useParams()
+	const product = useSelector(selectProduct)
 
 	useEffect(() => {
-		if (!products.length) {
-			dispatch(getProductsList())
-		}
-	}, [dispatch, products])
+			dispatch(getProduct(productsId))
+	}, [dispatch, productsId])
 
-	if (!products.length) {
+	if (!product.id || product.isLoading) {
 		return <Loader fontSize='150px' />
 	}
 
-	if (error) {
-		return <Error titleError={error} noAccess />
+	if (product.error) {
+		return <Error titleError={product.error} noAccess />
 	}
 
 	return (
 		<div className={className}>
-			<Card product={products.find((product) => product.id === id)} />
+			<Card product={product} />
 			{/* <Comments /> */}
 		</div>
 	)

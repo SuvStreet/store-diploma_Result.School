@@ -18,6 +18,7 @@ export const logout = () => async (dispatch) => {
 
 		dispatch({ type: ACTION_TYPE.LOGOUT })
 		dispatch({ type: ACTION_TYPE.RESET_USER })
+		dispatch({ type: ACTION_TYPE.CLEAR_CART })
 	} catch (error) {
 		dispatch({ type: ACTION_TYPE.REQUEST_ERROR, payload: error })
 		console.error('error ', error)

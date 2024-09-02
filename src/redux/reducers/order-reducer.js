@@ -1,27 +1,30 @@
+import { handleRequestState } from '../../utils'
+import { ACTION_TYPE } from '../actions'
+
 const initialState = {
-	orders: [
-		{
-			id: null,
-			userId: null,
-			totalPrice: 0,
-			createdAt: '',
-			items: [
-				{
-					productId: null,
-					quantity: 0,
-				}
-			],
-		},
-	],
+	isLoading: false,
+	error: null,
+	ordersUser: [],
+	ordersAll: [],
 }
 
 export const orderReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case 'SET_ORDERS':
+		case ACTION_TYPE.REQUEST_ADD_ORDER_SUCCESS:
 			return {
 				...state,
-				orders: action.payload,
+				isLoading: false,
+				error: null,
+				ordersUser: [...state.ordersUser, action.payload],
 			}
+
+		case ACTION_TYPE.REQUEST_ADD_ORDER:
+		case ACTION_TYPE.REQUEST_ADD_ORDER_ERROR:
+			return handleRequestState(state, action, {
+				request: ACTION_TYPE.REQUEST_ADD_ORDER,
+				error: ACTION_TYPE.REQUEST_ADD_ORDER_ERROR,
+			})
+
 		default:
 			return state
 	}

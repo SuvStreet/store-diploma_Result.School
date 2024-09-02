@@ -4,23 +4,27 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../../../components/button/Button'
 import { Feature } from '../feature/Feature'
-import { addToCart } from '../../../../redux/actions'
-import { selectCart } from '../../../../redux/selectors'
+import { addToCart, addToCartAsync } from '../../../../redux/actions'
+import { selectCart, selectUser } from '../../../../redux/selectors'
+import { formatPrice } from '../../../../utils'
+import { Loader } from '../../../../components'
 
 import styled from 'styled-components'
-import { formatPrice } from '../../../../utils'
 
 const CardContainer = ({ className, product }) => {
 	const dispatch = useDispatch()
 	const cart = useSelector(selectCart)
 	const navigate = useNavigate()
-	const { description, discount, features, price, id, images, name } = product
+	const userId = useSelector(selectUser).id
+	const { description, discount, features, price, id, images, name, quantity } = product
 
 	const handelAddToCart = () => {
 		if (cart.items.find((item) => item.id === id)) {
 			navigate('/cart')
 		} else {
-			dispatch(addToCart(id, name, price, images[0], discount))
+			userId
+				? dispatch(addToCartAsync([{ item: id, quantity: 1 }]))
+				: dispatch(addToCart({ id }))
 		}
 	}
 	const inCart = cart.items.find((item) => item.id === id)
@@ -60,8 +64,17 @@ const CardContainer = ({ className, product }) => {
 									height='auto'
 									solid={inCart ? '' : 'green'}
 									onClick={() => handelAddToCart()}
+									disabled={quantity === 0 || cart.isLoading}
 								>
-									{inCart ? 'В корзине' : 'В корзину'}
+									{quantity === 0 ? (
+										'Нет в наличии'
+									) : cart.isLoading ? (
+										<Loader />
+									) : inCart ? (
+										'В корзине'
+									) : (
+										'В корзину'
+									)}
 								</Button>
 							</div>
 						</div>

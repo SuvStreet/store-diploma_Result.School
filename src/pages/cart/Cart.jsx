@@ -1,17 +1,45 @@
 import PropTypes from 'prop-types'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
-import { Button, Error, QuantitySelector } from '../../components'
-import { selectCart } from '../../redux/selectors'
+import { Button, Error, FormError, Loader, QuantitySelector } from '../../components'
+import { selectCart, selectOrder, selectUser } from '../../redux/selectors'
 import { formatPrice } from '../../utils'
-import { clearCart } from '../../redux/actions'
+import { addOrder, clearCart, clearCartAsync, getCart } from '../../redux/actions'
 
 import styled from 'styled-components'
 
 const CartContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const cart = useSelector(selectCart)
+	const order = useSelector(selectOrder)
+	const userId = useSelector(selectUser).id
+	const navigate = useNavigate()
+	const [isLoginCart, setIsLoginCart] = useState(true)
+
+	useEffect(() => {
+		if (!userId) return
+		dispatch(getCart()).then((responseOk) => {
+			if (responseOk) setIsLoginCart(false)
+		})
+	}, [dispatch, userId])
+
+	const handleClearCart = (cartId) => {
+		userId ? dispatch(clearCartAsync(cartId)) : dispatch(clearCart())
+	}
+
+	const handleOrder = () => {
+		!userId
+			? navigate('/authorize')
+			: dispatch(addOrder(cart)).then((responseOk) => {
+					if (responseOk) {
+						dispatch(clearCart())
+					}
+			  })
+	}
+
+	if (isLoginCart) return <Loader fontSize='150px' />
 
 	if (cart.items.length === 0) {
 		return (
@@ -19,10 +47,6 @@ const CartContainer = ({ className }) => {
 				<Error titleError='Корзина пуста' cartEmpty />
 			</div>
 		)
-	}
-
-	const handleClearCart = () => {
-		dispatch(clearCart())
 	}
 
 	return (
@@ -33,7 +57,7 @@ const CartContainer = ({ className }) => {
 					<div className='cart'>
 						<div className='cart-header'>
 							<h3>Корзина</h3>
-							<Button solid='red' width='40%' onClick={() => handleClearCart()}>
+							<Button solid='red' width='40%' onClick={() => handleClearCart(cart.id)}>
 								Очистить корзину
 							</Button>
 						</div>
@@ -42,18 +66,21 @@ const CartContainer = ({ className }) => {
 								{cart.items.map((item) => (
 									<div key={item.id} className='card'>
 										<div className='card-img cell'>
-											<img src={item.img} alt='photo' />
+											<img src={item.imgUrl} alt='photo' />
 										</div>
 										<Link to={`/products/${item.id}`} className='card-name cell'>
 											<span>{item.name}</span>
 										</Link>
 										<div className='card-price cell'>
-											<span>{item.price} ₽</span>
+											<span>{formatPrice(item.price)} ₽</span>
 										</div>
 										<QuantitySelector
+											isLoading={cart.isLoading}
 											id={item.id}
+											cartId={cart.id}
 											quantity={item.quantity}
-											quantityAll={cart.items.length}
+											quantityProductsCart={cart.items.length}
+											maxQuantityProducts={10}
 										/>
 									</div>
 								))}
@@ -69,9 +96,9 @@ const CartContainer = ({ className }) => {
 					<div className='order'>
 						<h3>Стоимость товаров:</h3>
 						<span
-							className={`price ${cart.items.map(
-								(item) => item.discount !== 0 && 'crossedText',
-							)}`}
+							className={`price ${
+								cart.items.some((item) => item.discount !== 0) && 'crossedText'
+							}`}
 						>
 							{formatPrice(
 								cart.items.reduce((acc, item) => acc + item.price * item.quantity, 0),
@@ -94,7 +121,18 @@ const CartContainer = ({ className }) => {
 							</div>
 						))}
 					</div>
-					<Button solid='green'>Оформить заказ</Button>
+					<Button solid='green' disabled={order.isLoading} onClick={() => handleOrder()}>
+						{userId ? (
+							order.isLoading ? (
+								<Loader />
+							) : (
+								'Оформить заказ'
+							)
+						) : (
+							'Авторизуйтесь, что бы сделать заказ'
+						)}
+					</Button>
+					{order.error && <FormError>{order.error}</FormError>}
 				</div>
 			</div>
 		</div>
@@ -147,7 +185,7 @@ export const Cart = styled(CartContainer)`
 			display: flex;
 			flex-direction: column;
 			justify-content: space-between;
-			gap: 20px;
+			gap: 10px;
 			background-color: #313131;
 			border: 1px solid #5e5e5e;
 			border-radius: 10px;
@@ -158,6 +196,8 @@ export const Cart = styled(CartContainer)`
 				justify-content: space-between;
 				align-items: center;
 				gap: 20px;
+				border-bottom: 1px solid #5e5e5e;
+				padding-bottom: 10px;
 			}
 		}
 

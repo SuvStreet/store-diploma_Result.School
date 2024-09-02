@@ -19,7 +19,7 @@ export const increaseQuantity = (id) => (dispatch, getState) => {
 		return item
 	})
 
-	const totalOrderPrice = updatedItems.reduce((total, item) => total + item.totalPrice, 0)
+	const totalOrderPrice = updatedItems.reduce((total, item) => total + item.discountedPrice, 0)
 
 	dispatch({
 		type: ACTION_TYPE.UPDATE_CART,
@@ -30,6 +30,7 @@ export const increaseQuantity = (id) => (dispatch, getState) => {
 	})
 
 	localStorageService.setCart({
+		...cart,
 		items: updatedItems,
 		totalPrice: totalOrderPrice,
 	})
