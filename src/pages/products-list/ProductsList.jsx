@@ -5,7 +5,12 @@ import { Link, useLocation, useMatch, useMatches, useParams } from 'react-router
 
 import { useInfiniteScroll } from '../../hooks'
 import { Error, InfiniteScrollList, Loader } from '../../components'
-import { addProduct, getProductsList, setProducts } from '../../redux/actions'
+import {
+	addProduct,
+	getProductsList,
+	searchItems,
+	setProducts,
+} from '../../redux/actions'
 import { CardProduct } from './components'
 
 import styled from 'styled-components'
@@ -15,15 +20,13 @@ const ProductsListContainer = ({ className }) => {
 	const { subcategoryId } = useParams()
 	const dispatch = useDispatch()
 	const { products, isLoading, error } = useSelector(selectProductsList)
+	const isSearch = !!useMatch('/search')
 
 	useEffect(() => {
-		dispatch(getProductsList(subcategoryId))
-	}, [dispatch, subcategoryId])
-
-	// const serverRequest = useServerRequest()
-
-	// const fetchProducts = async (page) => {
-	// 	const response = await serverRequest('fetchProducts', productsId, page)
+		if (!isSearch) {
+			dispatch(getProductsList(subcategoryId))
+		}
+	}, [dispatch, subcategoryId, isSearch])
 
 	// 	const {
 	// 		error,
@@ -56,6 +59,10 @@ const ProductsListContainer = ({ className }) => {
 
 	if (error) {
 		return <Error titleError={error} spin />
+	}
+
+	if (products.length === 0) {
+		return <Error titleError='Товары не найдены' spin />
 	}
 
 	return (

@@ -91,6 +91,7 @@ export const Store = () => {
 					<Route path='/products/:productsId' element={<Product />} />
 					<Route path='/admin/*' element={<Admin />} />
 					<Route path='/cart' element={<Cart />} />
+					<Route path='/search' element={<ProductsList />} />
 					<Route
 						path='*'
 						element={<Error titleError='Страница не найдена' spin></Error>}

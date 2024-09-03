@@ -7,9 +7,11 @@ import { Feature } from '../feature/Feature'
 import { addToCart, addToCartAsync } from '../../../../redux/actions'
 import { selectCart, selectUser } from '../../../../redux/selectors'
 import { formatPrice } from '../../../../utils'
-import { Loader } from '../../../../components'
+import { Icon, Loader } from '../../../../components'
 
 import styled from 'styled-components'
+import { ROLE } from '../../../../constants'
+import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 const CardContainer = ({ className, product }) => {
 	const dispatch = useDispatch()
@@ -62,6 +64,7 @@ const CardContainer = ({ className, product }) => {
 								<Button
 									className='priceButton'
 									height='auto'
+									width='300px'
 									solid={inCart ? '' : 'green'}
 									onClick={() => handelAddToCart()}
 									disabled={quantity === 0 || cart.isLoading}
@@ -146,7 +149,6 @@ export const Card = styled(CardContainer)`
 
 	.infoProduct {
 		width: 100%;
-		/* height: 1500px; */
 	}
 
 	.nameProduct {
@@ -168,7 +170,9 @@ export const Card = styled(CardContainer)`
 	}
 
 	.price__container {
-		margin: 0 20px;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
 
 		.priceProduct {
 			display: flex;
