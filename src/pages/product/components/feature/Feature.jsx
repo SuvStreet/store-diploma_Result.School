@@ -5,7 +5,7 @@ import styled from 'styled-components'
 const FeatureContainer = ({ className, features, noTitle }) => {
 	return (
 		<div className={className}>
-			{noTitle &&<h4 className='feature__title'>Характеристики:</h4>}
+			{!noTitle && <h4 className='feature__title'>Характеристики:</h4>}
 
 			<div className='feature__data'>
 				{features.map(({ id, key, value }) => (
@@ -63,4 +63,5 @@ export const Feature = styled(FeatureContainer)`
 FeatureContainer.propTypes = {
 	className: PropTypes.string,
 	features: PropTypes.array.isRequired,
+	noTitle: PropTypes.bool,
 }

@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 
 import styled from 'styled-components'
 
-const ProductInfoContainer = ({ className, name, description, id }) => {
-	console.log('key :>> ', id)
-
+const ProductInfoContainer = ({ className, name, description }) => {
 	return (
 		<div className={className}>
-			<Link to={`/products/${id}`} className='title-product'>
+			<div className='title-product'>
 				<h3>{name}</h3>
-			</Link>
+			</div>
 
 			<div className='description-product'>
 				<p>{description}</p>
@@ -33,11 +30,6 @@ export const ProductInfo = styled(ProductInfoContainer)`
 		font-weight: 400;
 		font-size: 14px;
 		color: #5e5e5e;
-	}
-
-	a:hover {
-		color: #007bff;
-		transition: all 0.5s;
 	}
 `
 

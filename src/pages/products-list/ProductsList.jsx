@@ -47,11 +47,7 @@ const ProductsListContainer = ({ className }) => {
 	// const { isLoading, lastElementRef } = useInfiniteScroll(fetchProducts)
 
 	const renderProductRow = (product, ref) => {
-		return (
-			// <Link to={`/products/${product.id}`} key={product.id}>
-				<CardProduct ref={ref} product={product} key={product.id} />
-			// {/* </Link> */}
-		)
+		return <CardProduct ref={ref} product={product} key={product.id} />
 	}
 
 	if (isLoading) {
@@ -75,6 +71,9 @@ const ProductsListContainer = ({ className }) => {
 
 export const ProductsList = styled(ProductsListContainer)`
 	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
 `
 
 ProductsListContainer.propTypes = {

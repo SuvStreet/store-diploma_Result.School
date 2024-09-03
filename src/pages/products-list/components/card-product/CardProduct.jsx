@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 // import PropTypes from 'prop-types'
 import { forwardRef } from 'react'
+import { Link } from 'react-router-dom'
 
 import { Button, Icon } from '../../../../components'
 import { ProductInfo } from '../product-info/ProductInfo'
@@ -9,61 +10,62 @@ import { formatPrice } from '../../../../utils'
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons'
 import { faHeart } from '@fortawesome/free-regular-svg-icons'
 import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 
 const CardProductContainer = forwardRef(({ className, product, ...props }, ref) => {
 	return (
 		<div className={`${className} ${product.quantity === 0 ? 'empty' : ''}`} ref={ref}>
-			<div className='img-container'>
-				<Link to={`/products/${product.id}`}>
+			<Link to={`/products/${product.id}`} className='card'>
+				<div className='img-container'>
 					<img src={product.images[0]} alt={product.name} />
-				</Link>
-			</div>
-			<div className='info-container'>
-				<div className='info-container__content'>
-					<div className='content'>
-						<ProductInfo
-							id={product.id}
-							name={product.name}
-							description={props.full ? product.description : ''}
-						/>
-
-						<div className='features'>
-							<ul className='features__list'>
-								{product.features.slice(0, 5).map((feature) => (
-									<li className='features__item' key={feature.id}>
-										{`${feature.key}: `}
-										{feature.value}
-									</li>
-								))}
-							</ul>
+				</div>
+				<div className='info-container'>
+					<div className='info-container__content'>
+						<div className='content'>
+							<ProductInfo
+								id={product.id}
+								name={product.name}
+								description={props.full ? product.description : ''}
+							/>
+							<div className='features'>
+								<ul className='features__list'>
+									{product.features.slice(0, 5).map((feature) => (
+										<li className='features__item' key={feature.id}>
+											{`${feature.key}: `}
+											{feature.value}
+										</li>
+									))}
+								</ul>
+							</div>
+						</div>
+						<div className='price-button'>
+							<div className='price-product'>
+								<span>
+									{formatPrice(
+										product.price - ((product.price * product.discount) / 100).toFixed(),
+									)}{' '}
+									₽
+								</span>
+								{product.discount > 0 && (
+									<>
+										<span className='old-price'>{formatPrice(product.price)}</span>
+										<span className='discount'>-{product.discount}%</span>
+									</>
+								)}
+							</div>
 						</div>
 					</div>
-
-					<div className='price-button'>
-						<div className='price-product'>
-							<span>
-								{formatPrice(
-									product.price - ((product.price * product.discount) / 100).toFixed(),
-								)}{' '}
-								₽
-							</span>
-							{product.discount > 0 && (
-								<span className='old-price'>{formatPrice(product.price)}</span>
-							)}
-							<span className='discount'>-{product.discount}%</span>
-						</div>
-						<div className='button-product'>
-							<Button onClick={() => console.log(product)}>
-								<Icon iconCode={faHeart} fontSize='20px'></Icon>
-								<p>В избранное</p>
-							</Button>
-							<Button onClick={() => console.log(product)}>
-								<Icon iconCode={faCartShopping} fontSize='20px'></Icon>
-								<p>В корзину</p>
-							</Button>
-						</div>
-					</div>
+				</div>
+			</Link>
+			<div className='button-container'>
+				<div className='button-product'>
+					<Button onClick={() => console.log(product)}>
+						<Icon iconCode={faHeart} fontSize='20px'></Icon>
+						<p>В избранное</p>
+					</Button>
+					<Button onClick={() => console.log(product)}>
+						<Icon iconCode={faCartShopping} fontSize='20px'></Icon>
+						<p>В корзину</p>
+					</Button>
 				</div>
 			</div>
 		</div>
@@ -73,14 +75,27 @@ const CardProductContainer = forwardRef(({ className, product, ...props }, ref) 
 CardProductContainer.displayName = 'CardProduct'
 
 export const CardProduct = styled(CardProductContainer)`
+	border-radius: 10px;
 	width: 100%;
 	height: 200px;
-	display: flex;
-	padding: 20px;
-	gap: 20px;
-	border-radius: 10px;
-	transition: 0.3s ease;
-	box-shadow: 0 0 5px 5px #5e5e5e;
+	position: relative;
+	transition: all 0.3s ease;
+
+	.card {
+		display: flex;
+		gap: 20px;
+		padding: 20px;
+	}
+
+	&:hover {
+		box-shadow: 0 0 5px 5px #5e5e5e;
+
+		.button-container {
+			transition: opacity 0.3 ease;
+
+			opacity: 1;
+		}
+	}
 
 	&.empty {
 		opacity: 0.5;
@@ -163,8 +178,15 @@ export const CardProduct = styled(CardProductContainer)`
 				font-size: 13px;
 			}
 		}
+	}
+
+	.button-container {
+		opacity: 0;
 
 		.button-product {
+			position: absolute;
+			right: 20px;
+			bottom: 20px;
 			display: flex;
 			justify-content: space-between;
 			gap: 10px;
