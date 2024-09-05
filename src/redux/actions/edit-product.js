@@ -6,7 +6,7 @@ export const editProduct = (id, product) => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_EDIT_PRODUCT })
 
-		const { error, data } = await request(`${URL.EDIT_PRODUCTS}/${id}`, 'POST', product)
+		const { error, data } = await request(`${URL.EDIT_PRODUCTS}/${id}`, 'PUT', product)
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_EDIT_PRODUCT_ERROR, payload: error })

@@ -20,7 +20,7 @@ const SubCategoryContainer = ({ className }) => {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		dispatch(getSubCategoriesList(categoryId))
+		dispatch(getSubCategoriesList({id: categoryId}))
 	}, [dispatch, categoryId])
 
 	const handleClickProducts = (subcategoryId) => {

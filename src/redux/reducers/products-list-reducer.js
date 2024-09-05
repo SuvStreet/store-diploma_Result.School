@@ -28,7 +28,7 @@ export const productsListReducer = (state = initialState, action) => {
 				...state,
 				isLoading: false,
 				error: null,
-				products: [...state.products, action.payload],
+				products: [...state.products, ...action.payload],
 			}
 
 		case ACTION_TYPE.REQUEST_ADD_PRODUCT:

@@ -1,46 +1,41 @@
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
-import { useLocation, useMatch, useNavigate } from 'react-router-dom'
+import { useMatch, useNavigate } from 'react-router-dom'
 
 import { Icon } from '../../../icon/Icon'
 import { Input } from '../../../input/Input'
-import { useDispatch } from 'react-redux'
-import { searchItems } from '../../../../redux/actions'
 import { debounce } from '../../../../utils/debounce'
 
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components'
 
 const SearchContainer = ({ className }) => {
-	const dispatch = useDispatch()
-	const navigate = useNavigate()
 	const [value, setValue] = useState('')
+	const navigate = useNavigate()
 	const isSearch = !!useMatch('/search')
-	const location = useLocation()
 	const queryParams = new URLSearchParams(location.search)
 	const searchQuery = queryParams.get('search')
 
 	const handleSearch = useCallback(
 		debounce((value) => {
-			dispatch(searchItems(value)).then((responseOk) => {
-				if (responseOk && !isSearch) {
-					navigate(`/search?search=${value}&page=1&limit=10`)
-				}
-			})
+			if (!isSearch || value) {
+				navigate(`/search?search=${value}`)
+			}
 		}, 2000),
-		[],
+		[isSearch, navigate],
 	)
 
 	useEffect(() => {
 		if (searchQuery) {
 			setValue(searchQuery)
-			dispatch(searchItems(searchQuery))
 		}
-	}, [searchQuery, dispatch])
+	}, [searchQuery])
 
 	const onChange = ({ target: { value } }) => {
 		setValue(value)
-		handleSearch(value)
+		if (value.trim()) {
+			handleSearch(value)
+		}
 	}
 
 	return (

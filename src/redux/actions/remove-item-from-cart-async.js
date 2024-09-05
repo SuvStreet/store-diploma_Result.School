@@ -8,7 +8,7 @@ export const removeItemFromCartAsync = (cartId, productId) => async (dispatch) =
 
 		const { data, error } = await request(
 			`${URL.UPDATE_CART}/${cartId}?type=delete`,
-			'POST',
+			'PUT',
 			{
 				product_id: productId,
 			},

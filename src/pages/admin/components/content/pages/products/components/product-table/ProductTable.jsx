@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 
-import { Table } from '../../../../../../../../components'
+import { Pagination, Table } from '../../../../../../../../components'
 import { ProductRow } from '../product-row/ProductRow'
 
 import styled from 'styled-components'
 
-const ProductTableContainer = ({ items }) => {
+const ProductTableContainer = ({ items, page, lastPage, setPage }) => {
 	const titlesAddButton = 'новый товар'
 
 	const headers = [
@@ -19,12 +19,17 @@ const ProductTableContainer = ({ items }) => {
 	]
 
 	return (
-		<Table
-			titlesAddButton={titlesAddButton}
-			headers={headers}
-			data={items}
-			renderRow={(item, index) => <ProductRow key={item.id} item={item} index={index} />}
-		/>
+		<>
+			<Table
+				titlesAddButton={titlesAddButton}
+				headers={headers}
+				data={items}
+				renderRow={(item, index) => (
+					<ProductRow key={item.id} item={item} index={index} />
+				)}
+			/>
+			{lastPage > 1 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
+		</>
 	)
 }
 
@@ -32,4 +37,7 @@ export const ProductTable = styled(ProductTableContainer)``
 
 ProductTableContainer.propTypes = {
 	items: PropTypes.array.isRequired,
+	lastPage: PropTypes.number.isRequired,
+	page: PropTypes.number.isRequired,
+	setPage: PropTypes.func.isRequired,
 }

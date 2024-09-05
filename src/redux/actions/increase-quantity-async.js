@@ -8,7 +8,7 @@ export const increaseQuantityAsync = (cartId, productId) => async (dispatch) => 
 
 		const { data, error } = await request(
 			`${URL.UPDATE_CART}/${cartId}?type=plus`,
-			'POST',
+			'PUT',
 			{
 				product_id: productId,
 			},

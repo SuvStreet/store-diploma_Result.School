@@ -1,17 +1,11 @@
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useLocation, useMatch, useMatches, useParams } from 'react-router-dom'
+import { useMatch, useParams } from 'react-router-dom'
 
-import { useInfiniteScroll } from '../../hooks'
-import { Error, InfiniteScrollList, Loader } from '../../components'
-import {
-	addProduct,
-	getProductsList,
-	searchItems,
-	setProducts,
-} from '../../redux/actions'
-import { CardProduct } from './components'
+import { Error, Loader, Pagination } from '../../components'
+import { getProductsList, searchItems } from '../../redux/actions'
+import { CardProduct, Filter } from './components'
 
 import styled from 'styled-components'
 import { selectProductsList } from '../../redux/selectors'
@@ -20,38 +14,24 @@ const ProductsListContainer = ({ className }) => {
 	const { subcategoryId } = useParams()
 	const dispatch = useDispatch()
 	const { products, isLoading, error } = useSelector(selectProductsList)
+	const queryParams = new URLSearchParams(location.search)
+	const searchQuery = queryParams.get('search')
 	const isSearch = !!useMatch('/search')
 
+	const [page, setPage] = useState(1)
+	const [lastPage, setLastPage] = useState(null)
+
 	useEffect(() => {
-		if (!isSearch) {
-			dispatch(getProductsList(subcategoryId))
+		if (isSearch) {
+			dispatch(searchItems({ search: searchQuery, page })).then((lastPage) =>
+				setLastPage(lastPage),
+			)
+		} else {
+			dispatch(getProductsList({ subCatId: subcategoryId, page })).then((lastPage) =>
+				setLastPage(lastPage),
+			)
 		}
-	}, [dispatch, subcategoryId, isSearch])
-
-	// 	const {
-	// 		error,
-	// 		res: { products: newProducts, lastPage },
-	// 	} = response
-
-	// 	if (error) {
-	// 		setTitleError(error)
-	// 		return { error }
-	// 	}
-
-	// 	if (page === 1) {
-	// 		dispatch(setProducts(newProducts))
-	// 	} else {
-	// 		dispatch(addProducts(newProducts))
-	// 	}
-
-	// 	return { lastPage }
-	// }
-
-	// const { isLoading, lastElementRef } = useInfiniteScroll(fetchProducts)
-
-	const renderProductRow = (product, ref) => {
-		return <CardProduct ref={ref} product={product} key={product.id} />
-	}
+	}, [searchQuery, subcategoryId, page, dispatch, isSearch])
 
 	if (isLoading) {
 		return <Loader fontSize='150px' />
@@ -67,11 +47,13 @@ const ProductsListContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<InfiniteScrollList
-				items={products}
-				renderItem={renderProductRow}
-				// ref={lastElementRef}
-			/>
+			<Filter />
+			<div className='row'>
+				{products.map((product) => (
+					<CardProduct product={product} key={product.id} />
+				))}
+				{lastPage > 1 && <Pagination setPage={setPage} lastPage={lastPage} page={page} />}
+			</div>
 		</div>
 	)
 }
@@ -79,7 +61,6 @@ const ProductsListContainer = ({ className }) => {
 export const ProductsList = styled(ProductsListContainer)`
 	width: 100%;
 	display: flex;
-	flex-direction: column;
 	gap: 20px;
 `
 

@@ -7,7 +7,7 @@ export const editUser = (id, newUser) => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST })
 
-		const { error, data } = await request(`${URL.USER}/${id}`, 'PATCH', newUser)
+		const { error, data } = await request(`${URL.USER}/${id}`, 'PUT', newUser)
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_ERROR, payload: error })

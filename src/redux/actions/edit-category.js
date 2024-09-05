@@ -8,7 +8,7 @@ export const editCategory = (categoryId, categoryName) => async (dispatch) => {
 
 		const { error, data } = await request(
 			`${URL.EDIT_CATEGORIES}/${categoryId}`,
-			'POST',
+			'PUT',
 			categoryName,
 		)
 

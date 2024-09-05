@@ -6,7 +6,7 @@ export const editSubCategory = (id, subCategory) => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_EDIT_SUBCATEGORY })
 
-		const { error, data } = await request(`${URL.EDIT_SUB_CATEGORY}/${id}`, 'POST', subCategory)
+		const { error, data } = await request(`${URL.EDIT_SUB_CATEGORY}/${id}`, 'PUT', subCategory)
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_EDIT_SUBCATEGORY_ERROR, payload: error })

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useMatch } from 'react-router-dom'
 
@@ -17,10 +17,12 @@ export const GenericListContainer = ({
 	const { [dataKey]: list, isLoading, error } = useSelector(selectData)
 	const isAdd = !!useMatch(addPath || '/')
 	const isEdit = !!useMatch(editPath || '/')
+	const [lastPage, setLastPage] = useState(0)
+	const [page, setPage] = useState(1)
 
 	useEffect(() => {
-		dispatch(fetchData())
-	}, [dispatch, fetchData])
+		dispatch(fetchData({ page })).then((lastPage) => setLastPage(lastPage))
+	}, [dispatch, fetchData, page])
 
 	if (isLoading && !isAdd && !isEdit) {
 		return <Loader fontSize='150px' />
@@ -30,7 +32,15 @@ export const GenericListContainer = ({
 		return <Error titleError={error} noAccess />
 	}
 
-	return <>{isAdd || isEdit ? <Outlet /> : <TableComponent items={list} />}</>
+	return (
+		<>
+			{isAdd || isEdit ? (
+				<Outlet />
+			) : (
+				<TableComponent items={list} setPage={setPage} lastPage={lastPage} page={page} />
+			)}
+		</>
+	)
 }
 
 GenericListContainer.propTypes = {

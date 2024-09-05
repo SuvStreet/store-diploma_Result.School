@@ -6,7 +6,7 @@ export const editUserRole = (id, newRoleId) => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_EDIT_USER_ROLE })
 
-		const { error, data } = await request(`${URL.USER_ROLE}/${id}`, 'PATCH', {
+		const { error, data } = await request(`${URL.USER_ROLE}/${id}`, 'PUT', {
 			roleId: Number(newRoleId),
 		})
 
