@@ -40,6 +40,21 @@ export const orderReducer = (state = initialState, action) => {
 				error: ACTION_TYPE.REQUEST_ORDERS_ERROR,
 			})
 
+		case ACTION_TYPE.REQUEST_ORDERS_USER_SUCCESS:
+			return {
+				...state,
+				isLoading: false,
+				error: null,
+				ordersUser: action.payload,
+			}
+
+		case ACTION_TYPE.REQUEST_ORDERS_USER:
+		case ACTION_TYPE.REQUEST_ORDERS_USER_ERROR:
+			return handleRequestState(state, action, {
+				request: ACTION_TYPE.REQUEST_ORDERS_USER,
+				error: ACTION_TYPE.REQUEST_ORDERS_USER_ERROR,
+			})
+
 		default:
 			return state
 	}

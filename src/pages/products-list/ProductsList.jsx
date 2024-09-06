@@ -43,7 +43,7 @@ const ProductsListContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			{!isSearch && <Filter minPrice={minPrice} maxPrice={maxPrice} brands={brands} />}
+			{/* {!isSearch && <Filter minPrice={minPrice} maxPrice={maxPrice} brands={brands} />} */}
 			<div className='row'>
 				{isLoading ? (
 					<Loader fontSize='150px' />
