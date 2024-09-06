@@ -3,6 +3,9 @@ import { ACTION_TYPE } from '../actions'
 
 const initialState = {
 	products: [],
+	minPrice: 0,
+	maxPrice: 0,
+	brands: [],
 	isLoading: false,
 	error: null,
 }
@@ -22,6 +25,14 @@ export const productsListReducer = (state = initialState, action) => {
 				},
 				'products',
 			)
+
+		case ACTION_TYPE.ADD_FILTERS:
+			return {
+				...state,
+				minPrice: action.payload.minPrice,
+				maxPrice: action.payload.maxPrice,
+				brands: action.payload.brands,
+			}
 
 		case ACTION_TYPE.REQUEST_ADD_PRODUCT_SUCCESS:
 			return {

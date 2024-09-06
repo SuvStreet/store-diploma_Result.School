@@ -13,7 +13,7 @@ import { selectProductsList } from '../../redux/selectors'
 const ProductsListContainer = ({ className }) => {
 	const { subcategoryId } = useParams()
 	const dispatch = useDispatch()
-	const { products, isLoading, error } = useSelector(selectProductsList)
+	const { products, isLoading, error, minPrice, maxPrice, brands } = useSelector(selectProductsList)
 	const queryParams = new URLSearchParams(location.search)
 	const searchQuery = queryParams.get('search')
 	const isSearch = !!useMatch('/search')
@@ -27,15 +27,11 @@ const ProductsListContainer = ({ className }) => {
 				setLastPage(lastPage),
 			)
 		} else {
-			dispatch(getProductsList({ subCatId: subcategoryId, page })).then((lastPage) =>
-				setLastPage(lastPage),
+			dispatch(getProductsList({ subCatId: subcategoryId, page })).then(
+				({ lastPage }) => setLastPage(lastPage),
 			)
 		}
 	}, [searchQuery, subcategoryId, page, dispatch, isSearch])
-
-	if (isLoading) {
-		return <Loader fontSize='150px' />
-	}
 
 	if (error) {
 		return <Error titleError={error} spin />
@@ -47,11 +43,13 @@ const ProductsListContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			<Filter />
+			{!isSearch && <Filter minPrice={minPrice} maxPrice={maxPrice} brands={brands} />}
 			<div className='row'>
-				{products.map((product) => (
-					<CardProduct product={product} key={product.id} />
-				))}
+				{isLoading ? (
+					<Loader fontSize='150px' />
+				) : (
+					products.map((product) => <CardProduct product={product} key={product.id} />)
+				)}
 				{lastPage > 1 && <Pagination setPage={setPage} lastPage={lastPage} page={page} />}
 			</div>
 		</div>
@@ -62,6 +60,13 @@ export const ProductsList = styled(ProductsListContainer)`
 	width: 100%;
 	display: flex;
 	gap: 20px;
+
+	.row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+		width: 100%;
+	}
 `
 
 ProductsListContainer.propTypes = {

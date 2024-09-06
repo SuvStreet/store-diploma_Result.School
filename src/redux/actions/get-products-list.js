@@ -9,7 +9,7 @@ export const getProductsList =
 			dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST })
 
 			let response = null
-			
+
 			if (!subCatId) {
 				response = await request(`${URL.PRODUCTS}?page=${page}`)
 			} else {
@@ -27,6 +27,16 @@ export const getProductsList =
 				type: ACTION_TYPE.REQUEST_PRODUCTS_LIST_SUCCESS,
 				payload: data.products,
 			})
+
+			dispatch({
+				type: ACTION_TYPE.ADD_FILTERS,
+				payload: {
+					minPrice: data.minPrice,
+					maxPrice: data.maxPrice,
+					brands: data.brand,
+				},
+			})
+
 			return data.lastPage
 		} catch (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST_ERROR, payload: error })
