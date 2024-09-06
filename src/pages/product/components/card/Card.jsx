@@ -7,11 +7,9 @@ import { Feature } from '../feature/Feature'
 import { addToCart, addToCartAsync } from '../../../../redux/actions'
 import { selectCart, selectUser } from '../../../../redux/selectors'
 import { formatPrice } from '../../../../utils'
-import { Icon, Loader } from '../../../../components'
+import { Loader } from '../../../../components'
 
 import styled from 'styled-components'
-import { ROLE } from '../../../../constants'
-import { faHeart } from '@fortawesome/free-solid-svg-icons'
 
 const CardContainer = ({ className, product }) => {
 	const dispatch = useDispatch()

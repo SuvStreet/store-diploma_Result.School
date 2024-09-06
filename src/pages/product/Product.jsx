@@ -37,7 +37,7 @@ const ProductContainer = ({ className }) => {
 				<div className='favorite'>
 					<Button
 						width='40px'
-						onClick={() => navigate(`/admin/products/edit/${product.id}`)}
+						onClick={() => navigate(`/admin/products/edit/${productsId}`)}
 					>
 						<Icon iconCode={faEdit} fontSize='20px'></Icon>
 					</Button>

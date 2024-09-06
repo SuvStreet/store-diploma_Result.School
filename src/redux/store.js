@@ -3,6 +3,7 @@ import { thunk } from 'redux-thunk'
 
 import {
 	appReducer,
+	mainReducer,
 	userReducer,
 	productsListReducer,
 	singleProductReducer,
@@ -14,6 +15,7 @@ import {
 
 const reducer = combineReducers({
 	app: appReducer,
+	main: mainReducer,
 	user: userReducer,
 	productsList: productsListReducer,
 	singleProduct: singleProductReducer,

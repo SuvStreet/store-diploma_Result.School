@@ -3,7 +3,7 @@ import { request } from '../../utils'
 import { ACTION_TYPE } from './action-type'
 
 export const getProductsList =
-	({ subCatId, page = 1 }) =>
+	({ subCatId = null, page = 1 }) =>
 	async (dispatch) => {
 		try {
 			dispatch({ type: ACTION_TYPE.REQUEST_PRODUCTS_LIST })

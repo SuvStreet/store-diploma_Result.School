@@ -23,4 +23,5 @@ export const URL = {
 	CART: '/cart',
 	ADD_CART: '/cart/add',
 	UPDATE_CART: '/cart/update',
+	MAIN: '/main',
 }

@@ -28,7 +28,7 @@ const ProductsListContainer = ({ className }) => {
 			)
 		} else {
 			dispatch(getProductsList({ subCatId: subcategoryId, page })).then(
-				({ lastPage }) => setLastPage(lastPage),
+				(lastPage) => setLastPage(lastPage),
 			)
 		}
 	}, [searchQuery, subcategoryId, page, dispatch, isSearch])

@@ -6,14 +6,14 @@ export const addProduct = (product) => async (dispatch) => {
 	try {
 		dispatch({ type: ACTION_TYPE.REQUEST_ADD_PRODUCT })
 
-		const { error, data } = await request(URL.ADD_PRODUCTS, 'POST', product)
+		const { error } = await request(URL.ADD_PRODUCTS, 'POST', product)
 
 		if (error) {
 			dispatch({ type: ACTION_TYPE.REQUEST_ADD_PRODUCT_ERROR, payload: error })
 			return false
 		}
 
-		dispatch({ type: ACTION_TYPE.REQUEST_ADD_PRODUCT_SUCCESS, payload: data.product })
+		dispatch({ type: ACTION_TYPE.REQUEST_ADD_PRODUCT_SUCCESS })
 		return true
 	} catch (error) {
 		dispatch({ type: ACTION_TYPE.REQUEST_ADD_PRODUCT_ERROR, payload: error })

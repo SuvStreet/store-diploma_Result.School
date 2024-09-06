@@ -11,8 +11,10 @@ import {
 	addProduct,
 	getSubCategoriesList,
 	editProduct,
+	getProduct,
 } from '../../../../../../redux/actions'
 import {
+	selectProduct,
 	selectProductsList,
 	selectSubCategoriesList,
 } from '../../../../../../redux/selectors'
@@ -58,13 +60,10 @@ const schema = yup.object().shape({
 const ProductFormContainer = ({ className }) => {
 	const dispatch = useDispatch()
 	const { subCategories, isLoading: isLoadingSub } = useSelector(selectSubCategoriesList)
-	const {
-		isLoading: isLoadingServer,
-		error: errorServer,
-		products,
-	} = useSelector(selectProductsList)
+	const { isLoading: isLoadingProduct } = useSelector(selectProductsList)
+	const product = useSelector(selectProduct)
 	const navigate = useNavigate()
-	const { id: idSub } = useParams()
+	const { id: idProduct } = useParams()
 	const isEdit = !!useMatch('/admin/products/edit/:id')
 
 	const {
@@ -99,11 +98,14 @@ const ProductFormContainer = ({ className }) => {
 
 	useEffect(() => {
 		if (!subCategories.length) {
-			dispatch(getSubCategoriesList())
+			dispatch(getSubCategoriesList({ id: null }))
 		}
 
-		if (isEdit && products.length && !isLoadingServer) {
-			const product = products.find((item) => item.id === idSub)
+		if (product.id === null && isEdit) {
+			dispatch(getProduct(idProduct))
+		}
+
+		if (isEdit && product.id) {
 			if (product) {
 				setValue('name', product.name)
 				setValue('description', product.description)
@@ -122,10 +124,10 @@ const ProductFormContainer = ({ className }) => {
 		if (imageFields.length === 0 && !isEdit) {
 			appendImage('')
 		}
-	}, [subCategories, isEdit, products, isLoadingServer])
+	}, [product.id, subCategories.length])
 
 	const onSubmit = (data) => {
-		dispatch(isEdit ? editProduct(idSub, data) : addProduct(data)).then((message) => {
+		dispatch(isEdit ? editProduct(idProduct, data) : addProduct(data)).then((message) => {
 			if (message) {
 				navigate('/admin/products')
 			}
@@ -133,7 +135,7 @@ const ProductFormContainer = ({ className }) => {
 	}
 
 	const resetError = () => {
-		if (errorServer) {
+		if (product.error) {
 			dispatch({ type: ACTION_TYPE.RESET_PRODUCT_ERROR })
 		}
 	}
@@ -300,9 +302,9 @@ const ProductFormContainer = ({ className }) => {
 				</div>
 			</div>
 
-			{errorServer && <FormError>{errorServer}</FormError>}
-			<Button type='submit' disabled={isLoadingServer || errorServer}>
-				{isLoadingServer ? <Loader /> : 'Сохранить продукт'}
+			{product.error && <FormError>{product.error}</FormError>}
+			<Button type='submit' disabled={product.isLoading || product.error}>
+				{isLoadingProduct ? <Loader /> : 'Сохранить продукт'}
 			</Button>
 		</form>
 	)
