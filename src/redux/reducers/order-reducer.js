@@ -2,7 +2,7 @@ import { handleRequestState } from '../../utils'
 import { ACTION_TYPE } from '../actions'
 
 const initialState = {
-	isLoading: false,
+	isLoading: true,
 	error: null,
 	ordersUser: [],
 	ordersAll: [],
@@ -23,6 +23,21 @@ export const orderReducer = (state = initialState, action) => {
 			return handleRequestState(state, action, {
 				request: ACTION_TYPE.REQUEST_ADD_ORDER,
 				error: ACTION_TYPE.REQUEST_ADD_ORDER_ERROR,
+			})
+
+		case ACTION_TYPE.REQUEST_ORDERS_SUCCESS:
+			return {
+				...state,
+				isLoading: false,
+				error: null,
+				ordersAll: action.payload,
+			}
+
+		case ACTION_TYPE.REQUEST_ORDERS:
+		case ACTION_TYPE.REQUEST_ORDERS_ERROR:
+			return handleRequestState(state, action, {
+				request: ACTION_TYPE.REQUEST_ORDERS,
+				error: ACTION_TYPE.REQUEST_ORDERS_ERROR,
 			})
 
 		default:
