@@ -1,7 +1,6 @@
-/* eslint-disable react/prop-types */
-// import PropTypes from 'prop-types'
 import { forwardRef } from 'react'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 import { Button, Icon } from '../../../../components'
 import { ProductInfo } from '../product-info/ProductInfo'
@@ -56,7 +55,7 @@ const CardProductContainer = forwardRef(({ className, product, ...props }, ref) 
 					</div>
 				</div>
 			</Link>
-			{/* <div className='button-container'>
+			<div className='button-container'>
 				<div className='button-product'>
 					<Button onClick={() => console.log(product)}>
 						<Icon iconCode={faHeart} fontSize='20px'></Icon>
@@ -67,7 +66,7 @@ const CardProductContainer = forwardRef(({ className, product, ...props }, ref) 
 						<p>В корзину</p>
 					</Button>
 				</div>
-			</div> */}
+			</div>
 		</div>
 	)
 })
@@ -202,10 +201,7 @@ export const CardProduct = styled(CardProductContainer)`
 	}
 `
 
-// CardProductContainer.propTypes = {
-// className: PropTypes.string.isRequired,
-// images: PropTypes.string.isRequired,
-// name: PropTypes.string.isRequired,
-// price: PropTypes.number.isRequired,
-// description: PropTypes.string.isRequired,
-// }
+CardProductContainer.propTypes = {
+	className: PropTypes.string.isRequired,
+	product: PropTypes.object.isRequired,
+}
