@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Error, Loader, Pagination } from '../../../../../../components'
 import { getOrders } from '../../../../../../redux/actions/get-orders'
 import { selectOrder } from '../../../../../../redux/selectors'
+import { formatPrice } from '../../../../../../utils'
 
 import styled from 'styled-components'
-import { formatPrice } from '../../../../../../utils'
 
 const OrdersContainer = ({ className }) => {
 	const dispatch = useDispatch()
@@ -29,35 +29,39 @@ const OrdersContainer = ({ className }) => {
 
 	return (
 		<div className={className}>
-			{ordersAll.map((order) => (
-				<div key={order.id} className='order'>
-
-					<div className='user'>
-						<img src={order.userId.img_user_url} alt={order.userId.login} />
-						<div className='user-info'>
-							<span className='login'>{order.userId.login}</span>
-							<span className='email'>{order.userId.email}</span>
-						</div>
-					</div>
-
-					<div className='items'>
-						{order.items.map((item) => (
-							<div key={item.id} className='item'>
-								<img src={item.img} alt={item.name} />
-								<div className='item-info'>
-									<span className='name'>{item.name}</span>
-									<span className='price'>
-										{formatPrice(item.price)} ₽ {item.discount > 0 && `(-${item.discount}%)`}
-									</span>
-									<span className='quantity'>Количество: {item.quantity}</span>
-								</div>
+			{ordersAll.length !== 0 ? (
+				ordersAll.map((order) => (
+					<div key={order.id} className='order'>
+						<div className='user'>
+							<img src={order.userId.img_user_url} alt={order.userId.login} />
+							<div className='user-info'>
+								<span className='login'>{order.userId.login}</span>
+								<span className='email'>{order.userId.email}</span>
 							</div>
-						))}
-					</div>
+						</div>
 
-					<div className='total'>Общая сумма: {formatPrice(order.totalPrice)} ₽</div>
-				</div>
-			))}
+						<div className='items'>
+							{order.items.map((item) => (
+								<div key={item.id} className='item'>
+									<img src={item.img} alt={item.name} />
+									<div className='item-info'>
+										<span className='name'>{item.name}</span>
+										<span className='price'>
+											{formatPrice(item.price)} ₽{' '}
+											{item.discount > 0 && `(-${item.discount}%)`}
+										</span>
+										<span className='quantity'>Количество: {item.quantity}</span>
+									</div>
+								</div>
+							))}
+						</div>
+
+						<div className='total'>Общая сумма: {formatPrice(order.totalPrice)} ₽</div>
+					</div>
+				))
+			) : (
+				<p>Заказы отсутствуют</p>
+			)}
 			{lastPage > 1 && <Pagination page={page} setPage={setPage} lastPage={lastPage} />}
 		</div>
 	)

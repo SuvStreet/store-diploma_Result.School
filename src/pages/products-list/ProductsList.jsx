@@ -6,14 +6,15 @@ import { useMatch, useParams } from 'react-router-dom'
 import { Error, Loader, Pagination } from '../../components'
 import { getProductsList, searchItems } from '../../redux/actions'
 import { CardProduct, Filter } from './components'
+import { selectProductsList } from '../../redux/selectors'
 
 import styled from 'styled-components'
-import { selectProductsList } from '../../redux/selectors'
 
 const ProductsListContainer = ({ className }) => {
 	const { subcategoryId } = useParams()
 	const dispatch = useDispatch()
-	const { products, isLoading, error, minPrice, maxPrice, brands } = useSelector(selectProductsList)
+	const { products, isLoading, error, minPrice, maxPrice, brands } =
+		useSelector(selectProductsList)
 	const queryParams = new URLSearchParams(location.search)
 	const searchQuery = queryParams.get('search')
 	const isSearch = !!useMatch('/search')
@@ -27,8 +28,8 @@ const ProductsListContainer = ({ className }) => {
 				setLastPage(lastPage),
 			)
 		} else {
-			dispatch(getProductsList({ subCatId: subcategoryId, page })).then(
-				(lastPage) => setLastPage(lastPage),
+			dispatch(getProductsList({ subCatId: subcategoryId, page })).then((lastPage) =>
+				setLastPage(lastPage),
 			)
 		}
 	}, [searchQuery, subcategoryId, page, dispatch, isSearch])

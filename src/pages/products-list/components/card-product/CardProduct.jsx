@@ -46,17 +46,17 @@ const CardProductContainer = forwardRef(({ className, product, ...props }, ref) 
 									₽
 								</span>
 								{product.discount > 0 && (
-									<>
+									<div className='discount-container'>
 										<span className='old-price'>{formatPrice(product.price)}</span>
 										<span className='discount'>-{product.discount}%</span>
-									</>
+									</div>
 								)}
 							</div>
 						</div>
 					</div>
 				</div>
 			</Link>
-			<div className='button-container'>
+			{/* <div className='button-container'>
 				<div className='button-product'>
 					<Button onClick={() => console.log(product)}>
 						<Icon iconCode={faHeart} fontSize='20px'></Icon>
@@ -67,7 +67,7 @@ const CardProductContainer = forwardRef(({ className, product, ...props }, ref) 
 						<p>В корзину</p>
 					</Button>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	)
 })
@@ -92,7 +92,6 @@ export const CardProduct = styled(CardProductContainer)`
 
 		.button-container {
 			transition: opacity 0.3 ease;
-
 			opacity: 1;
 		}
 	}
@@ -158,24 +157,29 @@ export const CardProduct = styled(CardProductContainer)`
 
 		.price-product {
 			display: flex;
+			flex-direction: column;
+			align-items: flex-end;
 			gap: 10px;
-			align-items: center;
-			justify-content: flex-end;
 			font-weight: 500;
 			font-size: 35px;
 
-			.old-price {
-				text-decoration: line-through;
-				font-size: 20px;
-				color: #888888;
-			}
+			.discount-container {
+				display: flex;
+				gap: 10px;
 
-			.discount {
-				background-color: red;
-				padding: 0 5px;
-				border-radius: 10px;
-				align-self: flex-start;
-				font-size: 13px;
+				.old-price {
+					text-decoration: line-through;
+					font-size: 20px;
+					color: #888888;
+				}
+
+				.discount {
+					background-color: red;
+					padding: 0 5px;
+					border-radius: 10px;
+					align-self: flex-start;
+					font-size: 13px;
+				}
 			}
 		}
 	}

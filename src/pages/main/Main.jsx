@@ -78,6 +78,7 @@ export const Main = styled(MainContainer)`
 
 			.card {
 				display: flex;
+				flex-wrap: wrap;
 				gap: 20px;
 			}
 		}

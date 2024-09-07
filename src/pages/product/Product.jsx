@@ -45,7 +45,6 @@ const ProductContainer = ({ className }) => {
 			) : null}
 
 			<Card product={product} />
-			{/* <Comments /> */}
 		</div>
 	)
 }

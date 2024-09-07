@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
@@ -16,6 +17,7 @@ const CardContainer = ({ className, product }) => {
 	const cart = useSelector(selectCart)
 	const navigate = useNavigate()
 	const userId = useSelector(selectUser).id
+	const [indexImage, setIndexImage] = useState(0)
 	const { description, discount, features, price, id, images, name, quantity } = product
 
 	const handelAddToCart = () => {
@@ -27,6 +29,7 @@ const CardContainer = ({ className, product }) => {
 				: dispatch(addToCart({ id }))
 		}
 	}
+
 	const inCart = cart.items.find((item) => item.id === id)
 
 	return (
@@ -34,11 +37,16 @@ const CardContainer = ({ className, product }) => {
 			<div className='container'>
 				<div className='imgContainer'>
 					<div className='imgProductFull'>
-						<img src={images[0]} alt='photo' />
+						<img src={images[indexImage]} alt='photo' />
 					</div>
 					<div className='imgProduct'>
 						{images.map((img, index) => (
-							<img src={img} alt='photo' key={index} />
+							<img
+								src={img}
+								alt='photo'
+								key={index}
+								onClick={() => setIndexImage(index)}
+							/>
 						))}
 					</div>
 				</div>
@@ -90,8 +98,6 @@ const CardContainer = ({ className, product }) => {
 				<h2 className='description__title'>Характеристики</h2>
 				<Feature features={features} noTitle />
 			</div>
-
-			<div className='comments'>{/* <Comments /> */}</div>
 		</div>
 	)
 }
@@ -122,9 +128,11 @@ export const Card = styled(CardContainer)`
 		overflow: hidden;
 
 		.imgProductFull {
-			width: 100%;
+			display: flex;
+			justify-content: center;
+			height: 300px;
 			max-width: 600px;
-			object-fit: cover;
+			object-fit: contain;
 			border-radius: 10px;
 		}
 
@@ -132,10 +140,11 @@ export const Card = styled(CardContainer)`
 			display: flex;
 			height: 100px;
 			flex-wrap: nowrap;
-			justify-content: space-between;
 			gap: 10px;
 			margin-top: 10px;
 			cursor: pointer;
+			overflow-x: auto;
+			padding: 0 10px;
 		}
 
 		img {
