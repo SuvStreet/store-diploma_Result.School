@@ -97,9 +97,7 @@ const ProductFormContainer = ({ className }) => {
 	})
 
 	useEffect(() => {
-		if (!subCategories.length) {
-			dispatch(getSubCategoriesList({ id: null }))
-		}
+		dispatch(getSubCategoriesList({ id: null }))
 
 		if (product.id === null && isEdit) {
 			dispatch(getProduct(idProduct))
